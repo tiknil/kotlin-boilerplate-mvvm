@@ -2,13 +2,15 @@ package com.tiknil.app.viewmodels
 
 import android.util.Log
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
+import com.github.ajalt.timberkt.Timber
 import com.tiknil.app_service.AppContainer
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
-class MainActivityViewModel(container: AppContainer): BaseViewModel(container), HasSupportFragmentInjector {
+class MainActivityViewModel(container: AppContainer): BaseViewModel(container) {
 
     //region Inner enums
     //endregion
@@ -19,8 +21,12 @@ class MainActivityViewModel(container: AppContainer): BaseViewModel(container), 
 
 
     //region Instance Fields
-    @Inject
-    lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
+
+    // Create a LiveData with a String
+    val currentName: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+
     //endregion
 
 
@@ -29,6 +35,11 @@ class MainActivityViewModel(container: AppContainer): BaseViewModel(container), 
 
 
     //region Constructors / Lifecycle
+
+
+    init {
+        currentName.value = "banana"
+    }
     //endregion
 
 
@@ -39,8 +50,8 @@ class MainActivityViewModel(container: AppContainer): BaseViewModel(container), 
     //region Public
 
     fun foo() {
-        Log.d(this.javaClass.name, "foo")
-        Log.d(this.javaClass.name, container.cacheService().foo)
+        Timber.d {"foo"}
+        Timber.d { "${this.javaClass.name}, ${container.cacheService().foo}" }
     }
 
     //endregion
@@ -53,8 +64,6 @@ class MainActivityViewModel(container: AppContainer): BaseViewModel(container), 
 
 
     //region Override methods and callbacks
-
-    override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentInjector
 
     //endregion
 

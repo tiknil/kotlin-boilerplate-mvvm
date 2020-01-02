@@ -1,10 +1,14 @@
 package com.tiknil.app_service
 
+import android.content.Context
 import com.tiknil.app_service.cache.ICacheService
 import dagger.Lazy
 import javax.inject.Inject
 
-class AppContainer @Inject constructor(private val cacheServiceLazy: Lazy<ICacheService>)  {
+class AppContainer @Inject constructor(
+    private val contextLazy: Lazy<Context>,
+    private val cacheServiceLazy: Lazy<ICacheService>
+)  {
 
     //region Inner enums
     //endregion
@@ -31,6 +35,8 @@ class AppContainer @Inject constructor(private val cacheServiceLazy: Lazy<ICache
 
 
     //region Public
+
+    fun context(): Context = contextLazy.get()
 
     fun cacheService(): ICacheService = cacheServiceLazy.get()
 

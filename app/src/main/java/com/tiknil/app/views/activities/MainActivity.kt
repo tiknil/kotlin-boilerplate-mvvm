@@ -4,13 +4,15 @@ import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import android.view.Menu
 import android.view.MenuItem
+import com.tiknil.app.BR
 import com.tiknil.app.R
+import com.tiknil.app.databinding.ActivityMainBinding
 import com.tiknil.app.viewmodels.MainActivityViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() {
 
 
     //region Inner enums
@@ -63,6 +65,12 @@ class MainActivity : BaseActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    override fun viewModel(): MainActivityViewModel = viewModel
+
+    override fun bindingVariable(): Int = BR.viewModel
+
+    override fun layoutId(): Int = R.layout.activity_main
 
     //endregion
 

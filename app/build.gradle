@@ -23,6 +23,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -39,6 +42,12 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation "androidx.appcompat:appcompat:$version_lib_android_x"
 
+    //Android databinding
+    kapt 'com.android.databinding:compiler:2.3.1'
+
+    // Timber
+    implementation 'com.github.ajalt:timberkt:1.5.1'
+
     // Dagger 2
     kapt "com.google.dagger:dagger-compiler:$version_lib_dagger"
     kapt "com.google.dagger:dagger-android-processor:$version_lib_dagger"
@@ -49,6 +58,9 @@ dependencies {
     // Libreria per bindare gli observable in base al lifecycle di Activity e Fragment
     implementation "com.trello.rxlifecycle3:rxlifecycle-kotlin:$version_lib_rxlifecycle"
     implementation "com.trello.rxlifecycle3:rxlifecycle-components:$version_lib_rxlifecycle"
+
+    //RxKotlin
+    implementation "io.reactivex.rxjava2:rxkotlin:2.4.0"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

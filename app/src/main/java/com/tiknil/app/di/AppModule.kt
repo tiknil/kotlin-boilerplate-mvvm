@@ -44,7 +44,10 @@ class AppModule {
     //region Public
 
     @Provides
-    fun provideAppContainer(cacheService: Lazy<ICacheService>): AppContainer = AppContainer(cacheService)
+    fun provideAppContainer(
+        context: Lazy<Context>,
+        cacheService: Lazy<ICacheService>
+    ): AppContainer = AppContainer(context, cacheService)
 
     @Provides
     @Singleton
