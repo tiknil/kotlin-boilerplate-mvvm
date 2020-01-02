@@ -3,9 +3,9 @@ package com.tiknil.android_kotlin_boilerplate.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import com.tiknil.android_kotlin_boilerplate.services.AppContainer
 import com.tiknil.android_kotlin_boilerplate.viewmodels.MainActivityViewModel
 import com.tiknil.android_kotlin_boilerplate.views.activities.MainActivity
+import com.tiknil.service.AppContainer
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap

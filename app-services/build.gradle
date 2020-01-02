@@ -34,10 +34,8 @@ dependencies {
     implementation "androidx.core:core-ktx:$version_lib_android_x"
 
     // Dagger 2
-    implementation "com.google.dagger:dagger:$version_lib_dagger"
-    implementation "com.google.dagger:dagger-android-support:$version_lib_dagger"
-    kapt "com.google.dagger:dagger-compiler:$version_lib_dagger"
-    kapt "com.google.dagger:dagger-android-processor:$version_lib_dagger"
+    api "com.google.dagger:dagger:$version_lib_dagger"
+    api "com.google.dagger:dagger-android-support:$version_lib_dagger"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

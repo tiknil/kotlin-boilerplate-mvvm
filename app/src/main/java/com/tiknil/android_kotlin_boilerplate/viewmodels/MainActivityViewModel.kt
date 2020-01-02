@@ -1,7 +1,7 @@
 package com.tiknil.android_kotlin_boilerplate.viewmodels
 
 import android.util.Log
-import com.tiknil.android_kotlin_boilerplate.services.AppContainer
+import com.tiknil.service.AppContainer
 
 class MainActivityViewModel(container: AppContainer): BaseViewModel(container) {
 

@@ -1,7 +1,7 @@
 package com.tiknil.android_kotlin_boilerplate.viewmodels
 
 import androidx.lifecycle.ViewModel
-import com.tiknil.android_kotlin_boilerplate.services.AppContainer
+import com.tiknil.service.AppContainer
 
 abstract class BaseViewModel(val container: AppContainer) : ViewModel() {
 
