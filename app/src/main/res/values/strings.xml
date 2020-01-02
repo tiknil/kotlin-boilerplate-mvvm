@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">android-kotlin-boilerplate</string>
+    <string name="app_name">Kotlin Boilerplate</string>
     <string name="action_settings">Settings</string>
 </resources>
