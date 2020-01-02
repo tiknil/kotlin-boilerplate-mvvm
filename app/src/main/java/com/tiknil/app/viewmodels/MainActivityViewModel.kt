@@ -1,10 +1,8 @@
 package com.tiknil.app.viewmodels
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.github.ajalt.timberkt.Timber
 import com.tiknil.app_service.AppContainer
-import kotlinx.coroutines.launch
 
 class MainActivityViewModel(container: AppContainer): BaseViewModel(container) {
 
