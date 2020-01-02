@@ -1,9 +1,10 @@
-package com.tiknil.android_kotlin_boilerplate.viewmodels
+package com.tiknil.android_kotlin_boilerplate.views.activities
 
-import android.util.Log
-import com.tiknil.android_kotlin_boilerplate.services.AppContainer
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import dagger.android.AndroidInjection
 
-class NewViewModel (container: AppContainer): BaseViewModel(container) {
+abstract class BaseActivity : AppCompatActivity() {
 
     //region Inner enums
     //endregion
@@ -22,6 +23,12 @@ class NewViewModel (container: AppContainer): BaseViewModel(container) {
 
 
     //region Constructors / Lifecycle
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        AndroidInjection.inject(this)
+    }
     //endregion
 
 
@@ -30,11 +37,6 @@ class NewViewModel (container: AppContainer): BaseViewModel(container) {
 
 
     //region Public
-
-    fun foo() {
-        Log.d(this.javaClass.name, "foo")
-        Log.d(this.javaClass.name, container.cacheService().foo)
-    }
     //endregion
 
     //region Protected, without modifier

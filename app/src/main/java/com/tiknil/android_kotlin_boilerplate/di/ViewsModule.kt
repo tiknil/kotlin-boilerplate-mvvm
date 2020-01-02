@@ -1,6 +1,6 @@
 package com.tiknil.android_kotlin_boilerplate.di
 
-import com.tiknil.android_kotlin_boilerplate.views.MainActivity
+import com.tiknil.android_kotlin_boilerplate.views.activities.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

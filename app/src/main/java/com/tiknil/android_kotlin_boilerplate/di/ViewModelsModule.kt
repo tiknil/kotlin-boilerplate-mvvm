@@ -5,8 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.tiknil.android_kotlin_boilerplate.services.AppContainer
 import com.tiknil.android_kotlin_boilerplate.viewmodels.MainActivityViewModel
-import com.tiknil.android_kotlin_boilerplate.viewmodels.NewViewModel
-import com.tiknil.android_kotlin_boilerplate.views.MainActivity
+import com.tiknil.android_kotlin_boilerplate.views.activities.MainActivity
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap

@@ -1,15 +1,11 @@
-package com.tiknil.android_kotlin_boilerplate.views
+package com.tiknil.android_kotlin_boilerplate.views.activities
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.tiknil.android_kotlin_boilerplate.R
 import com.tiknil.android_kotlin_boilerplate.viewmodels.MainActivityViewModel
-import com.tiknil.android_kotlin_boilerplate.viewmodels.NewViewModel
-import dagger.android.AndroidInjection
-import dagger.android.support.AndroidSupportInjection
 
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -30,9 +26,6 @@ class MainActivity : BaseActivity() {
     @Inject
     lateinit var viewModel: MainActivityViewModel
 
-    @Inject
-    lateinit var newviewModel: NewViewModel
-
     //endregion
 
 
@@ -50,8 +43,6 @@ class MainActivity : BaseActivity() {
 
         fab.setOnClickListener { view ->
             viewModel.foo()
-            newviewModel.foo()
-
 
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
