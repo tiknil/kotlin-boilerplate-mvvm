@@ -1,8 +1,10 @@
-package com.tiknil.android_kotlin_boilerplate.services.cache
+package com.tiknil.service
 
-import android.util.Log
+import com.tiknil.service.cache.ICacheService
+import dagger.Lazy
+import javax.inject.Inject
 
-class CacheService: ICacheService {
+class AppContainer @Inject constructor(private val cacheServiceLazy: Lazy<ICacheService>)  {
 
     //region Inner enums
     //endregion
@@ -13,22 +15,14 @@ class CacheService: ICacheService {
 
 
     //region Instance Fields
-
-    override var foo: String
-        get() = "Pollo"
-        set(value) {}
-
     //endregion
 
 
     //region Class methods
     //endregion
 
-    //region Constructors / Lifecycle
 
-    init {
-        Log.d(this.javaClass.name, "CacheService init")
-    }
+    //region Constructors / Lifecycle
     //endregion
 
 
@@ -37,6 +31,9 @@ class CacheService: ICacheService {
 
 
     //region Public
+
+    fun cacheService(): ICacheService = cacheServiceLazy.get()
+
     //endregion
 
     //region Protected, without modifier

@@ -2,9 +2,9 @@ package com.tiknil.android_kotlin_boilerplate.di
 
 import android.content.Context
 import com.tiknil.android_kotlin_boilerplate.KotlinBoilerplateApp
-import com.tiknil.android_kotlin_boilerplate.services.AppContainer
-import com.tiknil.android_kotlin_boilerplate.services.cache.CacheService
-import com.tiknil.android_kotlin_boilerplate.services.cache.ICacheService
+import com.tiknil.service.AppContainer
+import com.tiknil.service.cache.CacheService
+import com.tiknil.service.cache.ICacheService
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides

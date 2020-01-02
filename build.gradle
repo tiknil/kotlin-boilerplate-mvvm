@@ -5,7 +5,7 @@ buildscript {
     repositories {
         google()
         jcenter()
-        
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.3'
@@ -16,10 +16,23 @@ buildscript {
 }
 
 allprojects {
+
+    ext {
+        version_build_tools = "27.0.3"
+
+        version_sdk_compile = 27
+        version_sdk_min = 19
+        version_sdk_target = 27
+
+        version_lib_android_x = "1.1.0"
+        version_lib_dagger = "2.23"
+        version_lib_lifecycle = "2.1.0"
+    }
+
     repositories {
         google()
         jcenter()
-        
+
     }
 }
 
