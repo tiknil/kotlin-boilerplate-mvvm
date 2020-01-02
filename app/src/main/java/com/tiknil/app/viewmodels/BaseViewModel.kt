@@ -36,7 +36,7 @@ abstract class BaseViewModel(val container: AppContainer) : ViewModel() {
      * Metodo chiamato quando la view esegue il metodo onCreate, se necessario va eseguito l'override nelle classe figlie
      */
 
-    fun onCreated() {
+    open fun onCreated() {
         setupBindingChains()
     }
 
@@ -44,7 +44,7 @@ abstract class BaseViewModel(val container: AppContainer) : ViewModel() {
      * Metodo chiamato quando la view viene visualizzata, se necessario va eseguito l'override nelle classe figlie
      */
 
-    fun onViewAppear() {
+    open fun onViewAppear() {
         if (needToSetupBindingChains) {
             needToSetupBindingChains = false
             setupBindingChains()
@@ -55,7 +55,7 @@ abstract class BaseViewModel(val container: AppContainer) : ViewModel() {
      * Metodo chiamato quando la view scompare, se necessario va eseguito l'override nelle classe figlie
      */
 
-    fun onViewDisappear() {
+    open fun onViewDisappear() {
         disposeDisposables()
         needToSetupBindingChains = true
     }
@@ -64,19 +64,19 @@ abstract class BaseViewModel(val container: AppContainer) : ViewModel() {
      * Metodo chiamato alla chiamata onStart dell'activity/fragment del flusso standard, se necessario va eseguito l'override nelle classe figlie
      */
 
-    fun onStart() {}
+    open fun onStart() {}
 
     /**
      * Metodo chiamato alla chiamata onStop dell'activity/fragment del flusso standard, se necessario va eseguito l'override nelle classe figlie
      */
 
-    fun onStop() {}
+    open fun onStop() {}
 
     /**
      * Metodo chiamato alla chiamata onDestroy dell'activity/fragment del flusso standard, se necessario va eseguito l'override nelle classe figlie
      */
 
-    fun onDestroy() {}
+    open fun onDestroy() {}
 
     //endregion
 
@@ -90,12 +90,12 @@ abstract class BaseViewModel(val container: AppContainer) : ViewModel() {
     /**
      * Imposta i dati iniziali della view, se necessario va eseguito l'override nelle classe figlie
      */
-    fun initData() {}
+    open fun initData() {}
 
     /**
      * Imposta il binding delle variabili RxKotlin, se necessario va eseguito l'override nelle classe figlie
      */
-    fun setupBindingChains() {}
+    open fun setupBindingChains() {}
 
     /**
      * Consente di settare dei parametri da utilizzare nella view, se necessario va eseguito l'override nelle classe figlie
@@ -103,7 +103,7 @@ abstract class BaseViewModel(val container: AppContainer) : ViewModel() {
      * @param params parametri da utilizzare nella view
      */
 
-    fun setParams(params: Any) {}
+    open fun setParams(params: Any) {}
 
     //endregion
 

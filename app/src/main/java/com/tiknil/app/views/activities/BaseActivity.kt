@@ -13,6 +13,11 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
+/**
+ * Activity astratta di base ereditata da tutte le activity che raggruppa le funzionalità comuni
+ * e implementa l'impostazione di base con i view model e il binding con i componenti della view
+ */
+
 abstract class BaseActivity<T: ViewDataBinding, V: BaseViewModel> : RxFragmentActivity(), HasSupportFragmentInjector {
 
     //region Inner enums
@@ -28,8 +33,8 @@ abstract class BaseActivity<T: ViewDataBinding, V: BaseViewModel> : RxFragmentAc
     @Inject
     lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
 
-    lateinit var mViewDataBinding: T
-    lateinit var mViewModel: V
+    private lateinit var mViewDataBinding: T
+    private lateinit var mViewModel: V
 
     //endregion
 
@@ -123,7 +128,7 @@ abstract class BaseActivity<T: ViewDataBinding, V: BaseViewModel> : RxFragmentAc
     /**
      * Esegue il binding tra gli observables custom della view, se necessario va eseguito l'override nelle classe figlie
      */
-    protected fun setupBindings() {}
+    open fun setupBindings() {}
 
     //endregion
 
