@@ -27,6 +27,7 @@ allprojects {
         version_lib_android_x = "1.1.0"
         version_lib_dagger = "2.23"
         version_lib_lifecycle = "2.1.0"
+        version_lib_rxlifecycle = "3.1.0"
     }
 
     repositories {

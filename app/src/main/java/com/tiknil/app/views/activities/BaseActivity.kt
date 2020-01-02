@@ -1,10 +1,10 @@
 package com.tiknil.app.views.activities
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import com.trello.rxlifecycle3.components.support.RxFragmentActivity
 import dagger.android.AndroidInjection
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : RxFragmentActivity() {
 
     //region Inner enums
     //endregion
