@@ -18,7 +18,7 @@ require 'find'
 
 ## Variabili
 $boilerplate_project_name = "android-kotlin-boilerplate"
-$boilerplate_package_name = "com.tiknil."
+$boilerplate_package_name = "com.tiknil.app"
 $boilerplate_application_class = "KotlinBoilerplateApp.java"
 $boilerplate_fonts_class = "KotlinBoilerplateFonts.java"
 $boilerplate_constants_class = "KotlinBoilerplateConstants.java"
@@ -142,18 +142,22 @@ if $confirm == "Y"
 
 	boilerplate_package_name_parts_array = $boilerplate_package_name.split(".")
 
-	# 4. Cambio il nome delle cartelle "com" nel primo campo del package name
-	src_folder = options[:project_name] + "/app/src"
-	for $subfolder in ["/androidTest", "/main", "/test"]
-		folder = src_folder + $subfolder + "/java"
+	# 4. Cambio il nome delle cartelle "com" nel primo campo del package name dei moduli dell'app
 
-		[0, 1, 2].each do |index|
-			if boilerplate_package_name_parts_array[index] != package_name_parts_array[index]
-				FileUtils.mv folder + "/" + boilerplate_package_name_parts_array[index], folder + "/" + package_name_parts_array[index]
+	for $module in ["app", "core", "models", "services"]
+		src_folder = options[:project_name] + "/" + $module + "/src"
+		for $subfolder in ["/androidTest", "/main", "/test"]
+			folder = src_folder + $subfolder + "/java"
+
+			[0, 1, 2].each do |index|
+				if boilerplate_package_name_parts_array[index] != package_name_parts_array[index]
+					FileUtils.mv folder + "/" + boilerplate_package_name_parts_array[index], folder + "/" + package_name_parts_array[index]
+				end
+				folder = folder + "/" + package_name_parts_array[index]
 			end
-			folder = folder + "/" + package_name_parts_array[index]
 		end
 	end
+
 	puts "Aggiornate le cartelle (package) che contengono le classi java"
 
 	Find.find(options[:project_name]).each do |file_name|
