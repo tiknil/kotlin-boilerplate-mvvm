@@ -4,11 +4,11 @@ import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import android.view.Menu
 import android.view.MenuItem
-import com.jakewharton.rxbinding3.view.clicks
 import com.tiknil.app.BR
 import com.tiknil.app.R
 import com.tiknil.app.databinding.ActivityMainBinding
 import com.tiknil.app.viewmodels.MainActivityViewModel
+import com.tiknil.app_core.BaseActivity
 
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject

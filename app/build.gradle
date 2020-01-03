@@ -1,10 +1,7 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
-apply plugin: 'kotlin-kapt'
+apply plugin: "kotlin-kapt"
 
 android {
     compileSdkVersion 29
@@ -34,40 +31,12 @@ dependencies {
     // Moduli
     implementation project(':app-services')
     implementation project(':app-models')
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.appcompat:appcompat:$version_lib_android_x"
-    implementation "androidx.core:core-ktx:$version_lib_android_x"
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation "androidx.appcompat:appcompat:$version_lib_android_x"
-
-    //Android databinding
-    kapt 'com.android.databinding:compiler:3.1.4'
-
-    // Timber
-    implementation 'com.github.ajalt:timberkt:1.5.1'
+    implementation project(':app-core')
 
     // Dagger 2
     kapt "com.google.dagger:dagger-compiler:$version_lib_dagger"
     kapt "com.google.dagger:dagger-android-processor:$version_lib_dagger"
-
-    // ViewModel and LiveData
-    implementation "androidx.lifecycle:lifecycle-extensions:$version_lib_lifecycle"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0-rc03"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$version_lib_lifecycle"
-
-    // Libreria per bindare gli observable in base al lifecycle di Activity e Fragment
-    implementation "com.trello.rxlifecycle3:rxlifecycle-kotlin:$version_lib_rxlifecycle"
-    implementation "com.trello.rxlifecycle3:rxlifecycle-components:$version_lib_rxlifecycle"
-
-    // RxBinding
-    implementation "com.jakewharton.rxbinding3:rxbinding-core:$version_lib_rxbinding"
-
-    // Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:1.3.3"
+    implementation "com.google.dagger:dagger:$version_lib_dagger"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

@@ -1,12 +1,12 @@
-package com.tiknil.app.viewmodels
+package com.tiknil.app_core
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
-import com.tiknil.app_service.AppContainer
-import com.tiknil.app_service.cache.ICacheService
+import com.tiknil.app_core.interfaces.IAppContainer
+import com.tiknil.app_core.interfaces.ICacheService
 import io.reactivex.disposables.CompositeDisposable
 
-abstract class BaseViewModel (val container: AppContainer) : ViewModel() {
+abstract class BaseViewModel (val container: IAppContainer) : ViewModel() {
 
     //region Inner enums
     //endregion

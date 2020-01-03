@@ -2,14 +2,20 @@ package com.tiknil.app_service.fragmentnavigator
 
 import android.content.Context
 import android.os.Build
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.lifecycleScope
+import com.tiknil.app_core.BaseActivity
+import com.tiknil.app_core.BaseFragment
+import com.tiknil.app_core.BaseViewModel
+import com.tiknil.app_core.interfaces.IFragmentNavigator
+import com.tiknil.app_core.utils.ThreadUtils
 import com.tiknil.app_service.R
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-import
 
 class FragmentNavigator @Inject constructor(
     private val context: Context
@@ -24,6 +30,9 @@ class FragmentNavigator @Inject constructor(
 
 
     //region Instance Fields
+
+    private var currentFragment: BaseFragment<*, *>? = null
+
     //endregion
 
 
@@ -92,7 +101,7 @@ class FragmentNavigator @Inject constructor(
      */
     private fun tryAgainLater(
         layoutId: Int,
-        fragment: Fragment,
+        fragment: BaseFragment<*, *>,
         animation: IFragmentNavigator.FragmentSlideAnimation,
         replace: Boolean,
         params: Any?,
@@ -119,7 +128,7 @@ class FragmentNavigator @Inject constructor(
 
     override fun showFragment(
         layoutId: Int,
-        fragment: Fragment,
+        fragment: BaseFragment<*, *>,
         animation: IFragmentNavigator.FragmentSlideAnimation
     ) {
         showFragment(layoutId, fragment, animation, false)
@@ -127,7 +136,7 @@ class FragmentNavigator @Inject constructor(
 
     override fun showFragment(
         layoutId: Int,
-        fragment: Fragment,
+        fragment: BaseFragment<*, *>,
         animation: IFragmentNavigator.FragmentSlideAnimation,
         replace: Boolean
     ) {
@@ -136,7 +145,7 @@ class FragmentNavigator @Inject constructor(
 
     override fun showFragment(
         layoutId: Int,
-        fragment: Fragment,
+        fragment: BaseFragment<*, *>,
         animation: IFragmentNavigator.FragmentSlideAnimation,
         replace: Boolean,
         params: Any?
@@ -146,82 +155,76 @@ class FragmentNavigator @Inject constructor(
 
     override fun showFragment(
         layoutId: Int,
-        fragment: Fragment,
+        fragment: BaseFragment<*, *>,
         animation: IFragmentNavigator.FragmentSlideAnimation,
         replace: Boolean,
         params: Any?,
         onCompletion: Runnable?
     ) {
+        val currentActivity: BaseActivity<*, *>? = currentFragment?.activity as BaseActivity<*, *>
+        if (currentActivity != null) {
+            val fm = currentActivity.supportFragmentManager
 
-        if(IFragmentEvents::class.java.isAssignableFrom(fragment.javaClass)) {
-            val f = fragment as IFragmentEvents
+            if (!currentActivity.isFinishing && !currentActivity.isDestroyed && (Build.VERSION.SDK_INT < Build.VERSION_CODES.O || !currentActivity.isActivityTransitionRunning)
+            ) {
+                val fragmentTransaction = fm.beginTransaction()
 
-            val currentActivity = fragment.activity
+                addCustomTransactionAnimation(fragmentTransaction, animation)
 
-            if (fragment.activity?.supportFragmentManager != null) {
-                val fm = fragment.activity?.supportFragmentManager!!
-
-                if (!currentActivity!!.isFinishing && !currentActivity.isDestroyed &&
-                    (Build.VERSION.SDK_INT < Build.VERSION_CODES.O || !currentActivity.isActivityTransitionRunning)
-                ) {
-                    val fragmentTransaction = fm.beginTransaction()
-
-                    addCustomTransactionAnimation(fragmentTransaction, animation)
-
-                    // Esecuzione della visualizzazione del fragment all'interno dello UIThread
-                    /*ThreadUtils.runOnUiThread({
-                        try {
-                            if (replace and (fm.backStackEntryCount == 0)) {
-                                fragmentTransaction
-                                    .replace(layoutId, fragment, fragment.javaClass.simpleName)
-                            } else {
-                                if (replace) {
-                                    fm.popBackStack()
-                                }
-                                fragmentTransaction
-                                    .add(layoutId, fragment)
-                                    .addToBackStack(fragment.javaClass.simpleName)
+                // Esecuzione della visualizzazione del fragment all'interno dello UIThread
+                ThreadUtils.runOnUiThread(currentFragment?.viewLifecycleOwner!!.lifecycleScope) {
+                    try {
+                        if (replace and (fm.backStackEntryCount == 0)) {
+                            fragmentTransaction
+                                .replace(layoutId, fragment, fragment.javaClass.simpleName)
+                        } else {
+                            if (replace) {
+                                fm.popBackStack()
                             }
                             fragmentTransaction
-                                .commit()
-                        } catch (exception: Exception) {
-                            tryAgainLater(layoutId, fragment, animation, replace, params, onCompletion)
+                                .add(layoutId, fragment)
+                                .addToBackStack(fragment.javaClass.simpleName)
                         }
-                    })*/
-
-                    f.onViewDisappear()
-                    f.params = params
-                    f.onViewAppear()
-
-                    onCompletion?.run()
-                } else {
-                    tryAgainLater(layoutId, fragment, animation, replace, params, onCompletion)
+                        fragmentTransaction
+                            .commit()
+                    } catch (exception: Exception) {
+                        tryAgainLater(layoutId, fragment, animation, replace, params, onCompletion)
+                    }
                 }
+
+                currentFragment?.onViewDisappear()
+                currentFragment = fragment
+                currentFragment!!.params = params
+                currentFragment!!.onViewAppear()
+
+                onCompletion?.run()
             } else {
                 tryAgainLater(layoutId, fragment, animation, replace, params, onCompletion)
             }
+        } else {
+            tryAgainLater(layoutId, fragment, animation, replace, params, onCompletion)
         }
     }
 
-    override fun resetStackAndShowFragment(layoutId: Int, fragment: Fragment) {
+    override fun resetStackAndShowFragment(layoutId: Int, fragment: BaseFragment<*, *>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun resetStackAndShowFragment(
         layoutId: Int,
-        fragment: Fragment,
+        fragment: BaseFragment<*, *>,
         animation: IFragmentNavigator.FragmentSlideAnimation
     ) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun resetStackAndShowFragment(layoutId: Int, fragment: Fragment, params: Any) {
+    override fun resetStackAndShowFragment(layoutId: Int, fragment: BaseFragment<*, *>, params: Any) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun resetStackAndShowFragment(
         layoutId: Int,
-        fragment: Fragment,
+        fragment: BaseFragment<*, *>,
         animation: IFragmentNavigator.FragmentSlideAnimation,
         params: Any
     ) {
@@ -230,7 +233,7 @@ class FragmentNavigator @Inject constructor(
 
     override fun resetStackAndShowFragment(
         layoutId: Int,
-        fragment: Fragment,
+        fragment: BaseFragment<*, *>,
         params: Any,
         onCompletion: Runnable
     ) {
@@ -239,7 +242,7 @@ class FragmentNavigator @Inject constructor(
 
     override fun resetStackAndShowFragment(
         layoutId: Int,
-        fragment: Fragment,
+        fragment: BaseFragment<*, *>,
         animation: IFragmentNavigator.FragmentSlideAnimation,
         params: Any,
         onCompletion: Runnable
@@ -266,11 +269,11 @@ class FragmentNavigator @Inject constructor(
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun actualFragment(): Fragment {
+    override fun actualFragment(): BaseFragment<*, *> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun setActualFragment(Fragment: Fragment) {
+    override fun setActualFragment(actualFragment: BaseFragment<*, *>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

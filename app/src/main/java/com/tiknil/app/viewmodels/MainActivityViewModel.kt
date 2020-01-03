@@ -1,10 +1,9 @@
 package com.tiknil.app.viewmodels
 
 import com.github.ajalt.timberkt.Timber
-import com.tiknil.app.databinding.ActivityMainBinding
-import com.tiknil.app.views.fragments.SubFragment
+import com.tiknil.app_core.BaseViewModel
 import com.tiknil.app_service.AppContainer
-import com.tiknil.app_service.fragmentnavigator.IFragmentNavigator
+import com.tiknil.app_core.interfaces.IFragmentNavigator
 
 class MainActivityViewModel(container: AppContainer): BaseViewModel(container) {
 
@@ -39,7 +38,8 @@ class MainActivityViewModel(container: AppContainer): BaseViewModel(container) {
     fun foo() {
         Timber.d {"foo"}
         Timber.d { "${this.javaClass.name}, ${container.cacheService().foo}" }
-        container.fragmentNavigator().showFragment(0, SubFragment(), IFragmentNavigator.FragmentSlideAnimation.NO_ANIMATION )
+
+        //container.fragmentNavigator().showFragment(0, SubFragment(), IFragmentNavigator.FragmentSlideAnimation.NO_ANIMATION )
     }
 
     //endregion

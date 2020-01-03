@@ -1,4 +1,4 @@
-package com.tiknil.app.views.activities
+package com.tiknil.app_core
 
 import android.content.Context
 import android.os.Bundle
@@ -8,7 +8,6 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import com.tiknil.app.viewmodels.BaseViewModel
 import com.trello.rxlifecycle3.components.support.RxFragmentActivity
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector

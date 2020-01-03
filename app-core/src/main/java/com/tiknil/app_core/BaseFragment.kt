@@ -1,4 +1,4 @@
-package com.tiknil.app.views.fragments
+package com.tiknil.app_core
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,12 +8,8 @@ import android.view.WindowManager
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.tiknil.app.utils.ThreadUtils
-import com.tiknil.app.viewmodels.BaseViewModel
-import com.tiknil.app.views.activities.BaseActivity
-import com.tiknil.app_service.fragmentnavigator.IFragmentEvents
+import com.tiknil.app_core.utils.ThreadUtils
 import com.trello.rxlifecycle3.components.support.RxFragment
 import dagger.android.support.AndroidSupportInjection
 import java.text.DateFormat
@@ -22,7 +18,7 @@ import java.text.DateFormat
  * Fragment di base che racchiude le funzionalità comuni a tutti i fragment e predispone il link con il view model relativo
  */
 
-abstract class BaseFragment<T: ViewDataBinding, V: BaseViewModel> : RxFragment(), IFragmentEvents {
+abstract class BaseFragment<T: ViewDataBinding, V: BaseViewModel> : RxFragment() {
 
     //region Inner enums
     //endregion
@@ -45,7 +41,7 @@ abstract class BaseFragment<T: ViewDataBinding, V: BaseViewModel> : RxFragment()
         }
 
     protected var isViewAppeared = false
-    override var params: Any? = null
+    var params: Any? = null
         set(value) {
             if (::mViewModel.isInitialized) {
                 viewModel().setParams(value!!)
@@ -124,7 +120,7 @@ abstract class BaseFragment<T: ViewDataBinding, V: BaseViewModel> : RxFragment()
     /**
      * Metodo chiamato quando il fragment viene visualizzato
      */
-    override fun onViewAppear() {
+    fun onViewAppear() {
         ThreadUtils.runOnUiThread(viewLifecycleOwner.lifecycleScope) {
             if (keyboardModeResizingView) {
                 initKeyboardModeResizingView()
@@ -141,7 +137,7 @@ abstract class BaseFragment<T: ViewDataBinding, V: BaseViewModel> : RxFragment()
     /**
      * Metodo chiamato quando il fragment viene nascosto
      */
-    override fun onViewDisappear() {
+    fun onViewDisappear() {
         isViewAppeared = false
         resetKeyboardToStandardMode()
         hideKeyboard()

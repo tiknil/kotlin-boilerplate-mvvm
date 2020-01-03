@@ -1,4 +1,4 @@
-package com.tiknil.app_service.cache
+package com.tiknil.app_core.interfaces
 
 interface ICacheService {
 

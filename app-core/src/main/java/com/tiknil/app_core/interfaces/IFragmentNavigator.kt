@@ -1,6 +1,9 @@
-package com.tiknil.app_service.fragmentnavigator
+package com.tiknil.app_core.interfaces
 
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.tiknil.app_core.BaseFragment
+import com.tiknil.app_core.BaseViewModel
 
 interface IFragmentNavigator {
 
@@ -14,20 +17,20 @@ interface IFragmentNavigator {
 
     fun showFragment(
         layoutId: Int,
-        fragment: Fragment,
+        fragment: BaseFragment<*, *>,
         animation: FragmentSlideAnimation
     )
 
     fun showFragment(
         layoutId: Int,
-        fragment: Fragment,
+        fragment: BaseFragment<*, *>,
         animation: FragmentSlideAnimation,
         replace: Boolean
     )
 
     fun showFragment(
         layoutId: Int,
-        fragment: Fragment,
+        fragment: BaseFragment<*, *>,
         animation: FragmentSlideAnimation,
         replace: Boolean,
         params: Any?
@@ -35,44 +38,44 @@ interface IFragmentNavigator {
 
     fun showFragment(
         layoutId: Int,
-        fragment: Fragment,
+        fragment: BaseFragment<*, *>,
         animation: FragmentSlideAnimation,
         replace: Boolean,
         params: Any?,
         onCompletion: Runnable?
     )
 
-    fun resetStackAndShowFragment(layoutId: Int, fragment: Fragment)
+    fun resetStackAndShowFragment(layoutId: Int, fragment: BaseFragment<*, *>)
 
     fun resetStackAndShowFragment(
         layoutId: Int,
-        fragment: Fragment,
+        fragment: BaseFragment<*, *>,
         animation: FragmentSlideAnimation
     )
 
     fun resetStackAndShowFragment(
         layoutId: Int,
-        fragment: Fragment,
+        fragment: BaseFragment<*, *>,
         params: Any
     )
 
     fun resetStackAndShowFragment(
         layoutId: Int,
-        fragment: Fragment,
+        fragment: BaseFragment<*, *>,
         animation: FragmentSlideAnimation,
         params: Any
     )
 
     fun resetStackAndShowFragment(
         layoutId: Int,
-        fragment: Fragment,
+        fragment: BaseFragment<*, *>,
         params: Any,
         onCompletion: Runnable
     )
 
     fun resetStackAndShowFragment(
         layoutId: Int,
-        fragment: Fragment,
+        fragment: BaseFragment<*, *>,
         animation: FragmentSlideAnimation,
         params: Any,
         onCompletion: Runnable
@@ -86,9 +89,9 @@ interface IFragmentNavigator {
 
     fun popFragment(animation: FragmentSlideAnimation, params: Any): Boolean
 
-    fun actualFragment(): Fragment
+    fun actualFragment(): BaseFragment<*, *>
 
-    fun setActualFragment(Fragment: Fragment)
+    fun setActualFragment(actualFragment: BaseFragment<*, *>)
 
     fun backstackCount(): Int
 

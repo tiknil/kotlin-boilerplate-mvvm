@@ -3,10 +3,11 @@ package com.tiknil.app_service.activitynavigator
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import com.tiknil.app_core.BaseActivity
+import com.tiknil.app_core.interfaces.IActivityNavigator
 import com.tiknil.app_service.R
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 class ActivityNavigator : IActivityNavigator {
@@ -56,8 +57,8 @@ class ActivityNavigator : IActivityNavigator {
      * @param animation         l'animazione con cui visualizzare l'activity
      */
     override fun openActivity(
-        activity: Activity,
-        activityToOpen: Class<Activity>,
+        activity: BaseActivity<*, *>,
+        activityToOpen: Class<*>,
         finish: Boolean,
         animation: IActivityNavigator.ActivitySlideAnimation
     ) {
@@ -74,7 +75,7 @@ class ActivityNavigator : IActivityNavigator {
      * @param data              parametri opzionali da inviare all'activity
      */
     override fun openActivity(
-        activity: Activity,
+        activity: BaseActivity<*, *>,
         activityToOpen: Class<*>,
         finish: Boolean,
         animation: IActivityNavigator.ActivitySlideAnimation,
@@ -111,7 +112,7 @@ class ActivityNavigator : IActivityNavigator {
      * @param animation         l'animazione con cui chiudere l'activity
      */
     override fun closeActivity(
-        activity: Activity,
+        activity: BaseActivity<*, *>,
         animation: IActivityNavigator.ActivitySlideAnimation
     ) {
         closeActivity(activity, animation, null)
@@ -125,7 +126,7 @@ class ActivityNavigator : IActivityNavigator {
      * @param onCompletion      l'operazione da eseguire alla chiusura
      */
     override fun closeActivity(
-        activity: Activity,
+        activity: BaseActivity<*, *>,
         animation: IActivityNavigator.ActivitySlideAnimation,
         onCompletion: Runnable?
     ) {

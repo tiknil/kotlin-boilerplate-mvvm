@@ -1,6 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -22,14 +24,51 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.1.0'
+
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "androidx.appcompat:appcompat:$version_lib_android_x"
+    api "androidx.core:core-ktx:$version_lib_android_x"
+    api 'androidx.constraintlayout:constraintlayout:1.1.3'
+    api 'com.google.android.material:material:1.0.0'
+    api "androidx.appcompat:appcompat:$version_lib_android_x"
+
+    //Android databinding
+    kapt 'com.android.databinding:compiler:3.1.4'
+
+    // Timber
+    api 'com.github.ajalt:timberkt:1.5.1'
+
+    // Dagger 2
+    api "com.google.dagger:dagger-android-support:$version_lib_dagger"
+
+    // RxKotlin
+    api "io.reactivex.rxjava2:rxandroid:$version_lib_rxandroid"
+    api "io.reactivex.rxjava2:rxkotlin:$version_lib_rxkotlin"
+
+    // ViewModel and LiveData
+    api "androidx.lifecycle:lifecycle-extensions:$version_lib_lifecycle"
+    api "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0-rc03"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$version_lib_lifecycle"
+
+    // Libreria per bindare gli observable in base al lifecycle di Activity e Fragment
+    api "com.trello.rxlifecycle3:rxlifecycle-kotlin:$version_lib_rxlifecycle"
+    api "com.trello.rxlifecycle3:rxlifecycle-components:$version_lib_rxlifecycle"
+
+    // RxBinding
+    api "com.jakewharton.rxbinding3:rxbinding-core:$version_lib_rxbinding"
+
+    // Coroutines
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:1.3.3"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

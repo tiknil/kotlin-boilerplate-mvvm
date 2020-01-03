@@ -1,7 +1,8 @@
-package com.tiknil.app_service.activitynavigator
+package com.tiknil.app_core.interfaces
 
 import android.app.Activity
 import android.os.Bundle
+import com.tiknil.app_core.BaseActivity
 
 interface IActivityNavigator {
 
@@ -19,7 +20,7 @@ interface IActivityNavigator {
      * @param finish            true se termina l'activity, false altrimenti
      * @param animation         l'animazione con cui visualizzare l'activity
      */
-    fun openActivity(activity: Activity, activityToOpen: Class<Activity>, finish: Boolean, animation: ActivitySlideAnimation)
+    fun openActivity(activity: BaseActivity<*, *>, activityToOpen: Class<*>, finish: Boolean, animation: ActivitySlideAnimation)
 
     /**
      * Avvia l'activity passata come classe
@@ -31,7 +32,7 @@ interface IActivityNavigator {
      * @param data              parametri opzionali da inviare all'activity
      */
     fun openActivity(
-        activity: Activity,
+        activity: BaseActivity<*, *>,
         activityToOpen: Class<*>,
         finish: Boolean,
         animation: ActivitySlideAnimation,
@@ -45,7 +46,7 @@ interface IActivityNavigator {
      * @param animation         l'animazione con cui chiudere l'activity
      */
     fun closeActivity(
-        activity: Activity,
+        activity: BaseActivity<*, *>,
         animation: ActivitySlideAnimation
     )
 
@@ -57,7 +58,7 @@ interface IActivityNavigator {
      * @param onCompletion      l'operazione da eseguire alla chiusura
      */
     fun closeActivity(
-        activity: Activity,
+        activity: BaseActivity<*, *>,
         animation: ActivitySlideAnimation,
         onCompletion: Runnable?
     )

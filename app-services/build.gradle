@@ -33,13 +33,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$version_lib_android_x"
     implementation "androidx.core:core-ktx:$version_lib_android_x"
 
-    // Dagger 2
-    api "com.google.dagger:dagger:$version_lib_dagger"
-    api "com.google.dagger:dagger-android-support:$version_lib_dagger"
-
-    // RxKotlin
-    api "io.reactivex.rxjava2:rxandroid:$version_lib_rxandroid"
-    api "io.reactivex.rxjava2:rxkotlin:$version_lib_rxkotlin"
+    implementation project(':app-core')
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
