@@ -1,7 +1,7 @@
-package com.tiknil.app_service.cache
+package com.tiknil.app_service
 
 import android.util.Log
-import com.tiknil.app_core.interfaces.ICacheService
+import com.tiknil.app_core.services.ICacheService
 
 class CacheService: ICacheService {
 

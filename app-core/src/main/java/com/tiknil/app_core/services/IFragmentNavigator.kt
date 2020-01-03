@@ -1,9 +1,6 @@
-package com.tiknil.app_core.interfaces
+package com.tiknil.app_core.services
 
-import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
-import com.tiknil.app_core.BaseFragment
-import com.tiknil.app_core.BaseViewModel
+import com.tiknil.app_core.views.BaseFragment
 
 interface IFragmentNavigator {
 

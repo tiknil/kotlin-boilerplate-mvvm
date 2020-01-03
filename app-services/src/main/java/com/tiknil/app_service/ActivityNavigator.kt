@@ -1,10 +1,9 @@
-package com.tiknil.app_service.activitynavigator
+package com.tiknil.app_service
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import com.tiknil.app_core.BaseActivity
-import com.tiknil.app_core.interfaces.IActivityNavigator
+import com.tiknil.app_core.views.BaseActivity
+import com.tiknil.app_core.services.IActivityNavigator
 import com.tiknil.app_service.R
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

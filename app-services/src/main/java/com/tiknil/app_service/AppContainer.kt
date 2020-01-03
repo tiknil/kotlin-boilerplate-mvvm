@@ -1,10 +1,10 @@
 package com.tiknil.app_service
 
 import android.content.Context
-import com.tiknil.app_core.interfaces.IActivityNavigator
-import com.tiknil.app_core.interfaces.IAppContainer
-import com.tiknil.app_core.interfaces.ICacheService
-import com.tiknil.app_core.interfaces.IFragmentNavigator
+import com.tiknil.app_core.services.IActivityNavigator
+import com.tiknil.app_core.services.IAppContainer
+import com.tiknil.app_core.services.ICacheService
+import com.tiknil.app_core.services.IFragmentNavigator
 import dagger.Lazy
 import javax.inject.Inject
 

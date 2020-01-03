@@ -8,7 +8,7 @@ import com.tiknil.app.BR
 import com.tiknil.app.R
 import com.tiknil.app.databinding.ActivityMainBinding
 import com.tiknil.app.viewmodels.MainActivityViewModel
-import com.tiknil.app_core.BaseActivity
+import com.tiknil.app_core.views.BaseActivity
 
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject

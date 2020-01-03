@@ -1,4 +1,4 @@
-package com.tiknil.app_core.interfaces
+package com.tiknil.app_core.services
 
 import android.content.Context
 

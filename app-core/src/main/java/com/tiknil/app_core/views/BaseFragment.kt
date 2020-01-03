@@ -1,4 +1,4 @@
-package com.tiknil.app_core
+package com.tiknil.app_core.views
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.lifecycleScope
+import com.tiknil.app_core.viewmodels.BaseViewModel
 import com.tiknil.app_core.utils.ThreadUtils
 import com.trello.rxlifecycle3.components.support.RxFragment
 import dagger.android.support.AndroidSupportInjection

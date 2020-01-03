@@ -45,7 +45,7 @@ dependencies {
     // Timber
     api 'com.github.ajalt:timberkt:1.5.1'
 
-    // Dagger 2
+    // Dagger 2 (Android Support)
     api "com.google.dagger:dagger-android-support:$version_lib_dagger"
 
     // RxKotlin

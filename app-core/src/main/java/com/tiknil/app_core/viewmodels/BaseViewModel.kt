@@ -1,9 +1,9 @@
-package com.tiknil.app_core
+package com.tiknil.app_core.viewmodels
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
-import com.tiknil.app_core.interfaces.IAppContainer
-import com.tiknil.app_core.interfaces.ICacheService
+import com.tiknil.app_core.services.IAppContainer
+import com.tiknil.app_core.services.ICacheService
 import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseViewModel (val container: IAppContainer) : ViewModel() {

@@ -1,8 +1,7 @@
-package com.tiknil.app_core.interfaces
+package com.tiknil.app_core.services
 
-import android.app.Activity
 import android.os.Bundle
-import com.tiknil.app_core.BaseActivity
+import com.tiknil.app_core.views.BaseActivity
 
 interface IActivityNavigator {
 

@@ -3,13 +3,13 @@ package com.tiknil.app.di
 import android.content.Context
 import com.tiknil.app.KotlinBoilerplateApp
 import com.tiknil.app_service.AppContainer
-import com.tiknil.app_service.activitynavigator.ActivityNavigator
-import com.tiknil.app_core.interfaces.IActivityNavigator
-import com.tiknil.app_core.interfaces.IAppContainer
-import com.tiknil.app_service.cache.CacheService
-import com.tiknil.app_core.interfaces.ICacheService
-import com.tiknil.app_service.fragmentnavigator.FragmentNavigator
-import com.tiknil.app_core.interfaces.IFragmentNavigator
+import com.tiknil.app_service.ActivityNavigator
+import com.tiknil.app_core.services.IActivityNavigator
+import com.tiknil.app_core.services.IAppContainer
+import com.tiknil.app_service.CacheService
+import com.tiknil.app_core.services.ICacheService
+import com.tiknil.app_service.FragmentNavigator
+import com.tiknil.app_core.services.IFragmentNavigator
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides
@@ -67,7 +67,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideCacheService(): ICacheService = CacheService()
+    fun provideCacheService(): ICacheService =
+        CacheService()
 
     @Provides
     fun provideActivityNavigator(): IActivityNavigator {

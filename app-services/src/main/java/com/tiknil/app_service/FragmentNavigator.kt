@@ -1,17 +1,13 @@
-package com.tiknil.app_service.fragmentnavigator
+package com.tiknil.app_service
 
 import android.content.Context
 import android.os.Build
-import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
-import com.tiknil.app_core.BaseActivity
-import com.tiknil.app_core.BaseFragment
-import com.tiknil.app_core.BaseViewModel
-import com.tiknil.app_core.interfaces.IFragmentNavigator
+import com.tiknil.app_core.views.BaseActivity
+import com.tiknil.app_core.views.BaseFragment
+import com.tiknil.app_core.services.IFragmentNavigator
 import com.tiknil.app_core.utils.ThreadUtils
-import com.tiknil.app_service.R
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit

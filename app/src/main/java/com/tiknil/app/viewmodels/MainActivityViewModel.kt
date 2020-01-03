@@ -1,9 +1,8 @@
 package com.tiknil.app.viewmodels
 
 import com.github.ajalt.timberkt.Timber
-import com.tiknil.app_core.BaseViewModel
+import com.tiknil.app_core.viewmodels.BaseViewModel
 import com.tiknil.app_service.AppContainer
-import com.tiknil.app_core.interfaces.IFragmentNavigator
 
 class MainActivityViewModel(container: AppContainer): BaseViewModel(container) {
 
