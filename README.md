@@ -4,16 +4,16 @@ Il boilerplate contiene un app base Android scritta in Kotlin che implementa l'a
 
 ## Getting Started
 
-Il boilerplate contiene il file ruby `boilerplatemvvm.rb` che permette di creare un nuovo progetto a partire dal boilerplate fornendo le principali informazioni per l'inizializzazione. Di seguito le istruzioni:
+Il boilerplate contiene il file ruby `kotlinboilerplate.rb` che permette di creare un nuovo progetto a partire dal boilerplate fornendo le principali informazioni per l'inizializzazione. Di seguito le istruzioni:
 
 1. Entra nella cartella di questo repo
-2. Rendi lo script `boilerplatemvvm.rb` eseguibile
+2. Rendi lo script `kotlinboilerplate.rb` eseguibile
    ```
-    chmod +x boilerplatemvvm.rb
+    chmod +x kotlinboilerplate.rb
    ```    
 3. Quindi eseguilo
    ```
-   ./boilerplatemvvm.rb
+   ./kotlinboilerplate.rb
    ```
 4. Puoi dargli direttamente i parametri seguenti:
    a. `-n`/`--name` Nome del progetto (es: ProjectName)
