@@ -12,12 +12,29 @@ interface IFragmentNavigator {
         SLIDE_BOTTOM_TO_TOP
     }
 
+    var currentFragment: BaseFragment<*, *>?
+
+    /**
+     * Mostra il fragment passato come argomento
+     *
+     * @param layoutId          il layoutId in cui mostrare il fragment
+     * @param fragment          fragment da visualizzare
+     * @param animation         l'animazione con cui visualizzare il fragment
+     */
     fun showFragment(
         layoutId: Int,
         fragment: BaseFragment<*, *>,
         animation: FragmentSlideAnimation
     )
 
+    /**
+     * Mostra il fragment passato come argomento
+     *
+     * @param layoutId          il layoutId in cui mostrare il fragment
+     * @param fragment          fragment da avviare
+     * @param animation         l'animazione con cui visualizzare il fragment
+     * @param replace           true per rimpiazzare il fragment corrente, false altrimenti
+     */
     fun showFragment(
         layoutId: Int,
         fragment: BaseFragment<*, *>,
@@ -25,6 +42,15 @@ interface IFragmentNavigator {
         replace: Boolean
     )
 
+    /**
+     * Mostra il fragment passato come argomento
+     *
+     * @param layoutId          il layoutId in cui mostrare il fragment
+     * @param fragment          fragment da avviare
+     * @param animation         l'animazione con cui visualizzare il fragment
+     * @param replace           true per rimpiazzare il fragment corrente, false altrimenti
+     * @param params            i parametri da passare al fragment
+     */
     fun showFragment(
         layoutId: Int,
         fragment: BaseFragment<*, *>,
@@ -33,6 +59,16 @@ interface IFragmentNavigator {
         params: Any?
     )
 
+    /**
+     * Mostra il fragment passato come argomento
+     *
+     * @param layoutId          il layoutId in cui mostrare il fragment
+     * @param fragment          fragment da avviare
+     * @param animation         l'animazione con cui visualizzare il fragment
+     * @param replace           true per rimpiazzare il fragment corrente, false altrimenti
+     * @param params            i parametri da passare al fragment
+     * @param onCompletion      operazione da eseguire al termine della transaction
+     */
     fun showFragment(
         layoutId: Int,
         fragment: BaseFragment<*, *>,
@@ -42,54 +78,117 @@ interface IFragmentNavigator {
         onCompletion: Runnable?
     )
 
+    /**
+     * Resetta lo stack dei fragment e mostra il fragment passato come argomento
+     *
+     * @param layoutId          il layoutId in cui mostrare il fragment
+     * @param fragment          fragment da visualizzare
+     */
     fun resetStackAndShowFragment(layoutId: Int, fragment: BaseFragment<*, *>)
 
+    /**
+     * Resetta lo stack dei fragment e mostra il fragment passato come argomento
+     *
+     * @param layoutId          il layoutId in cui mostrare il fragment
+     * @param fragment          fragment da visualizzare
+     * @param animation         l'animazione con cui visualizzare il fragment
+     */
     fun resetStackAndShowFragment(
         layoutId: Int,
         fragment: BaseFragment<*, *>,
         animation: FragmentSlideAnimation
     )
 
+    /**
+     * Resetta lo stack dei fragment e mostra il fragment passato come argomento
+     *
+     * @param layoutId          il layoutId in cui mostrare il fragment
+     * @param fragment          fragment da visualizzare
+     * @param params            i parametri da passare al fragment
+     */
     fun resetStackAndShowFragment(
         layoutId: Int,
         fragment: BaseFragment<*, *>,
-        params: Any
+        params: Any?
     )
 
+    /**
+     * Resetta lo stack dei fragment e mostra il fragment passato come argomento
+     *
+     * @param layoutId          il layoutId in cui mostrare il fragment
+     * @param fragment          fragment da visualizzare
+     * @param animation         l'animazione con cui visualizzare il fragment
+     * @param params            i parametri da passare al fragment
+     */
     fun resetStackAndShowFragment(
         layoutId: Int,
         fragment: BaseFragment<*, *>,
         animation: FragmentSlideAnimation,
-        params: Any
+        params: Any?
     )
 
+    /**
+     * Resetta lo stack dei fragment e mostra il fragment passato come argomento
+     *
+     * @param layoutId          il layoutId in cui mostrare il fragment
+     * @param fragment          fragment da visualizzare
+     * @param params            i parametri da passare al fragment
+     * @param onCompletion      operazione da eseguire al termine della transaction
+     */
     fun resetStackAndShowFragment(
         layoutId: Int,
         fragment: BaseFragment<*, *>,
-        params: Any,
-        onCompletion: Runnable
+        params: Any?,
+        onCompletion: Runnable?
     )
 
+    /**
+     * Resetta lo stack dei fragment e mostra il fragment passato come argomento
+     *
+     * @param layoutId          il layoutId in cui mostrare il fragment
+     * @param fragment          fragment da visualizzare
+     * @param animation         l'animazione con cui visualizzare il fragment
+     * @param params            i parametri da passare al fragment
+     * @param onCompletion      operazione da eseguire al termine della transaction
+     */
     fun resetStackAndShowFragment(
         layoutId: Int,
         fragment: BaseFragment<*, *>,
         animation: FragmentSlideAnimation,
-        params: Any,
-        onCompletion: Runnable
+        params: Any?,
+        onCompletion: Runnable?
     )
 
+    /**
+     * Ritorna true se lo stack contiene il fragment del tipo passato, false altrimenti
+     *
+     * @param fragmentType          il tipo di fragment
+     */
     fun stackContainsFragmentOfType(fragmentType: Class<*>): Boolean
 
+    /**
+     * Esegue il pop del primo fragment presente nello stack
+     */
     fun popFragment(): Boolean
 
+    /**
+     * Esegue il pop del primo fragment presente nello stack
+     *
+     * @param animation         l'animazione con cui eseguire il fragment
+     */
     fun popFragment(animation: FragmentSlideAnimation): Boolean
 
-    fun popFragment(animation: FragmentSlideAnimation, params: Any): Boolean
+    /**
+     * Esegue il pop del primo fragment presente nello stack
+     *
+     * @param animation         l'animazione con cui eseguire il fragment
+     * @param params            i parametri da passare al fragment
+     */
+    fun popFragment(animation: FragmentSlideAnimation, params: Any?): Boolean
 
-    fun actualFragment(): BaseFragment<*, *>
-
-    fun setActualFragment(actualFragment: BaseFragment<*, *>)
-
+    /**
+     * Ritorna il numero di fragment nello stack
+     */
     fun backstackCount(): Int
 
 }
