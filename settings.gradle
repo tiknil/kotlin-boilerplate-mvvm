@@ -1,2 +1,2 @@
-include ':app', ':app-services', ':app-models'
+include ':app', ':app-services', ':app-models', ':app-core'
 rootProject.name='android-kotlin-boilerplate'

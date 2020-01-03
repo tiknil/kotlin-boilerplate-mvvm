@@ -1,8 +1,10 @@
 package com.tiknil.app.viewmodels
 
-import androidx.lifecycle.MutableLiveData
 import com.github.ajalt.timberkt.Timber
+import com.tiknil.app.databinding.ActivityMainBinding
+import com.tiknil.app.views.fragments.SubFragment
 import com.tiknil.app_service.AppContainer
+import com.tiknil.app_service.fragmentnavigator.IFragmentNavigator
 
 class MainActivityViewModel(container: AppContainer): BaseViewModel(container) {
 
@@ -16,11 +18,6 @@ class MainActivityViewModel(container: AppContainer): BaseViewModel(container) {
 
     //region Instance Fields
 
-    // Create a LiveData with a String
-    val currentName: MutableLiveData<String> by lazy {
-        MutableLiveData<String>()
-    }
-
     //endregion
 
 
@@ -30,10 +27,6 @@ class MainActivityViewModel(container: AppContainer): BaseViewModel(container) {
 
     //region Constructors / Lifecycle
 
-
-    init {
-        currentName.value = "banana"
-    }
     //endregion
 
 
@@ -46,6 +39,7 @@ class MainActivityViewModel(container: AppContainer): BaseViewModel(container) {
     fun foo() {
         Timber.d {"foo"}
         Timber.d { "${this.javaClass.name}, ${container.cacheService().foo}" }
+        container.fragmentNavigator().showFragment(0, SubFragment(), IFragmentNavigator.FragmentSlideAnimation.NO_ANIMATION )
     }
 
     //endregion

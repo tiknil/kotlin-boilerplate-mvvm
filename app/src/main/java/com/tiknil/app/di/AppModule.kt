@@ -3,8 +3,12 @@ package com.tiknil.app.di
 import android.content.Context
 import com.tiknil.app.KotlinBoilerplateApp
 import com.tiknil.app_service.AppContainer
+import com.tiknil.app_service.activitynavigator.ActivityNavigator
+import com.tiknil.app_service.activitynavigator.IActivityNavigator
 import com.tiknil.app_service.cache.CacheService
 import com.tiknil.app_service.cache.ICacheService
+import com.tiknil.app_service.fragmentnavigator.FragmentNavigator
+import com.tiknil.app_service.fragmentnavigator.IFragmentNavigator
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides
@@ -46,8 +50,10 @@ class AppModule {
     @Provides
     fun provideAppContainer(
         context: Lazy<Context>,
-        cacheService: Lazy<ICacheService>
-    ): AppContainer = AppContainer(context, cacheService)
+        cacheService: Lazy<ICacheService>,
+        activityNavigator: Lazy<IActivityNavigator>,
+        fragmentNavigator: Lazy<IFragmentNavigator>
+    ): AppContainer = AppContainer(context, cacheService, activityNavigator, fragmentNavigator)
 
     @Provides
     @Singleton
@@ -56,6 +62,16 @@ class AppModule {
     @Provides
     @Singleton
     fun provideCacheService(): ICacheService = CacheService()
+
+    @Provides
+    fun provideActivityNavigator(): IActivityNavigator {
+        return ActivityNavigator()
+    }
+
+    @Provides
+    fun provideFragmentNavigator(context: Context): IFragmentNavigator {
+        return FragmentNavigator(context)
+    }
 
     //endregion
 

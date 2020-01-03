@@ -4,11 +4,9 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.tiknil.app_service.AppContainer
 import com.tiknil.app_service.cache.ICacheService
-import io.reactivex.disposables.Disposable
-import timber.log.Timber
-import java.util.ArrayList
+import io.reactivex.disposables.CompositeDisposable
 
-abstract class BaseViewModel(val container: AppContainer) : ViewModel() {
+abstract class BaseViewModel (val container: AppContainer) : ViewModel() {
 
     //region Inner enums
     //endregion
@@ -20,7 +18,7 @@ abstract class BaseViewModel(val container: AppContainer) : ViewModel() {
 
     //region Instance Fields
 
-    protected var disposables: List<Disposable>? = ArrayList()
+    protected var disposables = CompositeDisposable()
     private var needToSetupBindingChains = true
 
     //endregion
@@ -112,23 +110,19 @@ abstract class BaseViewModel(val container: AppContainer) : ViewModel() {
     /**
      * Ritorna il context dell'applicazione
      */
-    fun getContext(): Context = container.context()
+    protected fun getContext(): Context = container.context()
 
     /**
      * Ritorna il servizio di cache (singleton)
      */
-    fun getCacheService(): ICacheService = container.cacheService()
+    protected fun getCacheService(): ICacheService = container.cacheService()
 
     /**
      * Esegue il dispose di tutti i disposables del view model
      */
     protected fun disposeDisposables() {
-        if (disposables != null) {
-            for (disposable in disposables!!) {
-                if (!disposable.isDisposed) {
-                    disposable.dispose()
-                }
-            }
+        if (!disposables.isDisposed) {
+            disposables.dispose()
         }
     }
 

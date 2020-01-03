@@ -38,6 +38,7 @@ class KotlinBoilerplateApp : Application(), HasActivityInjector {
     //region Constructors / Lifecycle
 
     override fun onCreate() {
+
         super.onCreate()
         app = this
 

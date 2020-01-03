@@ -61,8 +61,8 @@ dependencies {
     implementation "com.trello.rxlifecycle3:rxlifecycle-kotlin:$version_lib_rxlifecycle"
     implementation "com.trello.rxlifecycle3:rxlifecycle-components:$version_lib_rxlifecycle"
 
-    //RxKotlin
-    implementation "io.reactivex.rxjava2:rxkotlin:2.4.0"
+    // RxBinding
+    implementation "com.jakewharton.rxbinding3:rxbinding-core:$version_lib_rxbinding"
 
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3"

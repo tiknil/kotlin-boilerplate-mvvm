@@ -1,13 +1,17 @@
 package com.tiknil.app_service
 
 import android.content.Context
+import com.tiknil.app_service.activitynavigator.IActivityNavigator
 import com.tiknil.app_service.cache.ICacheService
+import com.tiknil.app_service.fragmentnavigator.IFragmentNavigator
 import dagger.Lazy
 import javax.inject.Inject
 
 class AppContainer @Inject constructor(
     private val contextLazy: Lazy<Context>,
-    private val cacheServiceLazy: Lazy<ICacheService>
+    private val cacheServiceLazy: Lazy<ICacheService>,
+    private val activityNavigatorLazy: Lazy<IActivityNavigator>,
+    private val fragmentNavigatorLazy: Lazy<IFragmentNavigator>
 )  {
 
     //region Inner enums
@@ -39,6 +43,10 @@ class AppContainer @Inject constructor(
     fun context(): Context = contextLazy.get()
 
     fun cacheService(): ICacheService = cacheServiceLazy.get()
+
+    fun activityNavigator(): IActivityNavigator = activityNavigatorLazy.get()
+
+    fun  fragmentNavigator(): IFragmentNavigator = fragmentNavigatorLazy.get()
 
     //endregion
 

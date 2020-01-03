@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import android.view.Menu
 import android.view.MenuItem
+import com.jakewharton.rxbinding3.view.clicks
 import com.tiknil.app.BR
 import com.tiknil.app.R
 import com.tiknil.app.databinding.ActivityMainBinding
