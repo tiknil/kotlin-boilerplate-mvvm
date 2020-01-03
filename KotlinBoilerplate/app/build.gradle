@@ -8,7 +8,7 @@ android {
     buildToolsVersion version_build_tool
 
     defaultConfig {
-        applicationId "com.tiknil.android_kotlin_boilerplate"
+        applicationId "com.tiknil.app"
         minSdkVersion version_sdk_min
         targetSdkVersion version_sdk_target
         versionCode 1

@@ -17,12 +17,12 @@ require 'find'
 ############################################################################################################################################
 
 ## Variabili
-$boilerplate_project_name = "android-kotlin-boilerplate"
+$boilerplate_project_name = "KotlinBoilerplate"
 $boilerplate_package_name = "com.tiknil.app"
-$boilerplate_application_class = "KotlinBoilerplateApp.java"
-$boilerplate_fonts_class = "KotlinBoilerplateFonts.java"
-$boilerplate_constants_class = "KotlinBoilerplateConstants.java"
-$boilerplate_api_class = "KotlinBoilerplateApi.java"
+$boilerplate_application_class = "KotlinBoilerplateApp.kt"
+$boilerplate_fonts_class = "KotlinBoilerplateFonts.kt"
+$boilerplate_constants_class = "KotlinBoilerplateConstants.kt"
+$boilerplate_api_class = "KotlinBoilerplateApi.kt"
 $boilerplate_description = "KotlinBoilerplate"
 ##
 
@@ -158,7 +158,7 @@ if $confirm == "Y"
 		end
 	end
 
-	puts "Aggiornate le cartelle (package) che contengono le classi java"
+	puts "Aggiornate le cartelle (package) che contengono le classi kotlin"
 
 	Find.find(options[:project_name]).each do |file_name|
 		if (file_name != nil &&
@@ -170,7 +170,8 @@ if $confirm == "Y"
 			!(file_name.include? "/gradle") &&
 			!(file_name.include? "/keystore") &&
 			!(file_name.include? "/libraries") &&
-			((file_name.include? ".java") ||
+			((file_name.include? ".kt") ||
+			(file_name.include? ".java") ||
 			(file_name.include? ".xml") ||
 			(file_name.include? ".gradle") ||
 			(file_name.include? ".pro") ||
@@ -181,33 +182,33 @@ if $confirm == "Y"
 
 			# 5. Se Trovo il file "Application" lo sostituisco con il nome del progetto + Application
 			if file_name.include? $boilerplate_application_class
-				FileUtils.mv file_name, (file_name.sub $boilerplate_application_class, options[:project_name] + "App.java")
+				FileUtils.mv file_name, (file_name.sub $boilerplate_application_class, options[:project_name] + "App.kt")
 				#Aggiorno il nome del file per poterlo modificare
-				file_name.sub! $boilerplate_application_class, options[:project_name] + "App.java"
+				file_name.sub! $boilerplate_application_class, options[:project_name] + "App.kt"
 				puts "Aggiornata la classe Application"
 			end
 
 			# 6. Se Trovo il file "BoilerplateFonts" lo sostituisco con il nome del progetto + Fonts
 			if file_name.include? $boilerplate_fonts_class
-				FileUtils.mv file_name, (file_name.sub $boilerplate_fonts_class, options[:project_name] + "Fonts.java")
+				FileUtils.mv file_name, (file_name.sub $boilerplate_fonts_class, options[:project_name] + "Fonts.kt")
 				#Aggiorno il nome del file per poterlo modificare
-				file_name.sub! $boilerplate_fonts_class, options[:project_name] + "Fonts.java"
+				file_name.sub! $boilerplate_fonts_class, options[:project_name] + "Fonts.kt"
 				puts "Aggiornata la classe Fonts"
 			end
 
 			# 7. Se Trovo il file "BoilerplateConstants" lo sostituisco con il nome del progetto + Constants
 			if file_name.include? $boilerplate_constants_class
-				FileUtils.mv file_name, (file_name.sub $boilerplate_constants_class, options[:project_name] + "Constants.java")
+				FileUtils.mv file_name, (file_name.sub $boilerplate_constants_class, options[:project_name] + "Constants.kt")
 				#Aggiorno il nome del file per poterlo modificare
-				file_name.sub! $boilerplate_constants_class, options[:project_name] + "Constants.java"
+				file_name.sub! $boilerplate_constants_class, options[:project_name] + "Constants.kt"
 				puts "Aggiornata la classe Constants"
 			end
 
 			# 8. Se Trovo il file "BoilerplateApi" lo sostituisco con il nome del progetto + Api
 			if file_name.include? $boilerplate_api_class
-				FileUtils.mv file_name, (file_name.sub $boilerplate_api_class, options[:project_name] + "Api.java")
+				FileUtils.mv file_name, (file_name.sub $boilerplate_api_class, options[:project_name] + "Api.kt")
 				#Aggiorno il nome del file per poterlo modificare
-				file_name.sub! $boilerplate_api_class, options[:project_name] + "Api.java"
+				file_name.sub! $boilerplate_api_class, options[:project_name] + "Api.kt"
 				puts "Aggiornata la classe Api"
 			end
 
