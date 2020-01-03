@@ -1,10 +1,9 @@
-package com.tiknil.app.viewmodels
+package com.tiknil.app.services
 
-import com.github.ajalt.timberkt.Timber
-import com.tiknil.app.core.viewmodels.BaseViewModel
-import com.tiknil.app.services.AppContainer
+import android.util.Log
+import com.tiknil.app.core.services.ICacheService
 
-class MainActivityViewModel(container: AppContainer): BaseViewModel(container) {
+class CacheService: ICacheService {
 
     //region Inner enums
     //endregion
@@ -16,15 +15,21 @@ class MainActivityViewModel(container: AppContainer): BaseViewModel(container) {
 
     //region Instance Fields
 
+    override var foo: String
+        get() = "Pollo"
+        set(value) {}
+
     //endregion
 
 
     //region Class methods
     //endregion
 
-
     //region Constructors / Lifecycle
 
+    init {
+        Log.d(this.javaClass.name, "CacheService init")
+    }
     //endregion
 
 
@@ -33,14 +38,6 @@ class MainActivityViewModel(container: AppContainer): BaseViewModel(container) {
 
 
     //region Public
-
-    fun foo() {
-        Timber.d {"foo"}
-        Timber.d { "${this.javaClass.name}, ${container.cacheService().foo}" }
-
-        //container.fragmentNavigator().showFragment(0, SubFragment(), IFragmentNavigator.FragmentSlideAnimation.NO_ANIMATION )
-    }
-
     //endregion
 
     //region Protected, without modifier
@@ -51,7 +48,6 @@ class MainActivityViewModel(container: AppContainer): BaseViewModel(container) {
 
 
     //region Override methods and callbacks
-
     //endregion
 
     //region Inner classes or interfaces

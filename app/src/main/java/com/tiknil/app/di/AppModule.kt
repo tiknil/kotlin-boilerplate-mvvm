@@ -2,14 +2,14 @@ package com.tiknil.app.di
 
 import android.content.Context
 import com.tiknil.app.KotlinBoilerplateApp
-import com.tiknil.app_service.AppContainer
-import com.tiknil.app_service.ActivityNavigator
-import com.tiknil.app_core.services.IActivityNavigator
-import com.tiknil.app_core.services.IAppContainer
-import com.tiknil.app_service.CacheService
-import com.tiknil.app_core.services.ICacheService
-import com.tiknil.app_service.FragmentNavigator
-import com.tiknil.app_core.services.IFragmentNavigator
+import com.tiknil.app.services.AppContainer
+import com.tiknil.app.services.ActivityNavigator
+import com.tiknil.app.core.services.IActivityNavigator
+import com.tiknil.app.core.services.IAppContainer
+import com.tiknil.app.services.CacheService
+import com.tiknil.app.core.services.ICacheService
+import com.tiknil.app.services.FragmentNavigator
+import com.tiknil.app.core.services.IFragmentNavigator
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.tiknil.app.viewmodels.MainActivityViewModel
 import com.tiknil.app.views.activities.MainActivity
-import com.tiknil.app_service.AppContainer
+import com.tiknil.app.services.AppContainer
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap

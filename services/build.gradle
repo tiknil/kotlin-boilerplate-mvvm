@@ -1,43 +1,38 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: "kotlin-kapt"
-
 android {
     compileSdkVersion version_sdk_compile
     buildToolsVersion version_build_tool
 
+
     defaultConfig {
-        applicationId "com.tiknil.android_kotlin_boilerplate"
         minSdkVersion version_sdk_min
         targetSdkVersion version_sdk_target
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding {
-        enabled = true
-    }
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    // Moduli
-    implementation project(':services')
-    implementation project(':models')
-    implementation project(':core')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.appcompat:appcompat:$version_lib_android_x"
+    implementation "androidx.core:core-ktx:$version_lib_android_x"
 
-    // Dagger 2
-    kapt "com.google.dagger:dagger-compiler:$version_lib_dagger"
-    kapt "com.google.dagger:dagger-android-processor:$version_lib_dagger"
-    implementation "com.google.dagger:dagger:$version_lib_dagger"
+    implementation project(':core')
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
