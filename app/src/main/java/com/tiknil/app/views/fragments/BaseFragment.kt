@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.lifecycleScope
 import com.tiknil.app.utils.ThreadUtils
 import com.tiknil.app.viewmodels.BaseViewModel
+import com.tiknil.app.views.activities.BaseActivity
 import com.trello.rxlifecycle3.components.support.RxFragment
 import dagger.android.support.AndroidSupportInjection
 import java.text.DateFormat
@@ -43,11 +45,10 @@ abstract class BaseFragment<T: ViewDataBinding, V: BaseViewModel> : RxFragment()
     protected var isViewAppeared = false
     protected var params: Any? = null
         set(value) {
-            if (viewModel() != null) {
+            if (::mViewModel.isInitialized) {
                 viewModel().setParams(value!!)
                 field = null
             }
-            field = value
         }
     protected var keyboardModeResizingView = false
     protected var defaultTimeFormat: DateFormat? = null
@@ -99,7 +100,7 @@ abstract class BaseFragment<T: ViewDataBinding, V: BaseViewModel> : RxFragment()
         viewModel().onStart()
         if (!isViewAppeared) {
             if (isThisFragmentTheCurrentVisible) {
-                if (viewModel() != null && params != null) {
+                if (::mViewModel.isInitialized && params != null) {
                     viewModel().setParams(params!!)
                     this.params = null
                 }
@@ -116,6 +117,37 @@ abstract class BaseFragment<T: ViewDataBinding, V: BaseViewModel> : RxFragment()
     override fun onStop() {
         super.onStop()
         viewModel().onStop()
+    }
+
+    /**
+     * Metodo chiamato quando il fragment viene visualizzato
+     */
+    fun onViewAppear() {
+        ThreadUtils.runOnUiThread(viewLifecycleOwner.lifecycleScope) {
+            if (keyboardModeResizingView) {
+                initKeyboardModeResizingView()
+            }
+            isViewAppeared = true
+            hideKeyboard()
+            if(::mViewModel.isInitialized) {
+                viewModel().onViewAppear()
+            }
+            resetKeyboardToStandardMode()
+        }
+    }
+
+    /**
+     * Metodo chiamato quando il fragment viene nascosto
+     */
+    fun onViewDisappear() {
+        isViewAppeared = false
+        resetKeyboardToStandardMode()
+        hideKeyboard()
+        ThreadUtils.runOnUiThread(viewLifecycleOwner.lifecycleScope) {
+            if(::mViewModel.isInitialized) {
+                viewModel().onViewDisappear()
+            }
+        }
     }
 
     //endregion
@@ -156,13 +188,41 @@ abstract class BaseFragment<T: ViewDataBinding, V: BaseViewModel> : RxFragment()
     /**
      * Imposta la UI, va eseguito l'override nelle classe figlie
      */
-    open fun setupUI() {}
+    open protected fun setupUI() {}
 
     /**
      * Imposta il binding delle variabili RxJava, va eseguito l'override nelle classe figlie
      */
-    open fun setupBinding() {}
+    open protected fun setupBinding() {}
 
+    /**
+     * Nasconde la tastiera se visualizzata
+     */
+    protected fun hideKeyboard() {
+        if (activity != null && activity is BaseActivity<*, *>) {
+            (activity as BaseActivity<*, *>).hideKeyboard()
+        }
+    }
+
+    /**
+     * Imposta il comportamento della tastiera
+     */
+    protected fun initKeyboardModeResizingView() {
+        if (activity != null && !activity!!.isFinishing) {
+            activity!!.window
+                .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE or WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
+        }
+    }
+
+    /**
+     * Reimposta la tastiera al funzionamento standard
+     */
+    protected fun resetKeyboardToStandardMode() {
+        if (activity != null && !activity!!.isFinishing) {
+            activity!!.window
+                .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+        }
+    }
     //endregion
 
     //region Private
