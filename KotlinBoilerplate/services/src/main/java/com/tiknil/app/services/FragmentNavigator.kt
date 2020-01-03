@@ -346,7 +346,7 @@ class FragmentNavigator @Inject constructor(
 
                 fragmentTransaction.commit()
 
-                val p = Observable.timer(200, TimeUnit.MILLISECONDS)
+                val op = Observable.timer(200, TimeUnit.MILLISECONDS)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe {
                         showFragment(

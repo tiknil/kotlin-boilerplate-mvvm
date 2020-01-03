@@ -1,6 +1,6 @@
 package com.tiknil.app.core.utils
 
-class FragmentUtils {
+object FragmentUtils {
 
     //region Inner enums
     //endregion
@@ -12,9 +12,7 @@ class FragmentUtils {
 
     //region Instance Fields
 
-    companion object {
-        var sDisableFragmentAnimations: Boolean = false
-    }
+    var sDisableFragmentAnimations: Boolean = false
 
     //endregion
 
