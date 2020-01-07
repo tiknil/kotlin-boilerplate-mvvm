@@ -1,6 +1,5 @@
 package com.tiknil.app.viewmodels
 
-import com.github.ajalt.timberkt.Timber
 import com.tiknil.app.core.viewmodels.BaseViewModel
 import com.tiknil.app.services.AppContainer
 
@@ -33,14 +32,6 @@ class MainActivityViewModel(container: AppContainer): BaseViewModel(container) {
 
 
     //region Public
-
-    fun foo() {
-        Timber.d {"foo"}
-        Timber.d { "${this.javaClass.name}, ${container.cacheService().foo}" }
-
-        //container.fragmentNavigator().showFragment(0, SubFragment(), IFragmentNavigator.FragmentSlideAnimation.NO_ANIMATION )
-    }
-
     //endregion
 
     //region Protected, without modifier

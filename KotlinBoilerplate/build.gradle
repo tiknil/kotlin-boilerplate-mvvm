@@ -44,3 +44,16 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+task generateLocalizations {
+
+    String script = 'if hash twine 2>/dev/null; then ' +
+            'twine generate-localization-file localization/twine.txt app/src/main/res/values/strings.xml --lang en --format android; ' +
+            'twine generate-localization-file localization/twine.txt app/src/main/res/values-it/strings.xml --lang it --format android; ' +
+            'fi'
+
+//    exec {
+//        executable "sh"
+//        args '-c', script
+//    }
+}
