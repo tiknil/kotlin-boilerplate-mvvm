@@ -2,6 +2,7 @@ package com.tiknil.app.views.activities
 
 import android.os.Bundle
 import com.tiknil.app.BR
+import com.tiknil.app.KotlinBoilerplateApp
 import com.tiknil.app.R
 import com.tiknil.app.core.views.BaseActivity
 import com.tiknil.app.databinding.ActivityMainBinding
@@ -34,17 +35,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
     //region Constructors / Lifecycle
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (applicationContext as KotlinBoilerplateApp).currentActivity = this
         super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.activity_main)
-
     }
 
-    override fun viewModel(): MainActivityViewModel = viewModel
-
-    override fun bindingVariable(): Int = BR.viewModel
-
-    override fun layoutId(): Int = R.layout.activity_main
+    override fun onResume() {
+        (applicationContext as KotlinBoilerplateApp).currentActivity = null
+        super.onResume()
+    }
 
     //endregion
 
@@ -64,6 +62,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
 
 
     //region Override methods and callbacks
+
+    override fun viewModel(): MainActivityViewModel = viewModel
+
+    override fun bindingVariable(): Int = BR.viewModel
+
+    override fun layoutId(): Int = R.layout.activity_main
+
     //endregion
 
     //region Inner classes or interfaces

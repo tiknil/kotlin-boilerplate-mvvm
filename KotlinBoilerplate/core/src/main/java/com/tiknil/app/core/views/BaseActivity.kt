@@ -53,36 +53,35 @@ abstract class BaseActivity<T: ViewDataBinding, V: BaseViewModel> : RxFragmentAc
         super.onCreate(savedInstanceState)
         performDataBinding()
         viewModel().onCreated()
+        viewModel().setActivityReference(this)
     }
 
 
     override fun onDestroy() {
         viewModel().onDestroy()
-        //clearActivityReferences()
+        viewModel().setActivityReference(null)
         super.onDestroy()
     }
 
     override fun onResume() {
-        //(applicationContext as AirSelfieApp).setCurrentActivity(this)
         viewModel().onViewAppear()
+        viewModel().setActivityReference(this)
         super.onResume()
     }
 
     override fun onPause() {
         viewModel().onViewDisappear()
-        //clearActivityReferences()
+        viewModel().setActivityReference(null)
         super.onPause()
     }
 
     override fun onStart() {
         super.onStart()
-        //EventBus.getDefault().register(this)
         viewModel().onStart()
     }
 
     override fun onStop() {
         super.onStop()
-        //EventBus.getDefault().unregister(this)
         viewModel().onStop()
     }
 
