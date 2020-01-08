@@ -1,6 +1,7 @@
 package com.tiknil.app.core.viewmodels
 
 import android.content.Context
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import com.tiknil.app.core.services.IAppContainer
 import com.tiknil.app.core.services.ICacheService
@@ -41,6 +42,7 @@ abstract class BaseViewModel (val container: IAppContainer) : ViewModel() {
 
     open fun onCreated() {
         setupBindingChains()
+        needToSetupBindingChains = false
     }
 
     /**
@@ -126,19 +128,16 @@ abstract class BaseViewModel (val container: IAppContainer) : ViewModel() {
         }
     }
 
+    /**
+     * Ritorna la stringa localizzata
+     *
+     * @param resId l'id della stringa da localizzare
+     */
+    fun localizedString(@StringRes resId: Int) = container.context().getString(resId)
+
     //endregion
 
     //region Protected, without modifier
-
-    /**
-     * Ritorna il context dell'applicazione
-     */
-    protected fun getContext(): Context = container.context()
-
-    /**
-     * Ritorna il servizio di cache (singleton)
-     */
-    protected fun getCacheService(): ICacheService = container.cacheService()
 
     /**
      * Esegue il dispose di tutti i disposables del view model
