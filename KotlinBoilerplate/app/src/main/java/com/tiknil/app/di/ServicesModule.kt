@@ -2,14 +2,8 @@ package com.tiknil.app.di
 
 import android.content.Context
 import com.tiknil.app.KotlinBoilerplateApp
-import com.tiknil.app.services.AppContainer
-import com.tiknil.app.services.ActivityNavigator
-import com.tiknil.app.core.services.IActivityNavigator
-import com.tiknil.app.core.services.IAppContainer
-import com.tiknil.app.services.CacheService
-import com.tiknil.app.core.services.ICacheService
-import com.tiknil.app.services.FragmentNavigator
-import com.tiknil.app.core.services.IFragmentNavigator
+import com.tiknil.app.core.services.*
+import com.tiknil.app.services.*
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides
@@ -20,7 +14,7 @@ import javax.inject.Singleton
  */
 
 @Module
-class AppModule {
+class ServicesModule {
 
     //region Inner enums
     //endregion
@@ -61,24 +55,51 @@ class AppModule {
         fragmentNavigator
     )
 
+    /**
+     * Context
+     */
     @Provides
     @Singleton
     fun provideContext(): Context = KotlinBoilerplateApp.app.applicationContext
 
+    /**
+     * ICacheService
+     */
     @Provides
     @Singleton
     fun provideCacheService(): ICacheService =
         CacheService()
 
+    /**
+     * IActivityNavigator
+     */
     @Provides
     fun provideActivityNavigator(): IActivityNavigator {
         return ActivityNavigator()
     }
 
+    /**
+     * IFragmentNavigator
+     */
     @Provides
     fun provideFragmentNavigator(context: Context): IFragmentNavigator {
         return FragmentNavigator(context)
     }
+
+    /**
+     * IDataService
+     */
+    @Provides
+    @Singleton
+    fun provideDataService(cacheService: ICacheService): IDataService =
+        DataService(cacheService)
+
+    /**
+     * IRestService
+     */
+    @Provides
+    @Singleton
+    fun provideRestService(): IRestService = RestService()
 
     //endregion
 

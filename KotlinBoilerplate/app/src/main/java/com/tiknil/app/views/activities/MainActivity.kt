@@ -33,17 +33,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
 
 
     //region Constructors / Lifecycle
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        (applicationContext as KotlinBoilerplateApp).currentActivity = this
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onResume() {
-        (applicationContext as KotlinBoilerplateApp).currentActivity = null
-        super.onResume()
-    }
-
     //endregion
 
 

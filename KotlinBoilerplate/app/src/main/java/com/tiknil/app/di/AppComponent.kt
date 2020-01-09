@@ -11,7 +11,7 @@ import javax.inject.Singleton
  */
 
 @Singleton
-@Component(modules = [AppModule::class, AndroidInjectionModule::class, UiModule::class, ViewsModule::class])
+@Component(modules = [ServicesModule::class, AndroidInjectionModule::class, UiModule::class, ViewsModule::class])
 interface AppComponent {
 
     //region Inner enums
