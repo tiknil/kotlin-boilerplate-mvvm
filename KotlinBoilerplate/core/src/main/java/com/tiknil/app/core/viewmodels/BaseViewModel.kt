@@ -23,8 +23,6 @@ abstract class BaseViewModel (val container: IAppContainer) : ViewModel() {
 
     private var needToSetupBindingChains = true
 
-    protected var activityReference: WeakReference<BaseActivity<*, *>>? = null
-
     protected var disposables = CompositeDisposable()
 
     //endregion
@@ -109,24 +107,6 @@ abstract class BaseViewModel (val container: IAppContainer) : ViewModel() {
      */
 
     open fun setParams(params: Any) {}
-
-    /**
-     * Ritorna la reference all'activity
-     */
-    fun getActivityReference(): BaseActivity<*, *>? = if (activityReference != null) activityReference!!.get()!! else null
-
-    /**
-     * Imposta la reference all'activity passata come argomento
-     *
-     * @param activity l'activity da impostare
-     */
-    fun setActivityReference(activity: BaseActivity<*, *>?) {
-        if(activity != null) {
-            activityReference = WeakReference(activity)
-        } else {
-            activityReference!!.clear()
-        }
-    }
 
     /**
      * Ritorna la stringa localizzata

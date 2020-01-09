@@ -53,25 +53,21 @@ abstract class BaseActivity<T: ViewDataBinding, V: BaseViewModel> : RxFragmentAc
         super.onCreate(savedInstanceState)
         performDataBinding()
         viewModel().onCreated()
-        viewModel().setActivityReference(this)
     }
 
 
     override fun onDestroy() {
         viewModel().onDestroy()
-        viewModel().setActivityReference(null)
         super.onDestroy()
     }
 
     override fun onResume() {
         viewModel().onViewAppear()
-        viewModel().setActivityReference(this)
         super.onResume()
     }
 
     override fun onPause() {
         viewModel().onViewDisappear()
-        viewModel().setActivityReference(null)
         super.onPause()
     }
 

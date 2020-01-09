@@ -27,8 +27,6 @@ class KotlinBoilerplateApp : Application(), HasActivityInjector {
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
-    var currentActivity: Activity? = null
-
     //endregion
 
 
