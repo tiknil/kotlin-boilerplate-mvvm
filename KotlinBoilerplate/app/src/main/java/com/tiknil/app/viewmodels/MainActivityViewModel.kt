@@ -1,5 +1,6 @@
 package com.tiknil.app.viewmodels
 
+import com.tiknil.app.KotlinBoilerplateApp
 import com.tiknil.app.core.viewmodels.BaseViewModel
 import com.tiknil.app.services.AppContainer
 
@@ -24,6 +25,11 @@ class MainActivityViewModel(container: AppContainer): BaseViewModel(container) {
 
     //region Constructors / Lifecycle
 
+    override fun onCreated() {
+        super.onCreated()
+
+        (container.context() as KotlinBoilerplateApp).appCoordinator.start()
+    }
     //endregion
 
 

@@ -1,5 +1,6 @@
 package com.tiknil.app.core.services
 
+import com.tiknil.app.core.views.BaseActivity
 import com.tiknil.app.core.views.BaseFragment
 
 interface IFragmentNavigator {
@@ -17,11 +18,13 @@ interface IFragmentNavigator {
     /**
      * Mostra il fragment passato come argomento
      *
+     * @param currentActivity   l'activity corrente
      * @param layoutId          il layoutId in cui mostrare il fragment
      * @param fragment          fragment da visualizzare
      * @param animation         l'animazione con cui visualizzare il fragment
      */
     fun showFragment(
+        currentActivity: BaseActivity<*, *>,
         layoutId: Int,
         fragment: BaseFragment<*, *>,
         animation: FragmentSlideAnimation
@@ -30,12 +33,14 @@ interface IFragmentNavigator {
     /**
      * Mostra il fragment passato come argomento
      *
+     * @param currentActivity   l'activity corrente
      * @param layoutId          il layoutId in cui mostrare il fragment
      * @param fragment          fragment da avviare
      * @param animation         l'animazione con cui visualizzare il fragment
      * @param replace           true per rimpiazzare il fragment corrente, false altrimenti
      */
     fun showFragment(
+        currentActivity: BaseActivity<*, *>,
         layoutId: Int,
         fragment: BaseFragment<*, *>,
         animation: FragmentSlideAnimation,
@@ -45,6 +50,7 @@ interface IFragmentNavigator {
     /**
      * Mostra il fragment passato come argomento
      *
+     * @param currentActivity   l'activity corrente
      * @param layoutId          il layoutId in cui mostrare il fragment
      * @param fragment          fragment da avviare
      * @param animation         l'animazione con cui visualizzare il fragment
@@ -52,6 +58,7 @@ interface IFragmentNavigator {
      * @param params            i parametri da passare al fragment
      */
     fun showFragment(
+        currentActivity: BaseActivity<*, *>,
         layoutId: Int,
         fragment: BaseFragment<*, *>,
         animation: FragmentSlideAnimation,
@@ -62,6 +69,7 @@ interface IFragmentNavigator {
     /**
      * Mostra il fragment passato come argomento
      *
+     * @param currentActivity   l'activity corrente
      * @param layoutId          il layoutId in cui mostrare il fragment
      * @param fragment          fragment da avviare
      * @param animation         l'animazione con cui visualizzare il fragment
@@ -70,6 +78,7 @@ interface IFragmentNavigator {
      * @param onCompletion      operazione da eseguire al termine della transaction
      */
     fun showFragment(
+        currentActivity: BaseActivity<*, *>,
         layoutId: Int,
         fragment: BaseFragment<*, *>,
         animation: FragmentSlideAnimation,
@@ -81,19 +90,26 @@ interface IFragmentNavigator {
     /**
      * Resetta lo stack dei fragment e mostra il fragment passato come argomento
      *
+     * @param currentActivity   l'activity corrente
      * @param layoutId          il layoutId in cui mostrare il fragment
      * @param fragment          fragment da visualizzare
      */
-    fun resetStackAndShowFragment(layoutId: Int, fragment: BaseFragment<*, *>)
+    fun resetStackAndShowFragment(
+        currentActivity: BaseActivity<*, *>,
+        layoutId: Int,
+        fragment: BaseFragment<*, *>
+    )
 
     /**
      * Resetta lo stack dei fragment e mostra il fragment passato come argomento
      *
+     * @param currentActivity   l'activity corrente
      * @param layoutId          il layoutId in cui mostrare il fragment
      * @param fragment          fragment da visualizzare
      * @param animation         l'animazione con cui visualizzare il fragment
      */
     fun resetStackAndShowFragment(
+        currentActivity: BaseActivity<*, *>,
         layoutId: Int,
         fragment: BaseFragment<*, *>,
         animation: FragmentSlideAnimation
@@ -102,11 +118,13 @@ interface IFragmentNavigator {
     /**
      * Resetta lo stack dei fragment e mostra il fragment passato come argomento
      *
+     * @param currentActivity   l'activity corrente
      * @param layoutId          il layoutId in cui mostrare il fragment
      * @param fragment          fragment da visualizzare
      * @param params            i parametri da passare al fragment
      */
     fun resetStackAndShowFragment(
+        currentActivity: BaseActivity<*, *>,
         layoutId: Int,
         fragment: BaseFragment<*, *>,
         params: Any?
@@ -115,12 +133,14 @@ interface IFragmentNavigator {
     /**
      * Resetta lo stack dei fragment e mostra il fragment passato come argomento
      *
+     * @param currentActivity   l'activity corrente
      * @param layoutId          il layoutId in cui mostrare il fragment
      * @param fragment          fragment da visualizzare
      * @param animation         l'animazione con cui visualizzare il fragment
      * @param params            i parametri da passare al fragment
      */
     fun resetStackAndShowFragment(
+        currentActivity: BaseActivity<*, *>,
         layoutId: Int,
         fragment: BaseFragment<*, *>,
         animation: FragmentSlideAnimation,
@@ -130,12 +150,14 @@ interface IFragmentNavigator {
     /**
      * Resetta lo stack dei fragment e mostra il fragment passato come argomento
      *
+     * @param currentActivity   l'activity corrente
      * @param layoutId          il layoutId in cui mostrare il fragment
      * @param fragment          fragment da visualizzare
      * @param params            i parametri da passare al fragment
      * @param onCompletion      operazione da eseguire al termine della transaction
      */
     fun resetStackAndShowFragment(
+        currentActivity: BaseActivity<*, *>,
         layoutId: Int,
         fragment: BaseFragment<*, *>,
         params: Any?,
@@ -145,6 +167,7 @@ interface IFragmentNavigator {
     /**
      * Resetta lo stack dei fragment e mostra il fragment passato come argomento
      *
+     * @param currentActivity   l'activity corrente
      * @param layoutId          il layoutId in cui mostrare il fragment
      * @param fragment          fragment da visualizzare
      * @param animation         l'animazione con cui visualizzare il fragment
@@ -152,6 +175,7 @@ interface IFragmentNavigator {
      * @param onCompletion      operazione da eseguire al termine della transaction
      */
     fun resetStackAndShowFragment(
+        currentActivity: BaseActivity<*, *>,
         layoutId: Int,
         fragment: BaseFragment<*, *>,
         animation: FragmentSlideAnimation,
@@ -162,33 +186,44 @@ interface IFragmentNavigator {
     /**
      * Ritorna true se lo stack contiene il fragment del tipo passato, false altrimenti
      *
+     * @param currentActivity       l'activity corrente
      * @param fragmentType          il tipo di fragment
      */
-    fun stackContainsFragmentOfType(fragmentType: Class<*>): Boolean
-
-    /**
-     * Esegue il pop del primo fragment presente nello stack
-     */
-    fun popFragment(): Boolean
+    fun stackContainsFragmentOfType(currentActivity: BaseActivity<*, *>, fragmentType: Class<*>): Boolean
 
     /**
      * Esegue il pop del primo fragment presente nello stack
      *
+     * @param currentActivity   l'activity corrente
+     */
+    fun popFragment(currentActivity: BaseActivity<*, *>): Boolean
+
+    /**
+     * Esegue il pop del primo fragment presente nello stack
+     *
+     * @param currentActivity   l'activity corrente
      * @param animation         l'animazione con cui eseguire il fragment
      */
-    fun popFragment(animation: FragmentSlideAnimation): Boolean
+    fun popFragment(currentActivity: BaseActivity<*, *>, animation: FragmentSlideAnimation): Boolean
 
     /**
      * Esegue il pop del primo fragment presente nello stack
      *
+     * @param currentActivity   l'activity corrente
      * @param animation         l'animazione con cui eseguire il fragment
      * @param params            i parametri da passare al fragment
      */
-    fun popFragment(animation: FragmentSlideAnimation, params: Any?): Boolean
+    fun popFragment(
+        currentActivity: BaseActivity<*, *>,
+        animation: FragmentSlideAnimation,
+        params: Any?
+    ): Boolean
 
     /**
      * Ritorna il numero di fragment nello stack
+     * 
+     * @param currentActivity   l'activity corrente
      */
-    fun backstackCount(): Int
+    fun backstackCount(currentActivity: BaseActivity<*, *>): Int
 
 }

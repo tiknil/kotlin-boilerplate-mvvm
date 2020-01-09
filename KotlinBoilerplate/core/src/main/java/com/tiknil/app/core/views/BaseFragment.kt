@@ -104,7 +104,7 @@ abstract class BaseFragment<T: ViewDataBinding, V: BaseViewModel> : RxFragment()
                     this.params = null
                 }
 
-                ThreadUtils.runOnUiThread(viewLifecycleOwner.lifecycleScope) {
+                ThreadUtils.runOnCoroutineScope(viewLifecycleOwner.lifecycleScope) {
                     viewModel().onViewAppear()
                 }
 
@@ -122,16 +122,13 @@ abstract class BaseFragment<T: ViewDataBinding, V: BaseViewModel> : RxFragment()
      * Metodo chiamato quando il fragment viene visualizzato
      */
     fun onViewAppear() {
-        ThreadUtils.runOnUiThread(viewLifecycleOwner.lifecycleScope) {
+        ThreadUtils.runOnUiThread {
             if (keyboardModeResizingView) {
                 initKeyboardModeResizingView()
             }
-            isViewAppeared = true
             hideKeyboard()
-            if(::mViewModel.isInitialized) {
-                viewModel().onViewAppear()
-            }
-            resetKeyboardToStandardMode()
+            viewModel().onViewAppear()
+            isViewAppeared = true
         }
     }
 
@@ -139,10 +136,10 @@ abstract class BaseFragment<T: ViewDataBinding, V: BaseViewModel> : RxFragment()
      * Metodo chiamato quando il fragment viene nascosto
      */
     fun onViewDisappear() {
-        isViewAppeared = false
-        resetKeyboardToStandardMode()
-        hideKeyboard()
-        ThreadUtils.runOnUiThread(viewLifecycleOwner.lifecycleScope) {
+        ThreadUtils.runOnUiThread {
+            isViewAppeared = false
+            resetKeyboardToStandardMode()
+            hideKeyboard()
             if(::mViewModel.isInitialized) {
                 viewModel().onViewDisappear()
             }

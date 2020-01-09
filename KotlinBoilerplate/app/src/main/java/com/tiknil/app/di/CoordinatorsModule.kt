@@ -53,9 +53,8 @@ class CoordinatorsModule {
 
     @Provides
     fun provideOnBoardingCoordinator(
-        fragmentNavigator: IFragmentNavigator,
-        activityNavigator: IActivityNavigator
-    ): OnBoardingCoordinator = OnBoardingCoordinator(fragmentNavigator, activityNavigator)
+        fragmentNavigator: IFragmentNavigator
+    ): OnBoardingCoordinator = OnBoardingCoordinator(fragmentNavigator)
 
     //endregion
 

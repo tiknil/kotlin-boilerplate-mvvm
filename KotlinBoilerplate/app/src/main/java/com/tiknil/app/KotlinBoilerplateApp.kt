@@ -2,6 +2,7 @@ package com.tiknil.app
 
 import android.app.Activity
 import android.app.Application
+import com.tiknil.app.coordinators.AppCoordinator
 import com.tiknil.app.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -26,6 +27,9 @@ class KotlinBoilerplateApp : Application(), HasActivityInjector {
 
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+
+    @Inject
+    lateinit var appCoordinator: AppCoordinator
 
     //endregion
 

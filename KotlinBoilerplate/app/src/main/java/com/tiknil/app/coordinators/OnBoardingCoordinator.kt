@@ -1,5 +1,6 @@
 package com.tiknil.app.coordinators
 
+import com.tiknil.app.R
 import com.tiknil.app.core.services.IActivityNavigator
 import com.tiknil.app.core.services.IActivityReference
 import com.tiknil.app.core.services.ICoordinator
@@ -8,8 +9,7 @@ import com.tiknil.app.views.activities.MainActivity
 import javax.inject.Inject
 
 class OnBoardingCoordinator @Inject constructor(
-    private val fragmentNavigator: IFragmentNavigator,
-    private val activityNavigator: IActivityNavigator
+    private val fragmentNavigator: IFragmentNavigator
 ) : ICoordinator {
 
     //region Inner enums
@@ -54,12 +54,9 @@ class OnBoardingCoordinator @Inject constructor(
 
     override fun start() {
         if (activityReferenceDelegate.activityReference != null) {
-            activityNavigator.openActivity(
-                activityReferenceDelegate.activityReference!!,
-                MainActivity::class.java,
-                true,
-                IActivityNavigator.ActivitySlideAnimation.NO_ANIMATION
-            )
+            //fragmentNavigator.showFragment(
+            //    ...
+            //)
         }
     }
 
