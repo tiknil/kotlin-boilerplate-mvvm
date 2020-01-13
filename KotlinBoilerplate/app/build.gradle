@@ -16,8 +16,16 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles fileTree('proguard').asList().toArray()
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
         release {
-            minifyEnabled false
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles fileTree('proguard').asList().toArray()
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
