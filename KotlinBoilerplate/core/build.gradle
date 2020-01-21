@@ -20,6 +20,7 @@ android {
 
     buildTypes {
         debug {
+            debuggable true
             minifyEnabled true
             proguardFiles fileTree('proguard').asList().toArray()
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'

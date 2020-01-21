@@ -1,15 +1,11 @@
 package com.tiknil.app.core.viewmodels
 
-import android.content.Context
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import com.tiknil.app.core.services.IAppContainer
-import com.tiknil.app.core.services.ICacheService
-import com.tiknil.app.core.views.BaseActivity
 import io.reactivex.disposables.CompositeDisposable
-import java.lang.ref.WeakReference
 
-abstract class BaseViewModel (val container: IAppContainer) : ViewModel() {
+abstract class AbstractBaseViewModel (val container: IAppContainer) : ViewModel() {
 
     //region Inner enums
     //endregion
@@ -21,9 +17,11 @@ abstract class BaseViewModel (val container: IAppContainer) : ViewModel() {
 
     //region Instance Fields
 
-    private var needToSetupBindingChains = true
+    var needToSetupBindingChains = true
 
     protected var disposables = CompositeDisposable()
+
+    var flowDelegate: Any? = null
 
     //endregion
 
@@ -37,31 +35,17 @@ abstract class BaseViewModel (val container: IAppContainer) : ViewModel() {
     /**
      * Metodo chiamato quando la view esegue il metodo onCreate, se necessario va eseguito l'override nelle classe figlie
      */
-
-    open fun onCreated() {
-        setupBindingChains()
-        needToSetupBindingChains = false
-    }
+    open fun onCreated() {}
 
     /**
      * Metodo chiamato quando la view viene visualizzata, se necessario va eseguito l'override nelle classe figlie
      */
-
-    open fun onViewAppear() {
-        if (needToSetupBindingChains) {
-            needToSetupBindingChains = false
-            setupBindingChains()
-        }
-    }
+    open fun onViewAppear() {}
 
     /**
      * Metodo chiamato quando la view scompare, se necessario va eseguito l'override nelle classe figlie
      */
-
-    open fun onViewDisappear() {
-        disposeDisposables()
-        needToSetupBindingChains = true
-    }
+    open fun onViewDisappear() {}
 
     /**
      * Metodo chiamato alla chiamata onStart dell'activity/fragment del flusso standard, se necessario va eseguito l'override nelle classe figlie
@@ -106,31 +90,34 @@ abstract class BaseViewModel (val container: IAppContainer) : ViewModel() {
      * @param params parametri da utilizzare nella view
      */
 
-    open fun setParams(params: Any) {}
+    open fun setParams(params: Any?) {}
 
     /**
      * Ritorna la stringa localizzata
      *
      * @param resId l'id della stringa da localizzare
      */
-    fun localizedString(@StringRes resId: Int) = container.context().getString(resId)
+    fun getString(@StringRes resId: Int) = container.context().getString(resId)
 
     //endregion
 
     //region Protected, without modifier
 
     /**
-     * Esegue il dispose di tutti i disposables del view model
+     * Visualizza il popup di conferma con le opzioni passate
+     *
+     * @param title       titolo del popup
+     * @param message     messaggio del popup
+     * @param confirmText testo del pulsante di destra per confermare
+     * @param cancelText  testo del pulsante di sinistra per annullare
+     * @param listener    listener per capire la scelta dell'utente
      */
-    protected fun disposeDisposables() {
-        if (!disposables.isDisposed) {
-            disposables.dispose()
-        }
-    }
+    protected open fun showConfirmationPopup(title: String, message: String, confirmText: String, cancelText: String, listener: ConfirmationPopupListener) {}
 
     //endregion
 
     //region Private
+
     //endregion
 
 
@@ -138,6 +125,20 @@ abstract class BaseViewModel (val container: IAppContainer) : ViewModel() {
     //endregion
 
     //region Inner classes or interfaces
+
+    //endregion
+
+    //region Inner classes or interfaces
+
+    interface OnDismissListener {
+        fun onDismiss()
+    }
+
+    interface ConfirmationPopupListener {
+        fun positiveButtonClicked()
+        fun negativeButtonClicked()
+    }
+
     //endregion
 
 }

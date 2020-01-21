@@ -17,6 +17,7 @@ android {
     }
     buildTypes {
         debug {
+            debuggable true
             shrinkResources true
             minifyEnabled true
             proguardFiles fileTree('proguard').asList().toArray()

@@ -8,7 +8,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import com.tiknil.app.core.viewmodels.BaseViewModel
+import com.tiknil.app.core.viewmodels.AbstractBaseViewModel
 import com.trello.rxlifecycle3.components.support.RxFragmentActivity
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
@@ -21,7 +21,7 @@ import javax.inject.Inject
  * e implementa l'impostazione di base con i view model e il binding con i componenti della view
  */
 
-abstract class BaseActivity<T: ViewDataBinding, V: BaseViewModel> : RxFragmentActivity(), HasSupportFragmentInjector {
+abstract class BaseActivity<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFragmentActivity(), HasSupportFragmentInjector {
 
     //region Inner enums
     //endregion

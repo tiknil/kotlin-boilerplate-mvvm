@@ -1,7 +1,6 @@
 package com.tiknil.app.viewmodels
 
 import com.tiknil.app.KotlinBoilerplateApp
-import com.tiknil.app.core.viewmodels.BaseViewModel
 import com.tiknil.app.services.AppContainer
 
 class MainActivityViewModel(container: AppContainer): BaseViewModel(container) {

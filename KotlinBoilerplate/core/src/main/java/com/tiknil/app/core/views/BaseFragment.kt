@@ -9,7 +9,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.lifecycleScope
-import com.tiknil.app.core.viewmodels.BaseViewModel
+import com.tiknil.app.core.viewmodels.AbstractBaseViewModel
 import com.tiknil.app.core.utils.ThreadUtils
 import com.trello.rxlifecycle3.components.support.RxFragment
 import dagger.android.support.AndroidSupportInjection
@@ -19,7 +19,7 @@ import java.text.DateFormat
  * Fragment di base che racchiude le funzionalità comuni a tutti i fragment e predispone il link con il view model relativo
  */
 
-abstract class BaseFragment<T: ViewDataBinding, V: BaseViewModel> : RxFragment() {
+abstract class BaseFragment<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFragment() {
 
     //region Inner enums
     //endregion
@@ -44,8 +44,9 @@ abstract class BaseFragment<T: ViewDataBinding, V: BaseViewModel> : RxFragment()
     protected var isViewAppeared = false
     var params: Any? = null
         set(value) {
+            field = value
             if (::mViewModel.isInitialized) {
-                viewModel().setParams(value!!)
+                viewModel().setParams(value)
                 field = null
             }
         }
@@ -99,10 +100,7 @@ abstract class BaseFragment<T: ViewDataBinding, V: BaseViewModel> : RxFragment()
         viewModel().onStart()
         if (!isViewAppeared) {
             if (isThisFragmentTheCurrentVisible) {
-                if (::mViewModel.isInitialized && params != null) {
-                    viewModel().setParams(params!!)
-                    this.params = null
-                }
+                viewModel().setParams(params)
 
                 ThreadUtils.runOnCoroutineScope(viewLifecycleOwner.lifecycleScope) {
                     viewModel().onViewAppear()
