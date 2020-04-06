@@ -2,6 +2,8 @@ package com.tiknil.app.viewmodels
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import androidx.appcompat.app.AlertDialog
 import com.tiknil.app.KotlinBoilerplateApp
 import com.tiknil.app.core.viewmodels.AbstractBaseViewModel
@@ -81,6 +83,7 @@ open class BaseViewModel(container: AppContainer): AbstractBaseViewModel(contain
 
 
     //region Custom accessors
+
     //endregion
 
 
@@ -92,11 +95,35 @@ open class BaseViewModel(container: AppContainer): AbstractBaseViewModel(contain
     /**
      * Verifica la connessione internet
      */
+    @Suppress("DEPRECATION")
     protected fun isNetworkConnected(): Boolean {
-        val cm =
-            container.context()
-                .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
-        return cm!!.activeNetworkInfo != null && cm!!.activeNetworkInfo.isConnected
+        var result = false
+        val connectivityManager =
+            context().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val networkCapabilities = connectivityManager.activeNetwork ?: return false
+            val actNw =
+                connectivityManager.getNetworkCapabilities(networkCapabilities) ?: return false
+            result = when {
+                actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+                else -> false
+            }
+        } else {
+            connectivityManager.run {
+                connectivityManager.activeNetworkInfo?.run {
+                    result = when (type) {
+                        ConnectivityManager.TYPE_WIFI -> true
+                        ConnectivityManager.TYPE_MOBILE -> true
+                        ConnectivityManager.TYPE_ETHERNET -> true
+                        else -> false
+                    }
+
+                }
+            }
+        }
+        return result
     }
 
     //endregion
@@ -168,7 +195,7 @@ open class BaseViewModel(container: AppContainer): AbstractBaseViewModel(contain
         listener: ConfirmationPopupListener
     ) {
         val builder =
-            AlertDialog.Builder((container.context() as KotlinBoilerplateApp).appCoordinator.activityReference as Context)
+            AlertDialog.Builder((context() as KotlinBoilerplateApp).appCoordinator.activityReference as Context)
         builder.setMessage(message)
             .setTitle(title)
             .setPositiveButton(confirmText) { _, _ ->
@@ -198,7 +225,7 @@ open class BaseViewModel(container: AppContainer): AbstractBaseViewModel(contain
         listener: OnDismissListener?
     ) {
         val builder =
-            AlertDialog.Builder((container.context() as KotlinBoilerplateApp).appCoordinator.activityReference as Context)
+            AlertDialog.Builder((context() as KotlinBoilerplateApp).appCoordinator.activityReference as Context)
         builder.setMessage(message)
             .setTitle(title)
             .setPositiveButton(cancelText) { _, _ ->

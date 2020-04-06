@@ -1,4 +1,4 @@
-package com.tiknil.app.di
+package com.tiknil.app.di.modules
 
 import android.content.Context
 import com.tiknil.app.KotlinBoilerplateApp
@@ -46,12 +46,10 @@ class ServicesModule {
     fun provideAppContainer(
         context: Lazy<Context>,
         cacheService: Lazy<ICacheService>,
-        activityNavigator: Lazy<IActivityNavigator>,
         fragmentNavigator: Lazy<IFragmentNavigator>
     ): IAppContainer = AppContainer(
         context,
         cacheService,
-        activityNavigator,
         fragmentNavigator
     )
 
@@ -69,15 +67,6 @@ class ServicesModule {
     @Singleton
     fun provideCacheService(): ICacheService =
         CacheService()
-
-    /**
-     * IActivityNavigator
-     */
-    @Provides
-    fun provideActivityNavigator(): IActivityNavigator {
-        return ActivityNavigator()
-    }
-
     /**
      * IFragmentNavigator
      */

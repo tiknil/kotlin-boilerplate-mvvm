@@ -1,11 +1,14 @@
 package com.tiknil.app.core.viewmodels
 
+import android.content.Context
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import com.tiknil.app.core.services.IAppContainer
+import com.tiknil.app.core.services.ICacheService
+import com.tiknil.app.core.services.IFragmentNavigator
 import io.reactivex.disposables.CompositeDisposable
 
-abstract class AbstractBaseViewModel (val container: IAppContainer) : ViewModel() {
+abstract class AbstractBaseViewModel (private val container: IAppContainer) : ViewModel() {
 
     //region Inner enums
     //endregion
@@ -77,6 +80,29 @@ abstract class AbstractBaseViewModel (val container: IAppContainer) : ViewModel(
 
 
     //region Custom accessors
+
+    /**
+     * Imposta i servizi di demo
+     */
+    protected fun setServicesForDemo(isDemo: Boolean) {
+        container.isDemo = isDemo
+    }
+
+    /**
+     * Lo stato della modalità Demo
+     *
+     * @return true se la modalità Demo è abilitata, false altrimenti
+     */
+    protected fun isDemoMode(): Boolean {
+        return container.isDemo
+    }
+
+    fun context(): Context = container.context()
+
+    fun cacheService(): ICacheService = container.cacheService()
+
+    fun fragmentNavigator(): IFragmentNavigator = container.fragmentNavigator()
+
     //endregion
 
 

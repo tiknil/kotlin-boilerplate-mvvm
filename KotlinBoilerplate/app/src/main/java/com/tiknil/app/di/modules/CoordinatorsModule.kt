@@ -1,9 +1,7 @@
-package com.tiknil.app.di
+package com.tiknil.app.di.modules
 
-import android.content.Context
 import com.tiknil.app.coordinators.AppCoordinator
 import com.tiknil.app.coordinators.OnBoardingCoordinator
-import com.tiknil.app.core.services.IActivityNavigator
 import com.tiknil.app.core.services.ICoordinator
 import com.tiknil.app.core.services.IFragmentNavigator
 import dagger.Lazy

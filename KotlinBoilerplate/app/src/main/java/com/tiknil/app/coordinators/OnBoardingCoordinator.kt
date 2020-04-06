@@ -1,11 +1,8 @@
 package com.tiknil.app.coordinators
 
-import com.tiknil.app.R
-import com.tiknil.app.core.services.IActivityNavigator
 import com.tiknil.app.core.services.IActivityReference
 import com.tiknil.app.core.services.ICoordinator
 import com.tiknil.app.core.services.IFragmentNavigator
-import com.tiknil.app.views.activities.MainActivity
 import javax.inject.Inject
 
 class OnBoardingCoordinator @Inject constructor(
@@ -58,6 +55,10 @@ class OnBoardingCoordinator @Inject constructor(
             //    ...
             //)
         }
+    }
+
+    override fun back() {
+        TODO("Not yet implemented")
     }
 
     //endregion

@@ -3,10 +3,12 @@ package com.tiknil.app
 import android.app.Activity
 import android.app.Application
 import com.tiknil.app.coordinators.AppCoordinator
-import com.tiknil.app.di.DaggerAppComponent
+import com.tiknil.app.di.components.DaggerAppComponent
+import com.tiknil.app.di.modules.ServicesModule
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
+import timber.log.Timber
 import javax.inject.Inject
 
 class KotlinBoilerplateApp : Application(), HasActivityInjector {
@@ -45,10 +47,11 @@ class KotlinBoilerplateApp : Application(), HasActivityInjector {
         super.onCreate()
         app = this
 
-        DaggerAppComponent.builder()
-            .applicationBind(this)
-            .build()
-            .inject(this)
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+
+        performInjection()
     }
 
     //endregion
@@ -65,6 +68,17 @@ class KotlinBoilerplateApp : Application(), HasActivityInjector {
     //endregion
 
     //region Private
+
+    /**
+     * Esegue l'injection di tutta l'app
+     */
+    private fun performInjection() {
+        DaggerAppComponent.builder()
+            .servicesModule(ServicesModule())
+            .build()
+            .inject(this)
+    }
+
     //endregion
 
 

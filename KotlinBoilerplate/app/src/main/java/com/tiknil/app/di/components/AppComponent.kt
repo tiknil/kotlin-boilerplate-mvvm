@@ -1,7 +1,10 @@
-package com.tiknil.app.di
+package com.tiknil.app.di.components
 
 import com.tiknil.app.KotlinBoilerplateApp
-import dagger.BindsInstance
+import com.tiknil.app.di.modules.CoordinatorsModule
+import com.tiknil.app.di.modules.ServicesModule
+import com.tiknil.app.di.modules.UiModule
+import com.tiknil.app.di.modules.ViewsModule
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import javax.inject.Singleton
@@ -11,7 +14,7 @@ import javax.inject.Singleton
  */
 
 @Singleton
-@Component(modules = [ServicesModule::class, AndroidInjectionModule::class, UiModule::class, ViewsModule::class])
+@Component(modules = [ServicesModule::class, CoordinatorsModule::class, AndroidInjectionModule::class, UiModule::class, ViewsModule::class])
 interface AppComponent {
 
     //region Inner enums
@@ -41,16 +44,6 @@ interface AppComponent {
     //region Public
 
     fun inject(app: KotlinBoilerplateApp)
-
-    @Component.Builder
-    interface Builder {
-
-        fun build(): AppComponent
-
-        @BindsInstance
-        fun applicationBind(application: KotlinBoilerplateApp): Builder
-
-    }
 
     //endregion
 

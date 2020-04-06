@@ -4,11 +4,11 @@ import android.content.Context
 
 interface IAppContainer {
 
+    var isDemo: Boolean
+
     fun context(): Context
 
     fun cacheService(): ICacheService
-
-    fun activityNavigator(): IActivityNavigator
 
     fun  fragmentNavigator(): IFragmentNavigator
 }

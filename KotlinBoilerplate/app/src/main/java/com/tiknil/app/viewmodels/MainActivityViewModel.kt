@@ -27,7 +27,7 @@ class MainActivityViewModel(container: AppContainer): BaseViewModel(container) {
     override fun onCreated() {
         super.onCreated()
 
-        (container.context() as KotlinBoilerplateApp).appCoordinator.start()
+        (context() as KotlinBoilerplateApp).appCoordinator.start()
     }
     //endregion
 
