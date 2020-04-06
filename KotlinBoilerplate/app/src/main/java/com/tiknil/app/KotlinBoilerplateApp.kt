@@ -3,6 +3,7 @@ package com.tiknil.app
 import android.app.Activity
 import android.app.Application
 import com.tiknil.app.coordinators.AppCoordinator
+import com.tiknil.app.core.utils.TkLog
 import com.tiknil.app.di.components.DaggerAppComponent
 import com.tiknil.app.di.modules.ServicesModule
 import dagger.android.AndroidInjector
