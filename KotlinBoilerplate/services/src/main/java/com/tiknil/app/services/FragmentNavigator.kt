@@ -1,6 +1,5 @@
 package com.tiknil.app.services
 
-import android.content.Context
 import android.os.Build
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -16,9 +15,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class FragmentNavigator @Inject constructor(
-    private val context: Context
-) : IFragmentNavigator {
+class FragmentNavigator @Inject constructor() : IFragmentNavigator {
 
     //region Inner enums
     //endregion
@@ -216,13 +213,10 @@ class FragmentNavigator @Inject constructor(
             // Esecuzione della visualizzazione del fragment all'interno dello UIThread
             ThreadUtils.runOnCoroutineScope(currentActivity.lifecycleScope) {
                 try {
-                    if (replace and (fm.backStackEntryCount == 0)) {
+                    if (replace) {
                         fragmentTransaction
                             .replace(layoutId, fragment, fragment.javaClass.simpleName)
                     } else {
-                        if (replace) {
-                            fm.popBackStack()
-                        }
                         fragmentTransaction
                             .add(layoutId, fragment)
                             .addToBackStack(fragment.javaClass.simpleName)

@@ -1,8 +1,16 @@
 package com.tiknil.app.viewmodels
 
+import android.content.Context
+import android.net.ConnectivityManager
+import androidx.appcompat.app.AlertDialog
+import com.tiknil.app.KotlinBoilerplateApp
 import com.tiknil.app.core.viewmodels.AbstractBaseViewModel
 import com.tiknil.app.services.AppContainer
 import io.reactivex.disposables.CompositeDisposable
+
+// Delegate che definisce dei metodi comuni a tutti i FlowDelegate
+interface BaseFlowDelegate {
+}
 
 open class BaseViewModel(container: AppContainer): AbstractBaseViewModel(container) {
 
@@ -40,6 +48,7 @@ open class BaseViewModel(container: AppContainer): AbstractBaseViewModel(contain
     override fun onViewAppear() {
         if (needToSetupBindingChains) {
             needToSetupBindingChains = false
+            disposables = CompositeDisposable()
             setupBindingChains()
         }
     }
@@ -50,6 +59,22 @@ open class BaseViewModel(container: AppContainer): AbstractBaseViewModel(contain
     override fun onViewDisappear() {
         disposeDisposables()
         needToSetupBindingChains = true
+    }
+
+    /**
+     * Metodo chiamato quando la view viene tolta dallo stack, se necessario va eseguito l'override nelle classe figlie
+     */
+    override fun onStop() {
+        disposeDisposables()
+        needToSetupBindingChains = true
+    }
+
+    /**
+     * Metodo chiamato quando la view viene distrutta
+     */
+    override fun onDestroy() {
+        super.onDestroy()
+        disposeLifecycledisposables()
     }
 
     //endregion
@@ -64,43 +89,14 @@ open class BaseViewModel(container: AppContainer): AbstractBaseViewModel(contain
 
     //region Protected, without modifier
 
-    /*protected void showConfirmationPopup(String title, String message, String confirmText, String cancelText, ConfirmationPopupListener listener) {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivityReference(), R.style.AirSelfieAlertDialogStyle);
-        builder.setMessage(message)
-            .setTitle(title)
-            .setPositiveButton(confirmText, (dialogInterface, i) -> {
-            if (listener != null) {
-                listener.positiveButtonClicked();
-            }
-        })
-        .setNegativeButton(cancelText, (dialogInterface, i) -> {
-            if (listener != null) {
-                listener.negativeButtonClicked();
-            }
-        });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
-        // TODO: impostare la dimensione nello style.xml
-        TextView textView = dialog.findViewById(android.R.id.message);
-        textView.setTextSize(14);
-        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextSize(14);
-        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextSize(14);
-
-    }*/
-
-    override fun showConfirmationPopup(
-        title: String,
-        message: String,
-        confirmText: String,
-        cancelText: String,
-        listener: ConfirmationPopupListener
-    ) {
-
-
-
+    /**
+     * Verifica la connessione internet
+     */
+    protected fun isNetworkConnected(): Boolean {
+        val cm =
+            container.context()
+                .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        return cm!!.activeNetworkInfo != null && cm!!.activeNetworkInfo.isConnected
     }
 
     //endregion
@@ -108,11 +104,45 @@ open class BaseViewModel(container: AppContainer): AbstractBaseViewModel(contain
     //region Private
 
     /**
+     * Customizzazione del dialog
+     */
+    private fun customizeDialogUI(dialog: AlertDialog) {
+        // TODO: Customizzazione del popup se necessario
+        /*val fontSize =
+            container.context().resources.getDimension(R.dimen.font_size_16) / container.context().resources.displayMetrics.scaledDensity
+
+        // Messaggio
+        val textView =
+            dialog.findViewById<androidx.appcompat.widget.AppCompatTextView>(android.R.id.message)
+        textView?.apply {
+            typeface = ResourcesCompat.getFont(context, R.font.avenir_roman)
+            textSize = fontSize
+        }
+
+        // Pulsanti
+        val medium = ResourcesCompat.getFont(container.context(), R.font.avenir_medium)
+        val mediumBold = Typeface.create(medium, Typeface.BOLD)
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE).typeface = mediumBold
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE).textSize = fontSize
+        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).typeface = medium
+        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).textSize = fontSize*/
+    }
+
+    /**
      * Esegue il dispose di tutti i disposables del view model
      */
     private fun disposeDisposables() {
         if (!disposables.isDisposed) {
-            disposables.dispose()
+            disposables.clear()
+        }
+    }
+
+    /**
+     * Esegue il dispose dei lifecycleDisposables del view model
+     */
+    private fun disposeLifecycledisposables() {
+        if (!lifecycleDisposables.isDisposed) {
+            lifecycleDisposables.clear()
         }
     }
 
@@ -120,6 +150,66 @@ open class BaseViewModel(container: AppContainer): AbstractBaseViewModel(contain
 
 
     //region Override methods and callbacks
+
+    /**
+     * Visualizza un popup con due pulsanti
+     *
+     * @param title: il titolo del popup
+     * @param message: il messaggio del popup
+     * @param confirmText: il testo del pulsante di conferma
+     * @param cancelText: il testo del pulsante di cancellazione
+     * @param listener: il listener dei pulsanti
+     */
+    override fun showConfirmationPopup(
+        title: String,
+        message: String,
+        confirmText: String,
+        cancelText: String,
+        listener: ConfirmationPopupListener
+    ) {
+        val builder =
+            AlertDialog.Builder((container.context() as KotlinBoilerplateApp).appCoordinator.activityReference as Context)
+        builder.setMessage(message)
+            .setTitle(title)
+            .setPositiveButton(confirmText) { _, _ ->
+                listener.positiveButtonClicked()
+            }
+            .setNegativeButton(cancelText) { _, _ ->
+                listener.negativeButtonClicked()
+            }
+
+        val dialog = builder.create()
+        dialog.show()
+        customizeDialogUI(dialog)
+    }
+
+    /**
+     * Visualizza un popup con un pulsanti
+     *
+     * @param title: il titolo del popup
+     * @param message: il messaggio del popup
+     * @param cancelText: il testo del pulsante di cancellazione
+     * @param listener: il listener del pulsante
+     */
+    override fun showCancelPopup(
+        title: String,
+        message: String,
+        cancelText: String,
+        listener: OnDismissListener?
+    ) {
+        val builder =
+            AlertDialog.Builder((container.context() as KotlinBoilerplateApp).appCoordinator.activityReference as Context)
+        builder.setMessage(message)
+            .setTitle(title)
+            .setPositiveButton(cancelText) { _, _ ->
+                listener?.onDismiss()
+            }
+
+        val dialog = builder.create()
+        dialog.show()
+        customizeDialogUI(dialog)
+    }
+
     //endregion
 
     //region Inner classes or interfaces

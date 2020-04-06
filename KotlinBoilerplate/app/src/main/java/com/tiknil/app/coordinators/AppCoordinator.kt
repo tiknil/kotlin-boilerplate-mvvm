@@ -1,7 +1,6 @@
 package com.tiknil.app.coordinators
 
 import com.tiknil.app.core.services.IActivityReference
-import com.tiknil.app.core.services.ICoordinator
 import com.tiknil.app.core.views.BaseActivity
 import dagger.Lazy
 import java.lang.ref.WeakReference
@@ -9,7 +8,7 @@ import javax.inject.Inject
 
 class AppCoordinator @Inject constructor(
     private val onBoardingCoordinatorLazy: Lazy<OnBoardingCoordinator>
-) : ICoordinator, IActivityReference {
+) : AbstractBaseCoordinator(), BaseCoordinatorDelegate, IActivityReference {
 
     //region Inner enums
     //endregion
@@ -22,6 +21,8 @@ class AppCoordinator @Inject constructor(
     //region Instance Fields
 
     private var activityWeakReference: WeakReference<BaseActivity<*, *>?> = WeakReference(null)
+
+    var currentCoordinator: WeakReference<AbstractBaseCoordinator?> = WeakReference(null)
 
     //endregion
 
@@ -50,12 +51,27 @@ class AppCoordinator @Inject constructor(
 
     //region Override methods and callbacks
 
+    // AbstractBaseCoordinator
+
     override fun start() {
         val onBoardingCoordinator = onBoardingCoordinatorLazy.get()
         onBoardingCoordinator.activityReferenceDelegate = this
         onBoardingCoordinator.start()
     }
 
+    override fun back() {
+        super.back()
+    }
+
+    // BaseCoordinatorDelegate
+    /**
+     * Implemetazione del delegate per il set del coordinator corrente
+     */
+    override fun setCurrentCoordinator(coordinator: AbstractBaseCoordinator) {
+        currentCoordinator = WeakReference(coordinator)
+    }
+
+    // IActivityReference
     /**
      * Implemetazione del delegate per il recupero del riferimento all'activity
      */
@@ -64,6 +80,7 @@ class AppCoordinator @Inject constructor(
         set(value) {
             activityWeakReference = WeakReference(value)
         }
+
 
     //endregion
 

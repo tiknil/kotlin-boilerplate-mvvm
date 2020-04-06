@@ -39,6 +39,8 @@ abstract class BaseActivity<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
     private lateinit var mViewDataBinding: T
     private lateinit var mViewModel: V
 
+    private var needToSetupBinding = true
+
     //endregion
 
 
@@ -61,23 +63,18 @@ abstract class BaseActivity<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
         super.onDestroy()
     }
 
-    override fun onResume() {
-        viewModel().onViewAppear()
-        super.onResume()
-    }
-
-    override fun onPause() {
-        viewModel().onViewDisappear()
-        super.onPause()
-    }
-
     override fun onStart() {
         super.onStart()
+        if(needToSetupBinding) {
+            needToSetupBinding = false
+            setupBindings()
+        }
         viewModel().onStart()
     }
 
     override fun onStop() {
         super.onStop()
+        needToSetupBinding = true
         viewModel().onStop()
     }
 
@@ -159,6 +156,7 @@ abstract class BaseActivity<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
         mViewDataBinding.setVariable(bindingVariable(), mViewModel)
         mViewDataBinding.executePendingBindings()
         setupBindings()
+        needToSetupBinding = false
     }
 
     //endregion

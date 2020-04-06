@@ -82,8 +82,8 @@ class ServicesModule {
      * IFragmentNavigator
      */
     @Provides
-    fun provideFragmentNavigator(context: Context): IFragmentNavigator {
-        return FragmentNavigator(context)
+    fun provideFragmentNavigator(): IFragmentNavigator {
+        return FragmentNavigator()
     }
 
     /**

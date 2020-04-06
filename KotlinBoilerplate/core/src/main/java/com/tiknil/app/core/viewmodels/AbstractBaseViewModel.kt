@@ -19,7 +19,15 @@ abstract class AbstractBaseViewModel (val container: IAppContainer) : ViewModel(
 
     var needToSetupBindingChains = true
 
+    /**
+     * CompositeDisposable associati alla visualizzazione della view
+     */
     protected var disposables = CompositeDisposable()
+
+    /**
+     * CompositeDisposable associati alla vita della view
+     */
+    protected var lifecycleDisposables = CompositeDisposable()
 
     var flowDelegate: Any? = null
 
@@ -75,11 +83,6 @@ abstract class AbstractBaseViewModel (val container: IAppContainer) : ViewModel(
     //region Public
 
     /**
-     * Imposta i dati iniziali della view, se necessario va eseguito l'override nelle classe figlie
-     */
-    open fun initData() {}
-
-    /**
      * Imposta il binding delle variabili RxKotlin, se necessario va eseguito l'override nelle classe figlie
      */
     open fun setupBindingChains() {}
@@ -113,6 +116,17 @@ abstract class AbstractBaseViewModel (val container: IAppContainer) : ViewModel(
      * @param listener    listener per capire la scelta dell'utente
      */
     protected open fun showConfirmationPopup(title: String, message: String, confirmText: String, cancelText: String, listener: ConfirmationPopupListener) {}
+
+    /**
+     * Visualizza il popup con la sola opzione di cancel
+     *
+     * @param title       titolo del popup
+     * @param message     messaggio del popup
+     * @param cancelText  testo del pulsante di sinistra per annullare
+     * @param listener    listener per capire la scelta dell'utente
+     */
+    protected open fun showCancelPopup(title: String, message: String, cancelText: String, listener: OnDismissListener? = null) {}
+
 
     //endregion
 

@@ -50,8 +50,18 @@ abstract class BaseFragment<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
                 field = null
             }
         }
+
+    var flowDelegate: Any? = null
+        set(value) {
+            field = value
+            if (::mViewModel.isInitialized) {
+                viewModel().flowDelegate = value
+            }
+        }
+
     protected var keyboardModeResizingView = false
     protected var defaultTimeFormat: DateFormat? = null
+    private var needToSetupBinding = true
 
     //endregion
 
@@ -75,6 +85,7 @@ abstract class BaseFragment<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
         super.onCreateView(inflater, container, savedInstanceState)
 
         mViewDataBinding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
+        mViewDataBinding.lifecycleOwner = this
         mRootView = mViewDataBinding.root
 
         return mRootView
@@ -91,7 +102,7 @@ abstract class BaseFragment<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
         setupUI()
         setupBinding()
 
-        viewModel().initData()
+        needToSetupBinding = false
     }
 
     override fun onStart() {
@@ -100,12 +111,11 @@ abstract class BaseFragment<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
         viewModel().onStart()
         if (!isViewAppeared) {
             if (isThisFragmentTheCurrentVisible) {
+                viewModel().flowDelegate = flowDelegate
                 viewModel().setParams(params)
-
                 ThreadUtils.runOnCoroutineScope(viewLifecycleOwner.lifecycleScope) {
                     viewModel().onViewAppear()
                 }
-
                 isViewAppeared = true
             }
         }
@@ -113,7 +123,14 @@ abstract class BaseFragment<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
 
     override fun onStop() {
         super.onStop()
+        isViewAppeared = false
+        needToSetupBinding = true
         viewModel().onStop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel().onDestroy()
     }
 
     /**
@@ -125,7 +142,15 @@ abstract class BaseFragment<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
                 initKeyboardModeResizingView()
             }
             hideKeyboard()
-            viewModel().onViewAppear()
+            if(needToSetupBinding) {
+                needToSetupBinding = false
+                setupBinding()
+            }
+
+            if(!isViewAppeared) {
+                viewModel().onViewAppear()
+            }
+
             isViewAppeared = true
         }
     }
@@ -138,7 +163,7 @@ abstract class BaseFragment<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
             isViewAppeared = false
             resetKeyboardToStandardMode()
             hideKeyboard()
-            if(::mViewModel.isInitialized) {
+            if (::mViewModel.isInitialized) {
                 viewModel().onViewDisappear()
             }
         }
