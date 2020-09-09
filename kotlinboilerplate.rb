@@ -150,7 +150,7 @@ if $confirm == "Y"
 			folder = src_folder + $subfolder + "/java"
 
 			[0, 1, 2].each do |index|
-				if boilerplate_package_name_parts_array[index] != package_name_parts_array[index]
+				if File.directory?(folder + "/" + boilerplate_package_name_parts_array[index]) && boilerplate_package_name_parts_array[index] != package_name_parts_array[index]
 					FileUtils.mv folder + "/" + boilerplate_package_name_parts_array[index], folder + "/" + package_name_parts_array[index]
 				end
 				folder = folder + "/" + package_name_parts_array[index]
