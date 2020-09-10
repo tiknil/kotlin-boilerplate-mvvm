@@ -40,7 +40,6 @@ dependencies {
 
     // Moduli
     implementation project(':services')
-    implementation project(':models')
     implementation project(':core')
 
     // Dagger 2

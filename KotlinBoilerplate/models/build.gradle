@@ -5,7 +5,6 @@ android {
     compileSdkVersion version_sdk_compile
     buildToolsVersion version_build_tool
 
-
     defaultConfig {
         minSdkVersion version_sdk_min
         targetSdkVersion version_sdk_target
@@ -29,14 +28,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.appcompat:appcompat:$version_lib_android_x"
     implementation "androidx.core:core-ktx:$version_lib_android_x"
 
     testImplementation 'junit:junit:4.12'

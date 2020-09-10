@@ -39,12 +39,14 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    // Moduli
+    api project(':models')
+
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    api "androidx.appcompat:appcompat:$version_lib_android_x"
+    api "androidx.appcompat:appcompat:$version_lib_android_x_appcompat"
     api "androidx.core:core-ktx:$version_lib_android_x"
-    api 'androidx.constraintlayout:constraintlayout:1.1.3'
-    api 'com.google.android.material:material:1.0.0'
-    api "androidx.appcompat:appcompat:$version_lib_android_x"
+    api "androidx.constraintlayout:constraintlayout:$version_lib_constraintlayout"
+    api "com.google.android.material:material:$version_lib_googlematerial"
 
     //Android databinding
     kapt 'com.android.databinding:compiler:3.1.4'
@@ -61,7 +63,7 @@ dependencies {
 
     // ViewModel and LiveData
     api "androidx.lifecycle:lifecycle-extensions:$version_lib_lifecycle"
-    api "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0-rc03"
+    api "androidx.lifecycle:lifecycle-runtime-ktx:$version_lib_lifecycle"
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:$version_lib_lifecycle"
 
     // Libreria per bindare gli observable in base al lifecycle di Activity e Fragment
@@ -72,9 +74,9 @@ dependencies {
     api "com.jakewharton.rxbinding3:rxbinding-core:$version_lib_rxbinding"
 
     // Coroutines
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:1.3.3"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_lib_kotlinx_coroutines"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_lib_kotlinx_coroutines"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:$version_lib_kotlinx_coroutines"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
