@@ -2,7 +2,6 @@ package com.tiknil.app.di.modules
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.tiknil.app.di.ViewModelKey
 import com.tiknil.app.viewmodels.MainActivityViewModel
 import com.tiknil.app.views.activities.MainActivity
@@ -32,7 +31,7 @@ class ViewModelsModule {
         fun provideMainActivityViewModel(
             factory: ViewModelProvider.Factory,
             target: MainActivity
-        ) = ViewModelProviders.of(target, factory).get(MainActivityViewModel::class.java)
+        ) = ViewModelProvider(target, factory).get(MainActivityViewModel::class.java)
 
     }
 }
