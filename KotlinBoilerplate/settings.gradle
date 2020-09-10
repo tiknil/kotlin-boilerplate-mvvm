@@ -1,2 +1,2 @@
-include ':app', ':core', ':models', ':services'
+include ':app', ':core', ':models', ':services', ':navigation'
 rootProject.name='KotlinBoilerplate'
