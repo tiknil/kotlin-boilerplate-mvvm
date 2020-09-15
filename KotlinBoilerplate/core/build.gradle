@@ -60,6 +60,7 @@ dependencies {
     // RxKotlin
     api "io.reactivex.rxjava2:rxandroid:$version_lib_rxandroid"
     api "io.reactivex.rxjava2:rxkotlin:$version_lib_rxkotlin"
+    api "com.jakewharton.rxrelay2:rxrelay:$version_lib_rxrelay"
 
     // ViewModel and LiveData
     api "androidx.lifecycle:lifecycle-extensions:$version_lib_lifecycle"

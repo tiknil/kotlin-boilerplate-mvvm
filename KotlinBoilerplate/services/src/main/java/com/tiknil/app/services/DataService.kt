@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class DataService @Inject constructor (
     private val cacheService: ICacheService
-    ) : IDataService {
+) : IDataService {
 
     //region Inner enums
     //endregion

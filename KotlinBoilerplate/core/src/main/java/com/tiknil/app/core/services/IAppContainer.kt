@@ -8,5 +8,5 @@ interface IAppContainer {
 
     fun context(): Context
 
-    fun cacheService(): ICacheService
+    fun dataService(): IDataService
 }

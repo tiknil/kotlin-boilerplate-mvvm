@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import com.tiknil.app.core.services.IAppContainer
 import com.tiknil.app.core.services.ICacheService
+import com.tiknil.app.core.services.IDataService
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
@@ -99,7 +100,7 @@ abstract class AbstractBaseViewModel @Inject constructor (private val container:
 
     fun context(): Context = container.context()
 
-    fun cacheService(): ICacheService = container.cacheService()
+    fun dataService(): IDataService = container.dataService()
 
     //endregion
 

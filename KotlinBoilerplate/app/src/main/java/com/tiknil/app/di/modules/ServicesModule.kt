@@ -44,11 +44,11 @@ class ServicesModule {
 
     @Provides
     fun provideAppContainer(
-        context: Lazy<Context>,
-        cacheService: Lazy<ICacheService>
+        contextLazy: Lazy<Context>,
+        dataServiceLazy: Lazy<IDataService>
     ): IAppContainer = AppContainer(
-        context,
-        cacheService
+        contextLazy,
+        dataServiceLazy
     )
 
     /**
