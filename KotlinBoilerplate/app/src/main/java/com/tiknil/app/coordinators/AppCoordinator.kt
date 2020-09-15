@@ -24,11 +24,11 @@ class AppCoordinator @Inject constructor() : AbstractBaseCoordinator(), BaseCoor
 
     private var activityWeakReference: WeakReference<BaseActivity<*, *>?> = WeakReference(null)
 
-    var currentCoordinator: WeakReference<AbstractBaseCoordinator?> = WeakReference(null)
+    private var currentCoordinator: WeakReference<AbstractBaseCoordinator?> = WeakReference(null)
 
     private lateinit var mainNavigator: StackNavigator
 
-    internal val mainCoordinator by lazy {
+    private val mainCoordinator by lazy {
         MainCoordinator(mainNavigator)
     }
 
