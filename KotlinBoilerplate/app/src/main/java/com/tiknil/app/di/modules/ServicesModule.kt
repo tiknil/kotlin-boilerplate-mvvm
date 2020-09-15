@@ -45,12 +45,10 @@ class ServicesModule {
     @Provides
     fun provideAppContainer(
         context: Lazy<Context>,
-        cacheService: Lazy<ICacheService>,
-        fragmentNavigator: Lazy<IFragmentNavigator>
+        cacheService: Lazy<ICacheService>
     ): IAppContainer = AppContainer(
         context,
-        cacheService,
-        fragmentNavigator
+        cacheService
     )
 
     /**
@@ -67,13 +65,6 @@ class ServicesModule {
     @Singleton
     fun provideCacheService(): ICacheService =
         CacheService()
-    /**
-     * IFragmentNavigator
-     */
-    @Provides
-    fun provideFragmentNavigator(): IFragmentNavigator {
-        return FragmentNavigator()
-    }
 
     /**
      * IDataService

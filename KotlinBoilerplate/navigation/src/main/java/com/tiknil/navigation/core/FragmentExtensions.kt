@@ -1,4 +1,4 @@
-package com.tiknil.navigation
+package com.tiknil.navigation.core
 
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback

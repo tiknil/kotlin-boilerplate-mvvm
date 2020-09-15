@@ -1,4 +1,4 @@
-package com.tiknil.core
+package com.tiknil.navigation.core
 
 import android.os.Bundle
 import androidx.core.os.bundleOf

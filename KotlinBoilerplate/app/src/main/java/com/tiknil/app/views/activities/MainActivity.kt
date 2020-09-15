@@ -6,7 +6,7 @@ import com.tiknil.app.KotlinBoilerplateApp
 import com.tiknil.app.R
 import com.tiknil.app.core.views.BaseActivity
 import com.tiknil.app.databinding.ActivityMainBinding
-import com.tiknil.app.viewmodels.MainActivityViewModel
+import com.tiknil.app.viewmodels.activities.MainActivityViewModel
 import javax.inject.Inject
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() {
@@ -33,6 +33,14 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
 
 
     //region Constructors / Lifecycle
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        (application as KotlinBoilerplateApp).appCoordinator.activityReference = this
+
+        super.onCreate(savedInstanceState)
+
+    }
     //endregion
 
 
@@ -47,6 +55,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
     //endregion
 
     //region Private
+
     //endregion
 
 

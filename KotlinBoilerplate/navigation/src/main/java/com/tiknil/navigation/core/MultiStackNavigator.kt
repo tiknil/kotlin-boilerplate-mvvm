@@ -1,4 +1,4 @@
-package com.tiknil.navigation
+package com.tiknil.navigation.core
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,14 +15,13 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.commitNow
 import androidx.lifecycle.Lifecycle
 import com.tiknil.app.core.views.BaseFragment
-import com.tiknil.core.args
-import com.tiknil.savestate.LifecycleSavedStateContainer
-import com.tiknil.savestate.savedStateFor
+import com.tiknil.navigation.savestate.LifecycleSavedStateContainer
+import com.tiknil.navigation.savestate.savedStateFor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.util.*
 
-const val MULTI_STACK_NAVIGATOR = "com.tiknil.navigation.MultiStackNavigator"
+const val MULTI_STACK_NAVIGATOR = "com.tiknil.tmp.navigation.MultiStackNavigator"
 
 fun Fragment.childMultiStackNavigationController(
         stackCount: Int,

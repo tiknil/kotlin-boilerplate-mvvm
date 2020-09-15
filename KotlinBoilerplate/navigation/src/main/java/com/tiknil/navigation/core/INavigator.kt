@@ -1,4 +1,4 @@
-package com.tiknil.navigation
+package com.tiknil.navigation.core
 
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment

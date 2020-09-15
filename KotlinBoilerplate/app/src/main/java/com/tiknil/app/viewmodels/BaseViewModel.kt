@@ -6,6 +6,7 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.appcompat.app.AlertDialog
 import com.tiknil.app.KotlinBoilerplateApp
+import com.tiknil.app.core.services.IAppContainer
 import com.tiknil.app.core.viewmodels.AbstractBaseViewModel
 import com.tiknil.app.services.AppContainer
 import io.reactivex.disposables.CompositeDisposable
@@ -14,7 +15,7 @@ import io.reactivex.disposables.CompositeDisposable
 interface BaseFlowDelegate {
 }
 
-open class BaseViewModel(container: AppContainer): AbstractBaseViewModel(container) {
+open class BaseViewModel(container: IAppContainer): AbstractBaseViewModel(container) {
 
     //region Inner enums
     //endregion

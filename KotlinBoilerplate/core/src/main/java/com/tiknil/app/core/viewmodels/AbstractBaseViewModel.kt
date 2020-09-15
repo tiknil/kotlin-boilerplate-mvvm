@@ -5,10 +5,10 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import com.tiknil.app.core.services.IAppContainer
 import com.tiknil.app.core.services.ICacheService
-import com.tiknil.app.core.services.IFragmentNavigator
 import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
-abstract class AbstractBaseViewModel (private val container: IAppContainer) : ViewModel() {
+abstract class AbstractBaseViewModel @Inject constructor (private val container: IAppContainer) : ViewModel() {
 
     //region Inner enums
     //endregion
@@ -100,8 +100,6 @@ abstract class AbstractBaseViewModel (private val container: IAppContainer) : Vi
     fun context(): Context = container.context()
 
     fun cacheService(): ICacheService = container.cacheService()
-
-    fun fragmentNavigator(): IFragmentNavigator = container.fragmentNavigator()
 
     //endregion
 

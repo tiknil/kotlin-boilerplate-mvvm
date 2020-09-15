@@ -1,12 +1,11 @@
 package com.tiknil.app.coordinators
 
-import com.tiknil.app.core.services.IActivityReference
 import com.tiknil.app.core.services.ICoordinator
-import com.tiknil.app.core.services.IFragmentNavigator
-import javax.inject.Inject
+import com.tiknil.app.views.fragments.MainFragment
+import com.tiknil.navigation.core.INavigator
 
-class OnBoardingCoordinator @Inject constructor(
-    private val fragmentNavigator: IFragmentNavigator
+class MainCoordinator constructor(
+    private var navigator: INavigator
 ) : ICoordinator {
 
     //region Inner enums
@@ -18,8 +17,6 @@ class OnBoardingCoordinator @Inject constructor(
 
 
     //region Instance Fields
-
-    lateinit var activityReferenceDelegate: IActivityReference
 
     //endregion
 
@@ -50,11 +47,8 @@ class OnBoardingCoordinator @Inject constructor(
     //region Override methods and callbacks
 
     override fun start() {
-        if (activityReferenceDelegate.activityReference != null) {
-            //fragmentNavigator.showFragment(
-            //    ...
-            //)
-        }
+        val mainFragment = MainFragment()
+        navigator.push(mainFragment)
     }
 
     override fun back() {

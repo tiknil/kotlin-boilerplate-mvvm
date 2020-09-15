@@ -1,10 +1,11 @@
-package com.tiknil.app.viewmodels
+package com.tiknil.app.viewmodels.activities
 
 import com.tiknil.app.KotlinBoilerplateApp
-import com.tiknil.app.core.utils.TkLog
+import com.tiknil.app.core.services.IAppContainer
 import com.tiknil.app.services.AppContainer
+import com.tiknil.app.viewmodels.BaseViewModel
 
-class MainActivityViewModel(container: AppContainer): BaseViewModel(container) {
+class MainActivityViewModel(container: IAppContainer): BaseViewModel(container) {
 
     //region Inner enums
     //endregion
@@ -27,9 +28,9 @@ class MainActivityViewModel(container: AppContainer): BaseViewModel(container) {
 
     override fun onCreated() {
         super.onCreated()
-
         (context() as KotlinBoilerplateApp).appCoordinator.start()
     }
+
     //endregion
 
 

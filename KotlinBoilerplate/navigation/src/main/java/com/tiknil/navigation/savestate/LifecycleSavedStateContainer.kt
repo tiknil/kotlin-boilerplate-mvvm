@@ -1,4 +1,4 @@
-package com.tiknil.savestate
+package com.tiknil.navigation.savestate
 
 import android.os.Bundle
 import androidx.lifecycle.Lifecycle

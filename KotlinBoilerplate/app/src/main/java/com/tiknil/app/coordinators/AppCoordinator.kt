@@ -1,14 +1,16 @@
 package com.tiknil.app.coordinators
 
+import com.tiknil.app.R
 import com.tiknil.app.core.services.IActivityReference
 import com.tiknil.app.core.views.BaseActivity
-import dagger.Lazy
+import com.tiknil.navigation.core.StackNavigator
+import com.tiknil.navigation.core.stackNavigationController
+import com.tiknil.navigation.extensions.crossFade
+import com.tiknil.navigation.extensions.slideRightToLeft
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 
-class AppCoordinator @Inject constructor(
-    private val onBoardingCoordinatorLazy: Lazy<OnBoardingCoordinator>
-) : AbstractBaseCoordinator(), BaseCoordinatorDelegate, IActivityReference {
+class AppCoordinator @Inject constructor() : AbstractBaseCoordinator(), BaseCoordinatorDelegate, IActivityReference {
 
     //region Inner enums
     //endregion
@@ -24,6 +26,12 @@ class AppCoordinator @Inject constructor(
 
     var currentCoordinator: WeakReference<AbstractBaseCoordinator?> = WeakReference(null)
 
+    private lateinit var mainNavigator: StackNavigator
+
+    internal val mainCoordinator by lazy {
+        MainCoordinator(mainNavigator)
+    }
+
     //endregion
 
 
@@ -32,6 +40,11 @@ class AppCoordinator @Inject constructor(
 
 
     //region Constructors / Lifecycle
+
+    init {
+        activityReferenceDelegate = this
+    }
+
     //endregion
 
 
@@ -54,9 +67,16 @@ class AppCoordinator @Inject constructor(
     // AbstractBaseCoordinator
 
     override fun start() {
-        val onBoardingCoordinator = onBoardingCoordinatorLazy.get()
-        onBoardingCoordinator.activityReferenceDelegate = this
-        onBoardingCoordinator.start()
+        activityReference?.let { activity ->
+            // Inizializzazione del mainNavigator
+            mainNavigator = activity.stackNavigationController(
+                R.id.mainFragmentLayout
+            ).value.apply {
+                transactionModifier = { crossFade() }
+            }
+
+            mainCoordinator.start()
+        }
     }
 
     override fun back() {

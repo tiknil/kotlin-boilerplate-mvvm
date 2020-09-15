@@ -9,6 +9,4 @@ interface IAppContainer {
     fun context(): Context
 
     fun cacheService(): ICacheService
-
-    fun  fragmentNavigator(): IFragmentNavigator
 }

@@ -1,15 +1,9 @@
-package com.tiknil.app.di.modules
+package com.tiknil.app.viewmodels.fragment
 
-import com.tiknil.app.coordinators.AppCoordinator
-import com.tiknil.app.coordinators.MainCoordinator
-import com.tiknil.app.core.services.ICoordinator
-import dagger.Lazy
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
+import com.tiknil.app.core.services.IAppContainer
+import com.tiknil.app.viewmodels.BaseViewModel
 
-@Module
-class CoordinatorsModule {
+class MainFragmentViewModel (container: IAppContainer) : BaseViewModel(container) {
 
     //region Inner enums
     //endregion
@@ -36,14 +30,6 @@ class CoordinatorsModule {
 
 
     //region Public
-
-    /**
-     * AppContainer
-     */
-    @Provides
-    @Singleton
-    fun provideAppCoordinator(): ICoordinator = AppCoordinator()
-
     //endregion
 
     //region Protected, without modifier
