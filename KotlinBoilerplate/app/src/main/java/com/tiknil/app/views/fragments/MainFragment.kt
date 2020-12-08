@@ -5,6 +5,7 @@ import com.tiknil.app.R
 import com.tiknil.app.core.views.BaseFragment
 import com.tiknil.app.databinding.FragmentMainBinding
 import com.tiknil.app.viewmodels.fragment.MainFragmentViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() {

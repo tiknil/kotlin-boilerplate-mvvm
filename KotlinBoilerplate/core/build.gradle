@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion version_sdk_compile
@@ -50,11 +51,12 @@ dependencies {
     //Android databinding
     kapt 'com.android.databinding:compiler:3.1.4'
 
+    // Hint
+    api "com.google.dagger:hilt-android:$version_lib_hint"
+    kapt "com.google.dagger:hilt-android-compiler:$version_lib_hint"
+
     // Timber
     api 'com.github.ajalt:timberkt:1.5.1'
-
-    // Dagger 2 (Android Support)
-    api "com.google.dagger:dagger-android-support:$version_lib_dagger"
 
     // RxKotlin
     api "io.reactivex.rxjava2:rxandroid:$version_lib_rxandroid"

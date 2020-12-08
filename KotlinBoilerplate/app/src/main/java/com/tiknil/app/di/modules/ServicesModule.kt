@@ -2,18 +2,16 @@ package com.tiknil.app.di.modules
 
 import android.content.Context
 import com.tiknil.app.KotlinBoilerplateApp
-import com.tiknil.app.core.services.*
-import com.tiknil.app.services.*
+import com.tiknil.app.core.services.IAppContainer
+import com.tiknil.app.core.services.ICacheService
+import com.tiknil.app.core.services.IDataService
+import com.tiknil.app.core.services.IRestService
+import com.tiknil.app.services.AppContainer
+import com.tiknil.app.services.CacheService
+import com.tiknil.app.services.DataService
+import com.tiknil.app.services.RestService
 import dagger.Lazy
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
 
-/**
- * Modulo Dagger2 dell'app che definisce come gestire e creare le istanze che vengono injectate all'interno del progetto
- */
-
-@Module
 class ServicesModule {
 
     //region Inner enums
@@ -42,7 +40,6 @@ class ServicesModule {
 
     //region Public
 
-    @Provides
     fun provideAppContainer(
         contextLazy: Lazy<Context>,
         dataServiceLazy: Lazy<IDataService>
@@ -54,31 +51,23 @@ class ServicesModule {
     /**
      * Context
      */
-    @Provides
-    @Singleton
     fun provideContext(): Context = KotlinBoilerplateApp.app.applicationContext
 
     /**
      * ICacheService
      */
-    @Provides
-    @Singleton
     fun provideCacheService(): ICacheService =
         CacheService()
 
     /**
      * IDataService
      */
-    @Provides
-    @Singleton
     fun provideDataService(cacheService: ICacheService): IDataService =
         DataService(cacheService)
 
     /**
      * IRestService
      */
-    @Provides
-    @Singleton
     fun provideRestService(): IRestService = RestService()
 
     //endregion

@@ -1,14 +1,8 @@
 package com.tiknil.app.di.modules
 
 import com.tiknil.app.coordinators.AppCoordinator
-import com.tiknil.app.coordinators.MainCoordinator
 import com.tiknil.app.core.services.ICoordinator
-import dagger.Lazy
-import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
 
-@Module
 class CoordinatorsModule {
 
     //region Inner enums
@@ -40,8 +34,6 @@ class CoordinatorsModule {
     /**
      * AppContainer
      */
-    @Provides
-    @Singleton
     fun provideAppCoordinator(): ICoordinator = AppCoordinator()
 
     //endregion

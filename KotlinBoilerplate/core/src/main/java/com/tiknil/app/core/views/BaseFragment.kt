@@ -12,13 +12,14 @@ import androidx.lifecycle.lifecycleScope
 import com.tiknil.app.core.viewmodels.AbstractBaseViewModel
 import com.tiknil.app.core.utils.ThreadUtils
 import com.trello.rxlifecycle3.components.support.RxFragment
-import dagger.android.support.AndroidSupportInjection
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.DateFormat
 
 /**
  * Fragment di base che racchiude le funzionalità comuni a tutti i fragment e predispone il link con il view model relativo
  */
 
+@AndroidEntryPoint
 abstract class BaseFragment<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFragment() {
 
     //region Inner enums
@@ -73,7 +74,6 @@ abstract class BaseFragment<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
     //region Constructors / Lifecycle
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        performDependecyInjection()
         super.onCreate(savedInstanceState)
     }
 
@@ -245,13 +245,6 @@ abstract class BaseFragment<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
     //endregion
 
     //region Private
-
-    /**
-     * Crea il graph di dependecy
-     */
-    private fun performDependecyInjection() {
-        AndroidSupportInjection.inject(this)
-    }
 
     //endregion
 

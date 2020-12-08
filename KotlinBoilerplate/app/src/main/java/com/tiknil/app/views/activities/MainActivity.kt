@@ -8,6 +8,7 @@ import com.tiknil.app.core.utils.TkLog
 import com.tiknil.app.core.views.BaseActivity
 import com.tiknil.app.databinding.ActivityMainBinding
 import com.tiknil.app.viewmodels.activities.MainActivityViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() {

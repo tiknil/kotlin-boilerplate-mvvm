@@ -2,13 +2,10 @@ package com.tiknil.app.services
 
 import android.content.Context
 import com.tiknil.app.core.services.IAppContainer
-import com.tiknil.app.core.services.ICacheService
 import com.tiknil.app.core.services.IDataService
 import com.tiknil.app.core.services.ServicesType
-import dagger.Lazy
-import javax.inject.Inject
 
-class AppContainer @Inject constructor(
+class AppContainer constructor(
     private val contextLazy: Lazy<Context>,
     private val dataServiceLazy: Lazy<IDataService>
 ) : IAppContainer {

@@ -4,12 +4,10 @@ import android.content.Context
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import com.tiknil.app.core.services.IAppContainer
-import com.tiknil.app.core.services.ICacheService
 import com.tiknil.app.core.services.IDataService
 import io.reactivex.disposables.CompositeDisposable
-import javax.inject.Inject
 
-abstract class AbstractBaseViewModel @Inject constructor (private val container: IAppContainer) : ViewModel() {
+abstract class AbstractBaseViewModel constructor (private val container: IAppContainer) : ViewModel() {
 
     //region Inner enums
     //endregion

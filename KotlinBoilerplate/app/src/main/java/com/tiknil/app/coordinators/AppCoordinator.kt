@@ -6,11 +6,9 @@ import com.tiknil.app.core.views.BaseActivity
 import com.tiknil.navigation.core.StackNavigator
 import com.tiknil.navigation.core.stackNavigationController
 import com.tiknil.navigation.extensions.crossFade
-import com.tiknil.navigation.extensions.slideRightToLeft
 import java.lang.ref.WeakReference
-import javax.inject.Inject
 
-class AppCoordinator @Inject constructor() : AbstractBaseCoordinator(), BaseCoordinatorDelegate, IActivityReference {
+class AppCoordinator: AbstractBaseCoordinator(), BaseCoordinatorDelegate, IActivityReference {
 
     //region Inner enums
     //endregion

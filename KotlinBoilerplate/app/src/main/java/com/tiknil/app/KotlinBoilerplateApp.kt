@@ -1,18 +1,13 @@
 package com.tiknil.app
 
-import android.app.Activity
 import android.app.Application
 import com.tiknil.app.coordinators.AppCoordinator
-import com.tiknil.app.core.utils.TkLog
-import com.tiknil.app.di.components.DaggerAppComponent
-import com.tiknil.app.di.modules.ServicesModule
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 import javax.inject.Inject
 
-class KotlinBoilerplateApp : Application(), HasActivityInjector {
+@HiltAndroidApp
+class KotlinBoilerplateApp : Application() {
 
     //region Inner enums
     //endregion
@@ -27,9 +22,6 @@ class KotlinBoilerplateApp : Application(), HasActivityInjector {
     companion object {
         lateinit var app: KotlinBoilerplateApp
     }
-
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
     @Inject
     lateinit var appCoordinator: AppCoordinator
@@ -51,8 +43,6 @@ class KotlinBoilerplateApp : Application(), HasActivityInjector {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
-
-        performInjection()
     }
 
     //endregion
@@ -70,23 +60,10 @@ class KotlinBoilerplateApp : Application(), HasActivityInjector {
 
     //region Private
 
-    /**
-     * Esegue l'injection di tutta l'app
-     */
-    private fun performInjection() {
-        DaggerAppComponent.builder()
-            .servicesModule(ServicesModule())
-            .build()
-            .inject(this)
-    }
-
     //endregion
 
 
     //region Override methods and callbacks
-
-    override fun activityInjector(): AndroidInjector<Activity> = dispatchingAndroidInjector
-
     //endregion
 
     //region Inner classes or interfaces

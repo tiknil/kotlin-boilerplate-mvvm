@@ -2,9 +2,8 @@ package com.tiknil.app.services
 
 import com.tiknil.app.core.services.ICacheService
 import com.tiknil.app.core.services.IDataService
-import javax.inject.Inject
 
-class DataService @Inject constructor (
+class DataService constructor (
     private val cacheService: ICacheService
 ) : IDataService {
 
