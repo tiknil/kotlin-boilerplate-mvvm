@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.tiknil.app.BR
 import com.tiknil.app.KotlinBoilerplateApp
 import com.tiknil.app.R
+import com.tiknil.app.core.utils.TkLog
 import com.tiknil.app.core.views.BaseActivity
 import com.tiknil.app.databinding.ActivityMainBinding
 import com.tiknil.app.viewmodels.activities.MainActivityViewModel
@@ -39,6 +40,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
         (application as KotlinBoilerplateApp).appCoordinator.activityReference = this
 
         super.onCreate(savedInstanceState)
+        val test = getViewDataBinding().mainFragmentLayout
+        TkLog.d(test.id.toString())
 
     }
     //endregion

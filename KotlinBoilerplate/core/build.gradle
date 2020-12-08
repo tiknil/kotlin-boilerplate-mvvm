@@ -78,8 +78,4 @@ dependencies {
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_lib_kotlinx_coroutines"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_lib_kotlinx_coroutines"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-rx2:$version_lib_kotlinx_coroutines"
-
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
