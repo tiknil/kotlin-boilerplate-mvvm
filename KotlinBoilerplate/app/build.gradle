@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: "kotlin-kapt"
 
 android {
@@ -47,6 +46,6 @@ dependencies {
     implementation "com.google.dagger:dagger:$version_lib_dagger"
 
     testImplementation "junit:junit:$version_lib_junit"
-    androidTestImplementation "androidx.est.ext:$version_lib_test_est_ext"
+    androidTestImplementation "androidx.test.ext:junit:$version_lib_test_est_ext"
     androidTestImplementation "androidx.test.espresso:espresso-core:$version_lib_test_espresso"
 }
