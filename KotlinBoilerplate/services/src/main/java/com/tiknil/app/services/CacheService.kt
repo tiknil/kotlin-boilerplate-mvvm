@@ -15,9 +15,7 @@ class CacheService: ICacheService {
 
     //region Instance Fields
 
-    override var foo: String
-        get() = "Pollo"
-        set(value) {}
+    override var foo: String = ""
 
     //endregion
 

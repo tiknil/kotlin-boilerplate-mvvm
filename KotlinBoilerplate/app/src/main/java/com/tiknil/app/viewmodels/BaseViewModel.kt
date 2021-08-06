@@ -8,8 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import com.tiknil.app.KotlinBoilerplateApp
 import com.tiknil.app.core.services.IAppContainer
 import com.tiknil.app.core.viewmodels.AbstractBaseViewModel
-import com.tiknil.app.services.AppContainer
-import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 // Delegate che definisce dei metodi comuni a tutti i FlowDelegate
 interface BaseFlowDelegate {
@@ -136,24 +135,24 @@ open class BaseViewModel(container: IAppContainer): AbstractBaseViewModel(contai
      */
     private fun customizeDialogUI(dialog: AlertDialog) {
         // TODO: Customizzazione del popup se necessario
-        /*val fontSize =
-            container.context().resources.getDimension(R.dimen.font_size_16) / container.context().resources.displayMetrics.scaledDensity
-
-        // Messaggio
-        val textView =
-            dialog.findViewById<androidx.appcompat.widget.AppCompatTextView>(android.R.id.message)
-        textView?.apply {
-            typeface = ResourcesCompat.getFont(context, R.font.avenir_roman)
-            textSize = fontSize
-        }
-
-        // Pulsanti
-        val medium = ResourcesCompat.getFont(container.context(), R.font.avenir_medium)
-        val mediumBold = Typeface.create(medium, Typeface.BOLD)
-        dialog.getButton(DialogInterface.BUTTON_POSITIVE).typeface = mediumBold
-        dialog.getButton(DialogInterface.BUTTON_POSITIVE).textSize = fontSize
-        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).typeface = medium
-        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).textSize = fontSize*/
+//        val fontSize =
+//            container.context().resources.getDimension(R.dimen.font_size_16) / container.context().resources.displayMetrics.scaledDensity
+//
+//        // Messaggio
+//        val textView =
+//            dialog.findViewById<androidx.appcompat.widget.AppCompatTextView>(android.R.id.message)
+//        textView?.apply {
+//            typeface = ResourcesCompat.getFont(context, R.font.avenir_roman)
+//            textSize = fontSize
+//        }
+//
+//        // Pulsanti
+//        val medium = ResourcesCompat.getFont(container.context(), R.font.avenir_medium)
+//        val mediumBold = Typeface.create(medium, Typeface.BOLD)
+//        dialog.getButton(DialogInterface.BUTTON_POSITIVE).typeface = mediumBold
+//        dialog.getButton(DialogInterface.BUTTON_POSITIVE).textSize = fontSize
+//        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).typeface = medium
+//        dialog.getButton(DialogInterface.BUTTON_NEGATIVE).textSize = fontSize
     }
 
     /**

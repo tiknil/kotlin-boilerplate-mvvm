@@ -11,7 +11,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.lifecycleScope
 import com.tiknil.app.core.viewmodels.AbstractBaseViewModel
 import com.tiknil.app.core.utils.ThreadUtils
-import com.trello.rxlifecycle3.components.support.RxFragment
+import com.trello.rxlifecycle4.components.support.RxFragment
 import dagger.android.support.AndroidSupportInjection
 import java.text.DateFormat
 
@@ -31,13 +31,13 @@ abstract class BaseFragment<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
 
     //region Instance Fields
 
-    private lateinit var mViewDataBinding: T
+    lateinit var binding: T
     private lateinit var mViewModel: V
     private lateinit var mRootView: View
 
     private val isThisFragmentTheCurrentVisible: Boolean
         get() {
-            val fragments = fragmentManager!!.fragments
+            val fragments = parentFragmentManager.fragments
             return fragments[fragments.size - 1] === this
         }
 
@@ -84,9 +84,9 @@ abstract class BaseFragment<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
-        mViewDataBinding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
-        mViewDataBinding.lifecycleOwner = this
-        mRootView = mViewDataBinding.root
+        binding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
+        binding.lifecycleOwner = this
+        mRootView = binding.root
 
         return mRootView
     }
@@ -96,8 +96,8 @@ abstract class BaseFragment<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
 
         mViewModel = viewModel()
         mViewModel.onCreated()
-        mViewDataBinding.setVariable(bindingVariable(), mViewModel)
-        mViewDataBinding.executePendingBindings()
+        binding.setVariable(bindingVariable(), mViewModel)
+        binding.executePendingBindings()
 
         setupUI()
         setupBinding()
@@ -227,8 +227,8 @@ abstract class BaseFragment<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
      * Imposta il comportamento della tastiera
      */
     protected fun initKeyboardModeResizingView() {
-        if (activity != null && !activity!!.isFinishing) {
-            activity!!.window
+        if (activity != null && !requireActivity().isFinishing) {
+            requireActivity().window
                 .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE or WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
         }
     }
@@ -237,8 +237,8 @@ abstract class BaseFragment<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
      * Reimposta la tastiera al funzionamento standard
      */
     protected fun resetKeyboardToStandardMode() {
-        if (activity != null && !activity!!.isFinishing) {
-            activity!!.window
+        if (activity != null && !requireActivity().isFinishing) {
+            requireActivity().window
                 .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
         }
     }

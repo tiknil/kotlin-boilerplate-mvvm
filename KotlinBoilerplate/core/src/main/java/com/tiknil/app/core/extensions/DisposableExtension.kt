@@ -1,7 +1,7 @@
 package com.tiknil.app.core.extensions
 
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
 
 fun Disposable.compositeDisposable(compositeDisposable: CompositeDisposable) {
     compositeDisposable.add(this)

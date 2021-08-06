@@ -21,7 +21,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.util.*
 
-const val MULTI_STACK_NAVIGATOR = "com.tiknil.tmp.navigation.MultiStackNavigator"
+const val MULTI_STACK_NAVIGATOR = "com.tiknil.navigation.MultiStackNavigator"
 
 fun Fragment.childMultiStackNavigationController(
         stackCount: Int,

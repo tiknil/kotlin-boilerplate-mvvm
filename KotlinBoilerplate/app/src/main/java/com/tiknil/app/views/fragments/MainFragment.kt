@@ -30,6 +30,13 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
 
 
     //region Constructors / Lifecycle
+
+    override fun setupUI() {
+        super.setupUI()
+
+
+    }
+
     //endregion
 
 

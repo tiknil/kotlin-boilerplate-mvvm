@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.tiknil.app.core.viewmodels.AbstractBaseViewModel
-import com.trello.rxlifecycle3.components.support.RxFragmentActivity
+import com.trello.rxlifecycle4.components.support.RxFragmentActivity
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -36,7 +36,7 @@ abstract class BaseActivity<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
     @Inject
     lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
 
-    private lateinit var mViewDataBinding: T
+    private lateinit var binding: T
     private lateinit var mViewModel: V
 
     private var needToSetupBinding = true
@@ -92,7 +92,7 @@ abstract class BaseActivity<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
      *
      * @return l'oggetto databinding
      */
-    fun getViewDataBinding() : T = mViewDataBinding
+    fun getViewDataBinding() : T = binding
 
     /**
      * Ritorna l'oggetto ViewModel
@@ -151,10 +151,10 @@ abstract class BaseActivity<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
      * Esegue il binding tra il layout della view e il viewmodel. Chiama il metodoo setupBinding per gli ulteriori binding custom
      */
     private fun performDataBinding() {
-        mViewDataBinding = DataBindingUtil.setContentView(this, layoutId())
+        binding = DataBindingUtil.setContentView(this, layoutId())
         this.mViewModel = if (!::mViewModel.isInitialized) viewModel() else mViewModel
-        mViewDataBinding.setVariable(bindingVariable(), mViewModel)
-        mViewDataBinding.executePendingBindings()
+        binding.setVariable(bindingVariable(), mViewModel)
+        binding.executePendingBindings()
         setupBindings()
         needToSetupBinding = false
     }
