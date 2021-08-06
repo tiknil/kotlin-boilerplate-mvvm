@@ -36,7 +36,7 @@ abstract class BaseActivity<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
     @Inject
     lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
 
-    private lateinit var binding: T
+    protected lateinit var binding: T
     private lateinit var mViewModel: V
 
     private var needToSetupBinding = true

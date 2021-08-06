@@ -33,8 +33,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentVM>() {
 
     override fun setupUI() {
         super.setupUI()
-
-
+        
     }
 
     //endregion

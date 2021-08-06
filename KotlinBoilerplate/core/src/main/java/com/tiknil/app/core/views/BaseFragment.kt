@@ -31,7 +31,7 @@ abstract class BaseFragment<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
 
     //region Instance Fields
 
-    lateinit var binding: T
+    protected lateinit var binding: T
     private lateinit var mViewModel: V
     private lateinit var mRootView: View
 
