@@ -4,10 +4,10 @@ import com.tiknil.app.BR
 import com.tiknil.app.R
 import com.tiknil.app.core.views.BaseFragment
 import com.tiknil.app.databinding.FragmentMainBinding
-import com.tiknil.app.viewmodels.fragment.MainFragmentViewModel
+import com.tiknil.app.viewmodels.fragment.MainFragmentVM
 import javax.inject.Inject
 
-class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() {
+class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentVM>() {
 
     //region Inner enums
     //endregion
@@ -20,7 +20,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
     //region Instance Fields
 
     @Inject
-    lateinit var viewModel: MainFragmentViewModel
+    lateinit var viewModel: MainFragmentVM
 
     //endregion
 
@@ -56,7 +56,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentViewModel>() 
 
     //region Override methods and callbacks
 
-    override fun viewModel(): MainFragmentViewModel = viewModel
+    override fun viewModel(): MainFragmentVM = viewModel
 
     override fun bindingVariable(): Int = BR.viewModel
 

@@ -5,7 +5,7 @@ import com.tiknil.app.core.services.IAppContainer
 import com.tiknil.app.services.AppContainer
 import com.tiknil.app.viewmodels.BaseViewModel
 
-class MainActivityViewModel(container: IAppContainer): BaseViewModel(container) {
+class MainActivityVM(container: IAppContainer): BaseViewModel(container) {
 
     //region Inner enums
     //endregion

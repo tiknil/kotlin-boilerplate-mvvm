@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.tiknil.app.viewmodels.fragment.MainFragmentViewModel" />
+            type="com.tiknil.app.viewmodels.fragment.MainFragmentVM" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

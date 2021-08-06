@@ -4,10 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.tiknil.app.core.services.IAppContainer
 import com.tiknil.app.di.ViewModelKey
-import com.tiknil.app.viewmodels.activities.MainActivityViewModel
+import com.tiknil.app.viewmodels.activities.MainActivityVM
 import com.tiknil.app.views.activities.MainActivity
-import com.tiknil.app.services.AppContainer
-import com.tiknil.app.viewmodels.fragment.MainFragmentViewModel
+import com.tiknil.app.viewmodels.fragment.MainFragmentVM
 import com.tiknil.app.views.fragments.MainFragment
 import dagger.Module
 import dagger.Provides
@@ -25,17 +24,17 @@ class ViewModelsModule {
 
         @Provides
         @IntoMap
-        @ViewModelKey(MainActivityViewModel::class)
+        @ViewModelKey(MainActivityVM::class)
         fun provideMainActivityViewModel(container: IAppContainer): ViewModel =
-            MainActivityViewModel(container)
+            MainActivityVM(container)
 
         // Fragment
 
         @Provides
         @IntoMap
-        @ViewModelKey(MainFragmentViewModel::class)
+        @ViewModelKey(MainFragmentVM::class)
         fun provideMainFragmentViewModel(container: IAppContainer): ViewModel =
-            MainFragmentViewModel(container)
+            MainFragmentVM(container)
     }
 
     @Module
@@ -47,7 +46,7 @@ class ViewModelsModule {
         fun provideMainActivityViewModel(
             factory: ViewModelProvider.Factory,
             target: MainActivity
-        ) = ViewModelProvider(target, factory).get(MainActivityViewModel::class.java)
+        ) = ViewModelProvider(target, factory).get(MainActivityVM::class.java)
 
         // Fragment
 
@@ -55,7 +54,7 @@ class ViewModelsModule {
         fun provideMainFragmentViewModel(
             factory: ViewModelProvider.Factory,
             target: MainFragment
-        ) = ViewModelProvider(target, factory).get(MainFragmentViewModel::class.java)
+        ) = ViewModelProvider(target, factory).get(MainFragmentVM::class.java)
 
 
     }

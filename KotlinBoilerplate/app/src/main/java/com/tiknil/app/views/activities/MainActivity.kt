@@ -6,10 +6,10 @@ import com.tiknil.app.KotlinBoilerplateApp
 import com.tiknil.app.R
 import com.tiknil.app.core.views.BaseActivity
 import com.tiknil.app.databinding.ActivityMainBinding
-import com.tiknil.app.viewmodels.activities.MainActivityViewModel
+import com.tiknil.app.viewmodels.activities.MainActivityVM
 import javax.inject.Inject
 
-class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() {
+class MainActivity : BaseActivity<ActivityMainBinding, MainActivityVM>() {
 
 
     //region Inner enums
@@ -23,7 +23,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
     //region Instance Fields
 
     @Inject
-    lateinit var viewModel: MainActivityViewModel
+    lateinit var viewModel: MainActivityVM
 
     //endregion
 
@@ -61,7 +61,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
 
     //region Override methods and callbacks
 
-    override fun viewModel(): MainActivityViewModel = viewModel
+    override fun viewModel(): MainActivityVM = viewModel
 
     override fun bindingVariable(): Int = BR.viewModel
 
