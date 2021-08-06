@@ -2,10 +2,9 @@ package com.tiknil.app.viewmodels.activities
 
 import com.tiknil.app.KotlinBoilerplateApp
 import com.tiknil.app.core.services.IAppContainer
-import com.tiknil.app.services.AppContainer
-import com.tiknil.app.viewmodels.BaseViewModel
+import com.tiknil.app.viewmodels.BaseVM
 
-class MainActivityVM(container: IAppContainer): BaseViewModel(container) {
+class MainActivityVM(container: IAppContainer): BaseVM(container) {
 
     //region Inner enums
     //endregion

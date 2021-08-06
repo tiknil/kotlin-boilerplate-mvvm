@@ -14,7 +14,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 interface BaseFlowDelegate {
 }
 
-open class BaseViewModel(container: IAppContainer): AbstractBaseViewModel(container) {
+open class BaseVM(container: IAppContainer): AbstractBaseViewModel(container) {
 
     //region Inner enums
     //endregion
