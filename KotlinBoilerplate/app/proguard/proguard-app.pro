@@ -21,3 +21,11 @@
 #-printusage unused.txt #Per vedere se ci sono parti di codice non utilizzato
 #-printmapping mapping.txt #Per fare il mapping tra codice offuscato e codice iniziale (da uploadare su Crashlytics dopo ciascuna build)
 
+#package path where gson models are stored
+-keep class com.tiknil.app.core.** { *; }
+-keep class com.tiknil.app.services.** { *; }
+-keep class com.tiknil.app.models.** { *; }
+
+# Settings consigliati da Firebase Crashlytics
+-keepattributes SourceFile,LineNumberTable        # Keep file names and line numbers.
+-keep public class * extends java.lang.Exception  # Optional: Keep custom exceptions.
