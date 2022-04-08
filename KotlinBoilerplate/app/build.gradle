@@ -4,7 +4,6 @@ apply plugin: "kotlin-kapt"
 
 android {
     compileSdkVersion version_sdk_compile
-    buildToolsVersion version_build_tool
 
     defaultConfig {
         applicationId "com.tiknil.app"

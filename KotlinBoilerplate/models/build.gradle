@@ -3,13 +3,10 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion version_sdk_compile
-    buildToolsVersion version_build_tool
 
     defaultConfig {
         minSdkVersion version_sdk_min
         targetSdkVersion version_sdk_target
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -17,7 +14,6 @@ android {
 
     buildTypes {
         debug {
-            debuggable true
             minifyEnabled true
             proguardFiles fileTree('proguard').asList().toArray()
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'

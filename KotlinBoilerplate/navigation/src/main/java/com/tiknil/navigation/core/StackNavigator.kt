@@ -56,11 +56,11 @@ class StackNavigator constructor(
     private val FragmentManager.BackStackEntry.tag
         get() = name?.run { this.removePrefix(split("-").first() + "-") }
 
-    private val baskStackEntries
+    private val backStackEntries
         get() = fragmentManager.run { (0 until backStackEntryCount).map(this::getBackStackEntryAt).filter { it.inContainer } }
 
     internal val fragmentTags
-        get() = baskStackEntries.map { it.tag }
+        get() = backStackEntries.map { it.tag }
 
     init {
         fragmentManager.registerFragmentLifecycleCallbacks(object : FragmentManager.FragmentLifecycleCallbacks() {
@@ -100,6 +100,8 @@ class StackNavigator constructor(
         fragmentManager.commit {
             transactionModifier?.invoke(this, fragment)
             if (replace) {
+                setReorderingAllowed(true)
+                fragmentManager.popBackStackImmediate()
                 replace(containerId, fragmentToShow, tag)
             } else {
                 add(containerId, fragmentToShow, tag)
@@ -133,13 +135,13 @@ class StackNavigator constructor(
         }
 
         // Empty string will be treated as a no-op internally
-        val tag = upToTag?.toEntry ?: baskStackEntries.firstOrNull()?.name ?: ""
+        val tag = upToTag?.toEntry ?: backStackEntries.firstOrNull()?.name ?: ""
         fragmentManager.popBackStack(tag, if (includeMatch) FragmentManager.POP_BACK_STACK_INCLUSIVE else 0)
 
     }
 
     override fun isAtRoot(): Boolean {
-        return baskStackEntries.size == 1
+        return backStackEntries.size == 1
     }
 
     override fun find(tag: String): Fragment? = fragmentManager.findFragmentByTag(tag)
@@ -160,7 +162,7 @@ class StackNavigator constructor(
             (MSG_FRAGMENT_NOT_ADDED_TO_BACKSTACK
                     + "\n Fragment Attached: " + f.toString()
                     + "\n Fragment Tag: " + f.tag
-                    + "\n Backstack Entry Count: " + baskStackEntries.size
+                    + "\n Backstack Entry Count: " + backStackEntries.size
                     + "\n Tracked Fragments: " + fragmentTags)
         }
     }
