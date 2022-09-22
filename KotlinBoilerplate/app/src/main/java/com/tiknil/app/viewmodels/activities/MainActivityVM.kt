@@ -4,7 +4,7 @@ import com.tiknil.app.KotlinBoilerplateApp
 import com.tiknil.app.core.services.IAppContainer
 import com.tiknil.app.viewmodels.BaseVM
 
-class MainActivityVM(container: IAppContainer): BaseVM(container) {
+class MainActivityVM: BaseVM() {
 
     //region Inner enums
     //endregion

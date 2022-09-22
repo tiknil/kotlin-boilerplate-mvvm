@@ -2,10 +2,8 @@ package com.tiknil.app.views.fragments
 
 import com.tiknil.app.BR
 import com.tiknil.app.R
-import com.tiknil.app.core.views.BaseFragment
 import com.tiknil.app.databinding.FragmentMainBinding
 import com.tiknil.app.viewmodels.fragment.MainFragmentVM
-import javax.inject.Inject
 
 class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentVM>() {
 
@@ -19,8 +17,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentVM>() {
 
     //region Instance Fields
 
-    @Inject
-    lateinit var viewModel: MainFragmentVM
+    var viewModel: MainFragmentVM = MainFragmentVM()
 
     //endregion
 

@@ -2,15 +2,13 @@ package com.tiknil.app.services
 
 import android.content.Context
 import com.tiknil.app.core.services.IAppContainer
-import com.tiknil.app.core.services.ICacheService
 import com.tiknil.app.core.services.IDataService
-import com.tiknil.app.core.services.ServicesType
-import dagger.Lazy
-import javax.inject.Inject
+import com.tiknil.app.core.services.IRestService
 
-class AppContainer @Inject constructor(
-    private val contextLazy: Lazy<Context>,
-    private val dataServiceLazy: Lazy<IDataService>
+class AppContainer constructor(
+    private val context: Context,
+    private val dataService: IDataService,
+    private val restService: IRestService
 ) : IAppContainer {
 
     //region Inner enums
@@ -45,23 +43,16 @@ class AppContainer @Inject constructor(
 
     //region Private
 
-    private fun getServicesType() : ServicesType {
-        return if (isDemo) ServicesType.DEMO else ServicesType.NORMAL
-    }
-
     //endregion
 
 
-    //region Override methods and callbacks
+    //region Override methods and callbacksx
 
-    override var isDemo: Boolean = false
-        set(value) {
-            field = value
-        }
+    override fun context(): Context = context
 
-    override fun context(): Context = contextLazy.get()
+    override fun dataService(): IDataService = dataService
 
-    override fun dataService(): IDataService = dataServiceLazy.get()
+    override fun restService(): IRestService = restService
 
     //endregion
 

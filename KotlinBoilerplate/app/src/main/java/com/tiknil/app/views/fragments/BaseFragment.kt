@@ -1,4 +1,4 @@
-package com.tiknil.app.core.views
+package com.tiknil.app.views.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,17 +9,16 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.lifecycleScope
-import com.tiknil.app.core.viewmodels.AbstractBaseViewModel
 import com.tiknil.app.core.utils.ThreadUtils
+import com.tiknil.app.viewmodels.BaseVM
 import com.trello.rxlifecycle4.components.support.RxFragment
-import dagger.android.support.AndroidSupportInjection
 import java.text.DateFormat
 
 /**
  * Fragment di base che racchiude le funzionalità comuni a tutti i fragment e predispone il link con il view model relativo
  */
 
-abstract class BaseFragment<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFragment() {
+abstract class BaseFragment<T: ViewDataBinding, V: BaseVM> : RxFragment() {
 
     //region Inner enums
     //endregion
@@ -33,7 +32,6 @@ abstract class BaseFragment<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
 
     protected lateinit var binding: T
     private lateinit var mViewModel: V
-    private lateinit var mRootView: View
 
     private val isThisFragmentTheCurrentVisible: Boolean
         get() {
@@ -73,7 +71,6 @@ abstract class BaseFragment<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
     //region Constructors / Lifecycle
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        performDependecyInjection()
         super.onCreate(savedInstanceState)
     }
 
@@ -83,12 +80,9 @@ abstract class BaseFragment<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-
         binding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
         binding.lifecycleOwner = this
-        mRootView = binding.root
-
-        return mRootView
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -218,8 +212,8 @@ abstract class BaseFragment<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
      * Nasconde la tastiera se visualizzata
      */
     protected fun hideKeyboard() {
-        if (activity != null && activity is BaseActivity<*, *>) {
-            (activity as BaseActivity<*, *>).hideKeyboard()
+        if (activity != null && activity is com.tiknil.app.views.activities.BaseActivity<*, *>) {
+            (activity as com.tiknil.app.views.activities.BaseActivity<*, *>).hideKeyboard()
         }
     }
 
@@ -245,13 +239,6 @@ abstract class BaseFragment<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
     //endregion
 
     //region Private
-
-    /**
-     * Crea il graph di dependecy
-     */
-    private fun performDependecyInjection() {
-        AndroidSupportInjection.inject(this)
-    }
 
     //endregion
 

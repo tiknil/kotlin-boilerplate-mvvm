@@ -1,4 +1,4 @@
-package com.tiknil.navigation.core
+package com.tiknil.app.navigation.core
 
 import android.os.Handler
 import android.os.Looper

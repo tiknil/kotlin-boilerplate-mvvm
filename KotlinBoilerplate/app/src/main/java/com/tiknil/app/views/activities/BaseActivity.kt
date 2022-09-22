@@ -1,4 +1,4 @@
-package com.tiknil.app.core.views
+package com.tiknil.app.views.activities
 
 import android.content.Context
 import android.os.Bundle
@@ -7,21 +7,15 @@ import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
-import com.tiknil.app.core.viewmodels.AbstractBaseViewModel
+import com.tiknil.app.viewmodels.BaseVM
 import com.trello.rxlifecycle4.components.support.RxFragmentActivity
-import dagger.android.AndroidInjection
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.HasSupportFragmentInjector
-import javax.inject.Inject
 
 /**
  * Activity astratta di base ereditata da tutte le activity che raggruppa le funzionalità comuni
  * e implementa l'impostazione di base con i view model e il binding con i componenti della view
  */
 
-abstract class BaseActivity<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFragmentActivity(), HasSupportFragmentInjector {
+abstract class BaseActivity<T: ViewDataBinding, V: BaseVM> : RxFragmentActivity() {
 
     //region Inner enums
     //endregion
@@ -32,9 +26,6 @@ abstract class BaseActivity<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
 
 
     //region Instance Fields
-
-    @Inject
-    lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
 
     protected lateinit var binding: T
     private lateinit var mViewModel: V
@@ -51,7 +42,6 @@ abstract class BaseActivity<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
     //region Constructors / Lifecycle
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        performDependecyInjection()
         super.onCreate(savedInstanceState)
         performDataBinding()
         viewModel().onCreated()
@@ -141,13 +131,6 @@ abstract class BaseActivity<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
     //region Private
 
     /**
-     * Crea il graph di dependecy
-     */
-    private fun performDependecyInjection() {
-        AndroidInjection.inject(this)
-    }
-
-    /**
      * Esegue il binding tra il layout della view e il viewmodel. Chiama il metodoo setupBinding per gli ulteriori binding custom
      */
     private fun performDataBinding() {
@@ -163,9 +146,6 @@ abstract class BaseActivity<T: ViewDataBinding, V: AbstractBaseViewModel> : RxFr
 
 
     //region Override methods and callbacks
-
-    override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentInjector
-
     //endregion
 
     //region Inner classes or interfaces

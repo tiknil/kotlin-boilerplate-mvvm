@@ -1,6 +1,6 @@
 package com.tiknil.app.coordinators
 
-import com.tiknil.app.core.services.IActivityReference
+import com.tiknil.app.views.activities.IActivityReference
 import com.tiknil.app.core.services.ICoordinator
 import com.tiknil.app.viewmodels.BaseFlowDelegate
 

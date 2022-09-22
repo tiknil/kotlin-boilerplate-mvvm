@@ -40,10 +40,11 @@ dependencies {
     implementation project(':services')
     implementation project(':core')
 
-    // Dagger 2
-    kapt "com.google.dagger:dagger-compiler:$version_lib_dagger"
-    kapt "com.google.dagger:dagger-android-processor:$version_lib_dagger"
-    implementation "com.google.dagger:dagger:$version_lib_dagger"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.savedstate:savedstate:1.2.0'
+    implementation 'androidx.fragment:fragment-ktx:1.5.3'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

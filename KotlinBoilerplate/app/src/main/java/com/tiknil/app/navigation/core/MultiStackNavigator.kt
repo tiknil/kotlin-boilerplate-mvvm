@@ -1,4 +1,4 @@
-package com.tiknil.navigation.core
+package com.tiknil.app.navigation.core
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,9 +14,9 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import androidx.fragment.app.commitNow
 import androidx.lifecycle.Lifecycle
-import com.tiknil.app.core.views.BaseFragment
-import com.tiknil.navigation.savestate.LifecycleSavedStateContainer
-import com.tiknil.navigation.savestate.savedStateFor
+import com.tiknil.app.navigation.savestate.LifecycleSavedStateContainer
+import com.tiknil.app.navigation.savestate.savedStateFor
+import com.tiknil.app.views.fragments.BaseFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.util.*

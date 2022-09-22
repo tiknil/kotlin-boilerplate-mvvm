@@ -3,7 +3,7 @@ package com.tiknil.app.viewmodels.fragment
 import com.tiknil.app.core.services.IAppContainer
 import com.tiknil.app.viewmodels.BaseVM
 
-class MainFragmentVM (container: IAppContainer) : BaseVM(container) {
+class MainFragmentVM: BaseVM() {
 
     //region Inner enums
     //endregion

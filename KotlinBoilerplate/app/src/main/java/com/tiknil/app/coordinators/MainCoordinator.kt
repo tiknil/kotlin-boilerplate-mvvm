@@ -2,7 +2,7 @@ package com.tiknil.app.coordinators
 
 import com.tiknil.app.core.services.ICoordinator
 import com.tiknil.app.views.fragments.MainFragment
-import com.tiknil.navigation.core.INavigator
+import com.tiknil.app.navigation.core.INavigator
 
 class MainCoordinator constructor(
     private var navigator: INavigator

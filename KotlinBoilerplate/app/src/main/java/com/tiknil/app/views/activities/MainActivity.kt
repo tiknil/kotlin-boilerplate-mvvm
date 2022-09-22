@@ -4,10 +4,8 @@ import android.os.Bundle
 import com.tiknil.app.BR
 import com.tiknil.app.KotlinBoilerplateApp
 import com.tiknil.app.R
-import com.tiknil.app.core.views.BaseActivity
 import com.tiknil.app.databinding.ActivityMainBinding
 import com.tiknil.app.viewmodels.activities.MainActivityVM
-import javax.inject.Inject
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainActivityVM>() {
 
@@ -22,8 +20,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityVM>() {
 
     //region Instance Fields
 
-    @Inject
-    lateinit var viewModel: MainActivityVM
+    var viewModel: MainActivityVM = MainActivityVM()
 
     //endregion
 

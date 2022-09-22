@@ -48,8 +48,10 @@ dependencies {
     // Timber
     api 'com.github.ajalt:timberkt:1.5.1'
 
-    // Dagger 2 (Android Support)
-    api "com.google.dagger:dagger-android-support:$version_lib_dagger"
+    // Koin
+    api("io.insert-koin:koin-core:$version_lib_koin")
+    api("io.insert-koin:koin-test:$version_lib_koin")
+    api("io.insert-koin:koin-android:$version_lib_koin")
 
     // RxKotlin
     api "io.reactivex.rxjava3:rxandroid:$version_lib_rxandroid"

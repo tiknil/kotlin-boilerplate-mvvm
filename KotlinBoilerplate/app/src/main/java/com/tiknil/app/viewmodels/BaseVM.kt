@@ -4,17 +4,20 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import com.tiknil.app.KotlinBoilerplateApp
 import com.tiknil.app.core.services.IAppContainer
-import com.tiknil.app.core.viewmodels.AbstractBaseViewModel
+import com.tiknil.app.core.services.IDataService
+import com.tiknil.app.core.services.IRestService
+import com.tiknil.app.di.AppInjector
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 // Delegate che definisce dei metodi comuni a tutti i FlowDelegate
 interface BaseFlowDelegate {
 }
 
-open class BaseVM(container: IAppContainer): AbstractBaseViewModel(container) {
+open class BaseVM {
 
     //region Inner enums
     //endregion
@@ -25,6 +28,22 @@ open class BaseVM(container: IAppContainer): AbstractBaseViewModel(container) {
 
 
     //region Instance Fields
+
+    private var container: IAppContainer = AppInjector.getKoin().get()
+
+    var needToSetupBindingChains = true
+
+    /**
+     * CompositeDisposable associati alla visualizzazione della view
+     */
+    protected var disposables = CompositeDisposable()
+
+    /**
+     * CompositeDisposable associati alla vita della view
+     */
+    protected var lifecycleDisposables = CompositeDisposable()
+
+    var flowDelegate: Any? = null
 
     //endregion
 
@@ -38,16 +57,15 @@ open class BaseVM(container: IAppContainer): AbstractBaseViewModel(container) {
     /**
      * Metodo chiamato quando la view esegue il metodo onCreate, se necessario va eseguito l'override nelle classe figlie
      */
-    override fun onCreated() {
+    open fun onCreated() {
         setupBindingChains()
         needToSetupBindingChains = false
     }
 
-
     /**
      * Metodo chiamato quando la view viene visualizzata, se necessario va eseguito l'override nelle classe figlie
      */
-    override fun onViewAppear() {
+    open fun onViewAppear() {
         if (needToSetupBindingChains) {
             needToSetupBindingChains = false
             disposables = CompositeDisposable()
@@ -58,24 +76,31 @@ open class BaseVM(container: IAppContainer): AbstractBaseViewModel(container) {
     /**
      * Metodo chiamato quando la view scompare, se necessario va eseguito l'override nelle classe figlie
      */
-    override fun onViewDisappear() {
+    open fun onViewDisappear() {
         disposeDisposables()
         needToSetupBindingChains = true
     }
 
     /**
-     * Metodo chiamato quando la view viene tolta dallo stack, se necessario va eseguito l'override nelle classe figlie
+     * Metodo chiamato alla chiamata onStart dell'activity/fragment del flusso standard, se necessario va eseguito l'override nelle classe figlie
      */
-    override fun onStop() {
+
+    open fun onStart() {}
+
+    /**
+     * Metodo chiamato alla chiamata onStop dell'activity/fragment del flusso standard, se necessario va eseguito l'override nelle classe figlie
+     */
+
+    open fun onStop() {
         disposeDisposables()
         needToSetupBindingChains = true
     }
 
     /**
-     * Metodo chiamato quando la view viene distrutta
+     * Metodo chiamato alla chiamata onDestroy dell'activity/fragment del flusso standard, se necessario va eseguito l'override nelle classe figlie
      */
-    override fun onDestroy() {
-        super.onDestroy()
+
+    open fun onDestroy() {
         disposeLifecycledisposables()
     }
 
@@ -84,13 +109,112 @@ open class BaseVM(container: IAppContainer): AbstractBaseViewModel(container) {
 
     //region Custom accessors
 
+    protected fun setDefaultModules() {
+        AppInjector.setDefaultModules()
+        container = AppInjector.getKoin().get()
+    }
+
+    /**
+     * Imposta i servizi di demo
+     */
+    protected fun setDemoModules() {
+        AppInjector.setDemoModules()
+        container = AppInjector.getKoin().get()
+    }
+
+    fun context(): Context = container.context()
+
+    fun dataService(): IDataService = container.dataService()
+
+    fun restService(): IRestService = container.restService()
+
     //endregion
 
 
     //region Public
+
+    /**
+     * Imposta il binding delle variabili RxKotlin, se necessario va eseguito l'override nelle classe figlie
+     */
+    open fun setupBindingChains() {}
+
+    /**
+     * Consente di settare dei parametri da utilizzare nella view, se necessario va eseguito l'override nelle classe figlie
+     *
+     * @param params parametri da utilizzare nella view
+     */
+
+    open fun setParams(params: Any?) {}
+
+    /**
+     * Ritorna la stringa localizzata
+     *
+     * @param resId l'id della stringa da localizzare
+     */
+    fun getString(@StringRes resId: Int) = context().getString(resId)
+
     //endregion
 
     //region Protected, without modifier
+
+    /**
+     * Visualizza un popup con due pulsanti
+     *
+     * @param title: il titolo del popup
+     * @param message: il messaggio del popup
+     * @param confirmText: il testo del pulsante di conferma
+     * @param cancelText: il testo del pulsante di cancellazione
+     * @param listener: il listener dei pulsanti
+     */
+    protected fun showConfirmationPopup(
+        title: String,
+        message: String,
+        confirmText: String,
+        cancelText: String,
+        listener: ConfirmationPopupListener
+    ) {
+        val builder =
+            AlertDialog.Builder((context() as KotlinBoilerplateApp).appCoordinator.activityReference as Context)
+        builder.setMessage(message)
+            .setTitle(title)
+            .setPositiveButton(confirmText) { _, _ ->
+                listener.positiveButtonClicked()
+            }
+            .setNegativeButton(cancelText) { _, _ ->
+                listener.negativeButtonClicked()
+            }
+
+        val dialog = builder.create()
+        dialog.show()
+        customizeDialogUI(dialog)
+    }
+
+    /**
+     * Visualizza un popup con un pulsanti
+     *
+     * @param title: il titolo del popup
+     * @param message: il messaggio del popup
+     * @param cancelText: il testo del pulsante di cancellazione
+     * @param listener: il listener del pulsante
+     */
+    protected fun showCancelPopup(
+        title: String,
+        message: String,
+        cancelText: String,
+        listener: OnDismissListener?
+    ) {
+        val builder =
+            AlertDialog.Builder((context() as KotlinBoilerplateApp).appCoordinator.activityReference as Context)
+        builder.setMessage(message)
+            .setTitle(title)
+            .setPositiveButton(cancelText) { _, _ ->
+                listener?.onDismiss()
+            }
+
+        val dialog = builder.create()
+        dialog.show()
+        customizeDialogUI(dialog)
+    }
 
     /**
      * Verifica la connessione internet
@@ -178,68 +302,18 @@ open class BaseVM(container: IAppContainer): AbstractBaseViewModel(container) {
 
     //region Override methods and callbacks
 
-    /**
-     * Visualizza un popup con due pulsanti
-     *
-     * @param title: il titolo del popup
-     * @param message: il messaggio del popup
-     * @param confirmText: il testo del pulsante di conferma
-     * @param cancelText: il testo del pulsante di cancellazione
-     * @param listener: il listener dei pulsanti
-     */
-    override fun showConfirmationPopup(
-        title: String,
-        message: String,
-        confirmText: String,
-        cancelText: String,
-        listener: ConfirmationPopupListener
-    ) {
-        val builder =
-            AlertDialog.Builder((context() as KotlinBoilerplateApp).appCoordinator.activityReference as Context)
-        builder.setMessage(message)
-            .setTitle(title)
-            .setPositiveButton(confirmText) { _, _ ->
-                listener.positiveButtonClicked()
-            }
-            .setNegativeButton(cancelText) { _, _ ->
-                listener.negativeButtonClicked()
-            }
-
-        val dialog = builder.create()
-        dialog.show()
-        customizeDialogUI(dialog)
-    }
-
-    /**
-     * Visualizza un popup con un pulsanti
-     *
-     * @param title: il titolo del popup
-     * @param message: il messaggio del popup
-     * @param cancelText: il testo del pulsante di cancellazione
-     * @param listener: il listener del pulsante
-     */
-    override fun showCancelPopup(
-        title: String,
-        message: String,
-        cancelText: String,
-        listener: OnDismissListener?
-    ) {
-        val builder =
-            AlertDialog.Builder((context() as KotlinBoilerplateApp).appCoordinator.activityReference as Context)
-        builder.setMessage(message)
-            .setTitle(title)
-            .setPositiveButton(cancelText) { _, _ ->
-                listener?.onDismiss()
-            }
-
-        val dialog = builder.create()
-        dialog.show()
-        customizeDialogUI(dialog)
-    }
-
     //endregion
 
     //region Inner classes or interfaces
+
+    interface OnDismissListener {
+        fun onDismiss()
+    }
+
+    interface ConfirmationPopupListener {
+        fun positiveButtonClicked()
+        fun negativeButtonClicked()
+    }
 
     //endregion
 }

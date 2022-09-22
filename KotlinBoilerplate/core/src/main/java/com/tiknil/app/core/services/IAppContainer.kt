@@ -4,9 +4,9 @@ import android.content.Context
 
 interface IAppContainer {
 
-    var isDemo: Boolean
-
     fun context(): Context
 
     fun dataService(): IDataService
+
+    fun restService(): IRestService
 }

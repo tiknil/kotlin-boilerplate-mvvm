@@ -1,13 +1,9 @@
-package com.tiknil.navigation.core
+package com.tiknil.app.navigation.core
 
 import android.os.Bundle
 import androidx.annotation.IdRes
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.commit
-import com.tiknil.app.core.views.BaseFragment
+import androidx.fragment.app.*
+import com.tiknil.app.views.fragments.BaseFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

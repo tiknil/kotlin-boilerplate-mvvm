@@ -1,4 +1,4 @@
-package com.tiknil.app.services
+package com.tiknil.app.services.restservice
 
 import com.tiknil.app.core.services.IRestService
 

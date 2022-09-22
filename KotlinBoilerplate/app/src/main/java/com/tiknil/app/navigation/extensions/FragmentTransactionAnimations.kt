@@ -1,7 +1,7 @@
-package com.tiknil.navigation.extensions
+package com.tiknil.app.navigation.extensions
 
 import androidx.fragment.app.FragmentTransaction
-import com.tiknil.navigation.R
+import com.tiknil.app.R
 
 const val BACKGROUND_TINT_DURATION = 1200L
 

@@ -1,16 +1,15 @@
 package com.tiknil.app.coordinators
 
 import com.tiknil.app.R
-import com.tiknil.app.core.services.IActivityReference
-import com.tiknil.app.core.views.BaseActivity
-import com.tiknil.navigation.core.StackNavigator
-import com.tiknil.navigation.core.stackNavigationController
-import com.tiknil.navigation.extensions.crossFade
-import com.tiknil.navigation.extensions.slideRightToLeft
+import com.tiknil.app.views.activities.IActivityReference
+import com.tiknil.app.views.activities.BaseActivity
+import com.tiknil.app.navigation.core.StackNavigator
+import com.tiknil.app.navigation.core.stackNavigationController
+import com.tiknil.app.navigation.extensions.crossFade
 import java.lang.ref.WeakReference
-import javax.inject.Inject
 
-class AppCoordinator @Inject constructor() : AbstractBaseCoordinator(), BaseCoordinatorDelegate, IActivityReference {
+class AppCoordinator : AbstractBaseCoordinator(), BaseCoordinatorDelegate,
+    IActivityReference {
 
     //region Inner enums
     //endregion

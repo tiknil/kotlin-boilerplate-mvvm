@@ -1,8 +1,8 @@
-package com.tiknil.navigation.core
+package com.tiknil.app.navigation.core
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import com.tiknil.app.core.views.BaseFragment
+import com.tiknil.app.views.fragments.BaseFragment
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
