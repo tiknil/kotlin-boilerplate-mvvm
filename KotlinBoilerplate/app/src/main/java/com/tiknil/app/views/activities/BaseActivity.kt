@@ -92,13 +92,6 @@ abstract class BaseActivity<T: ViewDataBinding, V: BaseVM> : RxFragmentActivity(
     abstract fun viewModel() : V
 
     /**
-     * Ritorna il riferimento all'oggetto ViewDataBinding
-     *
-     * @return il riferimento all'oggetto ViewDataBinding
-     */
-    abstract fun bindingVariable(): Int
-
-    /**
      * Ritorna il layout
      *
      * @return il resource id del layout dell'activity
@@ -136,8 +129,6 @@ abstract class BaseActivity<T: ViewDataBinding, V: BaseVM> : RxFragmentActivity(
     private fun performDataBinding() {
         binding = DataBindingUtil.setContentView(this, layoutId())
         this.mViewModel = if (!::mViewModel.isInitialized) viewModel() else mViewModel
-        binding.setVariable(bindingVariable(), mViewModel)
-        binding.executePendingBindings()
         setupBindings()
         needToSetupBinding = false
     }

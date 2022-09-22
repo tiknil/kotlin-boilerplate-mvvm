@@ -60,8 +60,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityVM>() {
 
     override fun viewModel(): MainActivityVM = viewModel
 
-    override fun bindingVariable(): Int = BR.viewModel
-
     override fun layoutId(): Int = R.layout.activity_main
 
     //endregion

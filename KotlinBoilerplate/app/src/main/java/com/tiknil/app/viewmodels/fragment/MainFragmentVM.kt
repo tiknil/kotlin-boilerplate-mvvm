@@ -22,6 +22,11 @@ class MainFragmentVM: BaseVM() {
 
 
     //region Constructors / Lifecycle
+
+    init {
+
+    }
+
     //endregion
 
 

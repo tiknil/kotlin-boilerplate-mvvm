@@ -70,10 +70,6 @@ abstract class BaseFragment<T: ViewDataBinding, V: BaseVM> : RxFragment() {
 
     //region Constructors / Lifecycle
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -90,8 +86,6 @@ abstract class BaseFragment<T: ViewDataBinding, V: BaseVM> : RxFragment() {
 
         mViewModel = viewModel()
         mViewModel.onCreated()
-        binding.setVariable(bindingVariable(), mViewModel)
-        binding.executePendingBindings()
 
         setupUI()
         setupBinding()
@@ -178,13 +172,6 @@ abstract class BaseFragment<T: ViewDataBinding, V: BaseVM> : RxFragment() {
      * @return l'istanza del view model
      */
     abstract fun viewModel() : V
-
-    /**
-     * Ritorna il riferimento all'oggetto ViewDataBinding
-     *
-     * @return il riferimento all'oggetto ViewDataBinding
-     */
-    abstract fun bindingVariable(): Int
 
     /**
      * Ritorna il layout

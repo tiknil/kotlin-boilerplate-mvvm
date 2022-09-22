@@ -54,8 +54,6 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainFragmentVM>() {
 
     override fun viewModel(): MainFragmentVM = viewModel
 
-    override fun bindingVariable(): Int = BR.viewModel
-
     override fun layoutId(): Int = R.layout.fragment_main
 
     //endregion
