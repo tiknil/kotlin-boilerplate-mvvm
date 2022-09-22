@@ -1,6 +1,7 @@
 package com.tiknil.app.services
 
 import com.tiknil.app.core.services.IDataService
+import timber.log.Timber
 
 class DataService : IDataService {
 
@@ -21,6 +22,11 @@ class DataService : IDataService {
 
 
     //region Constructors / Lifecycle
+
+    init {
+        Timber.d("DATA_SERVICE INIT")
+    }
+
     //endregion
 
 

@@ -109,6 +109,9 @@ open class BaseVM {
 
     //region Custom accessors
 
+    /**
+     * Imposta i servizi di default
+     */
     protected fun setDefaultModules() {
         AppInjector.setDefaultModules()
         container = AppInjector.getKoin().get()

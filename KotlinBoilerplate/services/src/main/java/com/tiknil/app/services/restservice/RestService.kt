@@ -1,6 +1,7 @@
 package com.tiknil.app.services.restservice
 
 import com.tiknil.app.core.services.IRestService
+import timber.log.Timber
 
 class RestService() : IRestService {
 
@@ -21,6 +22,11 @@ class RestService() : IRestService {
 
 
     //region Constructors / Lifecycle
+
+    init {
+        Timber.d("REST_SERVICE INIT")
+    }
+
     //endregion
 
 
